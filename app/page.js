@@ -16,11 +16,9 @@ const EXPLORE = [
 ];
 
 const CONFETTI = [
-  { bg: "var(--lime)", size: 22, left: "8%", top: "14%" },
-  { bg: "var(--tangerine)", size: 15, left: "84%", top: "10%" },
-  { bg: "var(--green)", size: 12, left: "90%", top: "52%" },
-  { bg: "var(--lime)", size: 16, left: "4%", top: "56%" },
-  { bg: "var(--tangerine)", size: 11, left: "16%", top: "80%" },
+  { bg: "var(--lime)", size: 14, left: "6%", top: "16%" },
+  { bg: "var(--green)", size: 10, left: "90%", top: "48%" },
+  { bg: "var(--lime)", size: 9, left: "14%", top: "82%" },
 ];
 
 export default function Home() {
