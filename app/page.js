@@ -1,6 +1,8 @@
 import Nav from "./components/Nav";
 import Reveal from "./components/Reveal";
 import Ball from "./components/Ball";
+import Marquee from "./components/Marquee";
+import Parallax from "./components/Parallax";
 import { LINKS, BUSINESS, SUBBRANDS } from "./lib/site";
 
 const Arrow = () => (
@@ -56,7 +58,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="box" aria-hidden="true">
+          <Parallax className="box" speed={0.06} aria-hidden="true">
             {CONFETTI.map((c, i) => (
               <span
                 key={i}
@@ -68,11 +70,11 @@ export default function Home() {
             <div className="box__lid" />
             <div className="box__base" />
             <div className="box__ribbon" />
-          </div>
+          </Parallax>
         </div>
       </header>
 
-      <div className="wrap"><div className="ribbon" /></div>
+      <Marquee items={["PLAY", "SMILE", "CONNECT", "PICKLEBOX", "24H OPEN"]} speed={28} />
 
       {/* ── 브랜드 스토리 ── */}
       <section className="section story" id="story">
@@ -85,6 +87,7 @@ export default function Home() {
           </Reveal>
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">Brand Story</div>
+            <span className="section__num">/ 01</span>
             <h2 className="title">기대하지 못했던 선물상자를 열었을 때처럼.</h2>
             <p className="lead">
               피클볼 한 게임에는 운동의 즐거움만 있는 것이 아닙니다. 처음 만난 사람과 인사를 나누고,
@@ -104,6 +107,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section__head">
             <div className="eyebrow">Our Services</div>
+            <span className="section__num">/ 02</span>
             <h2 className="title">하나의 상자, 여섯 가지 즐거움</h2>
             <p className="lead">
               멤버십부터 여행까지 — PICKLEBOX의 여섯 브랜드가 피클볼을 중심으로 한 라이프스타일을 완성합니다.
@@ -132,6 +136,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section__head">
             <div className="eyebrow">Why PICKLEBOX</div>
+            <span className="section__num">/ 03</span>
             <h2 className="title">누구나 쉽게, 운동을 넘어 문화까지</h2>
           </div>
           <div className="why__grid">
@@ -147,6 +152,7 @@ export default function Home() {
       </section>
 
       {/* ── 레슨/멤버십 CTA ── */}
+      <Marquee items={["JOIN NOW", "레슨", "멤버십", "커뮤니티", "PLAY THE JOY"]} tone="dark" speed={26} />
       <section className="section join" id="contact">
         <div className="wrap">
           <Reveal className="join__card">
@@ -175,6 +181,7 @@ export default function Home() {
           <Reveal className="store__card">
             <div>
               <div className="eyebrow" style={{ marginBottom: 14 }}>Store · Goods</div>
+              <span className="section__num">/ 04</span>
               <h2>피클볼 굿즈와 용품, 스마트스토어에서</h2>
               <p>패들부터 웨어, 액세서리까지. 조민정테니스가 직접 고른 피클볼 라이프 아이템을 만나보세요.</p>
             </div>
@@ -190,6 +197,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section__head">
             <div className="eyebrow">Visit Us</div>
+            <span className="section__num">/ 05</span>
             <h2 className="title">서울숲, 갤러리아 포레</h2>
           </div>
           <div className="loc__grid">
