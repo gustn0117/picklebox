@@ -299,6 +299,59 @@ img, svg { display: block; max-width: 100%; }
 .footer__links a:hover { color: var(--lime); }
 .footer__biz { margin-top: 48px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.12); font-size: 0.85rem; color: rgba(251,251,242,0.55); line-height: 1.9; display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: space-between; }
 
+/* ---------- 내비 활성/모바일 ---------- */
+.nav__link.is-active { color: var(--green-deep); font-weight: 700; }
+.nav__mobile { padding-bottom: 18px; display: flex; flex-direction: column; gap: 10px; }
+
+/* ---------- 유틸 그리드 ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+
+/* ---------- 페이지 히어로(하위 페이지 공통) ---------- */
+.pagehero { position: relative; overflow: hidden; padding: clamp(40px, 7vw, 84px) 0 clamp(28px, 5vw, 52px); }
+.pagehero::before {
+  content: ""; position: absolute; inset: -30% -10% auto auto; width: 640px; height: 640px;
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--lime) 45%, transparent), transparent 60%); z-index: 0;
+}
+.pagehero .wrap { position: relative; z-index: 1; }
+.pagehero__head { display: flex; align-items: center; }
+.pagehero__title { font-family: var(--font-display); font-weight: 700; font-size: var(--display-title); letter-spacing: var(--track-tight); margin-top: 18px; max-width: 15ch; }
+.pagehero__lead { max-width: 620px; }
+.pagehero__ball { position: absolute; right: 2%; top: 50%; width: 116px; transform: translateY(-50%); opacity: 0.9; z-index: 0; }
+.pagehero__ball svg { width: 100%; filter: drop-shadow(0 14px 22px rgba(15,42,27,0.18)); }
+
+/* ---------- 홈 허브 카드 ---------- */
+.explore__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.explore__card {
+  display: block; position: relative; overflow: hidden;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+  padding: 30px 28px 26px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.explore__card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+.explore__card--green:hover { border-color: var(--green); }
+.explore__card--lime:hover { border-color: var(--lime); }
+.explore__card--tangerine:hover { border-color: var(--tangerine); }
+.explore__num { position: absolute; top: 18px; right: 24px; font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; color: var(--lime-soft); line-height: 1; z-index: 0; }
+.explore__key { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.01em; }
+.explore__desc { position: relative; z-index: 1; color: var(--ink-soft); margin-top: 10px; font-size: 0.98rem; }
+.explore__go { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-display); font-weight: 600; color: var(--green-deep); }
+.explore__card:hover .explore__go .btn__arrow { transform: translateX(4px); }
+
+/* ---------- 대표 약력 / 채널 ---------- */
+.career { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.career li { position: relative; padding-left: 22px; color: var(--ink-soft); }
+.career li::before { content: ""; position: absolute; left: 0; top: 10px; width: 9px; height: 9px; border-radius: 50%; background: var(--green); }
+
+.channels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.channels__card { display: flex; flex-direction: column; gap: 6px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 22px 22px 20px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.channels__card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); border-color: var(--green); }
+.channels__tag { font-family: var(--font-display); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); }
+.channels__card b { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+.channels__go { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 600; font-size: 0.9rem; color: var(--green-deep); }
+
+/* ---------- 오시는 길 액션 ---------- */
+.loc__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
 /* ---------- 애니메이션 ---------- */
 @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-14px); } }
 
@@ -309,19 +362,22 @@ img, svg { display: block; max-width: 100%; }
 @media (max-width: 900px) {
   .hero__grid, .story__grid, .join__card, .store__card, .loc__grid { grid-template-columns: 1fr; }
   .brands__grid { grid-template-columns: repeat(2, 1fr); }
-  .why__grid { grid-template-columns: repeat(2, 1fr); }
+  .why__grid, .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .footer__top { grid-template-columns: 1fr 1fr; }
+  .explore__grid { grid-template-columns: 1fr; }
+  .channels { grid-template-columns: repeat(2, 1fr); }
   .story__mark { aspect-ratio: 16 / 10; }
   .box { max-width: 340px; }
   .join__actions .btn { width: auto; }
   .store__card { text-align: center; justify-items: center; }
+  .pagehero__ball { display: none; }
 }
 
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .nav__menu { display: none; }
   .nav__burger { display: inline-flex; }
-  .brands__grid, .why__grid, .footer__top { grid-template-columns: 1fr; }
+  .brands__grid, .why__grid, .footer__top, .grid-3, .grid-2, .channels { grid-template-columns: 1fr; }
   .hero__stats { gap: 20px; }
   .hero__actions .btn, .join__actions .btn, .store__card .btn { width: 100%; }
   .brand__num { font-size: 1.9rem; }

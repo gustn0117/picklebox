@@ -1,31 +1,35 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Ball from "./Ball";
-import { LINKS } from "../lib/site";
-
-const MENU = [
-  { href: "#story", label: "브랜드" },
-  { href: "#brands", label: "서비스" },
-  { href: "#location", label: "오시는 길" },
-  { href: "#contact", label: "문의" },
-];
+import { NAV, reserveHref } from "../lib/site";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href) => pathname === href;
+
   return (
     <nav className="nav">
       <div className="wrap nav__inner">
-        <a href="#top" className="nav__brand" aria-label="PICKLEBOX 홈">
+        <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">
           <Ball body="var(--green)" dots="#fff" />
           PICKLEBOX
-        </a>
+        </Link>
 
         <div className="nav__menu">
-          {MENU.map((m) => (
-            <a key={m.href} href={m.href} className="nav__link">{m.label}</a>
+          {NAV.map((m) => (
+            <Link
+              key={m.href}
+              href={m.href}
+              className={`nav__link ${isActive(m.href) ? "is-active" : ""}`}
+            >
+              {m.label}
+            </Link>
           ))}
-          <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--primary nav__cta">
-            스마트스토어
+          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary nav__cta">
+            예약하기
           </a>
         </div>
 
@@ -40,12 +44,19 @@ export default function Nav() {
       </div>
 
       {open && (
-        <div className="wrap" style={{ paddingBottom: 18, display: "flex", flexDirection: "column", gap: 10 }}>
-          {MENU.map((m) => (
-            <a key={m.href} href={m.href} className="nav__link" onClick={() => setOpen(false)}>{m.label}</a>
+        <div className="wrap nav__mobile">
+          {NAV.map((m) => (
+            <Link
+              key={m.href}
+              href={m.href}
+              className={`nav__link ${isActive(m.href) ? "is-active" : ""}`}
+              onClick={() => setOpen(false)}
+            >
+              {m.label}
+            </Link>
           ))}
-          <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>
-            스마트스토어 바로가기
+          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>
+            예약하기
           </a>
         </div>
       )}
