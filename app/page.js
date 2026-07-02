@@ -64,7 +64,7 @@ export default function Home() {
                 style={{ background: c.bg, width: c.size, height: c.size, left: c.left, top: c.top }}
               />
             ))}
-            <div className="box__ball"><Ball body="#fff" dots="var(--green)" /></div>
+            <div className="box__ball"><Ball body="#fff" dots="var(--green)" tail={false} /></div>
             <div className="box__lid" />
             <div className="box__base" />
             <div className="box__ribbon" />
@@ -212,13 +212,15 @@ export default function Home() {
                 네이버 지도로 열기 <Arrow />
               </a>
             </div>
-            <a href={LINKS.map} target="_blank" rel="noopener" className="loc__map">
-              <span className="grid-bg" />
-              <span className="pin">
-                <Ball body="var(--lime)" dots="var(--ink)" />
-                <strong style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem" }}>서울숲2길 32-14</strong>
-              </span>
-            </a>
+            <div className="loc__map">
+              <iframe
+                title="피클박스 오시는 길 지도"
+                src="https://www.google.com/maps?q=서울특별시 성동구 서울숲2길 32-14 갤러리아 포레&z=16&hl=ko&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </section>
