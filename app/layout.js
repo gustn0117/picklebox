@@ -1,10 +1,11 @@
-import { Fredoka } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 
-const fredoka = Fredoka({
+// 각진 스포티 그로테스크 — 디스플레이/라벨/숫자용.
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-fredoka",
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -24,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko" className={fredoka.variable}>
+    <html lang="ko" className={archivo.variable}>
       <head>
         <link
           rel="stylesheet"
