@@ -147,8 +147,8 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- 히어로 ---------- */
 .hero { position: relative; overflow: hidden; padding-top: clamp(64px, 9vw, 120px); padding-bottom: clamp(88px, 12vw, 156px); }
 .hero::before {
-  content: ""; position: absolute; inset: -20% -14% auto auto; width: 780px; height: 780px;
-  background: radial-gradient(circle at 32% 32%, color-mix(in srgb, var(--lime) 30%, transparent), transparent 62%); z-index: 0;
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(78% 82% at 84% 6%, color-mix(in srgb, var(--lime) 20%, transparent) 0%, transparent 58%);
 }
 .hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
 .hero__tag { margin-bottom: 30px; }
@@ -311,8 +311,8 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- 페이지 히어로(하위 페이지 공통) ---------- */
 .pagehero { position: relative; overflow: hidden; padding: clamp(60px, 9vw, 120px) 0 clamp(44px, 6vw, 72px); border-bottom: 1px solid var(--line); }
 .pagehero::before {
-  content: ""; position: absolute; inset: -34% -12% auto auto; width: 700px; height: 700px;
-  background: radial-gradient(circle at 32% 32%, color-mix(in srgb, var(--lime) 26%, transparent), transparent 60%); z-index: 0;
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(70% 120% at 88% 0%, color-mix(in srgb, var(--lime) 18%, transparent) 0%, transparent 55%);
 }
 .pagehero .wrap { position: relative; z-index: 1; }
 .pagehero__head { display: flex; align-items: center; }
