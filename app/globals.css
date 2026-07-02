@@ -107,22 +107,6 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- 리본(선물상자 뜯는 선) 구분 모티프 ---------- */
 .ribbon { height: 3px; background-image: repeating-linear-gradient(90deg, var(--green) 0 16px, transparent 16px 30px); opacity: 0.5; }
 
-/* ---------- 마키(가로 흐르는 에너지 밴드) ---------- */
-.marquee { overflow: hidden; width: 100%; border-block: 1px solid var(--line); }
-.marquee--light { background: var(--lime-soft); }
-.marquee--dark { background: var(--ink); border-color: rgba(255,255,255,0.12); }
-.marquee__track { display: inline-flex; align-items: center; white-space: nowrap; will-change: transform; animation: marquee-slide linear infinite; }
-.marquee__item {
-  display: inline-flex; align-items: center; gap: 22px;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(1.3rem, 3vw, 2.1rem); letter-spacing: var(--track-tight);
-  padding-inline: 22px; color: var(--ink);
-}
-.marquee--dark .marquee__item { color: var(--lime); }
-.marquee__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--tangerine); }
-.marquee--dark .marquee__dot { background: var(--lime); }
-@keyframes marquee-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
 /* ---------- 내비게이션 ---------- */
 .nav {
   position: sticky; top: 0; z-index: 50;
@@ -340,7 +324,6 @@ img, svg { display: block; max-width: 100%; }
   .brands__grid, .why__grid, .footer__top { grid-template-columns: 1fr; }
   .hero__stats { gap: 20px; }
   .hero__actions .btn, .join__actions .btn, .store__card .btn { width: 100%; }
-  .marquee__item { font-size: 1.15rem; gap: 16px; }
   .brand__num { font-size: 1.9rem; }
 }
 

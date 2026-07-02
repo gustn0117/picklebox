@@ -1,7 +1,6 @@
 import Nav from "./components/Nav";
 import Reveal from "./components/Reveal";
 import Ball from "./components/Ball";
-import Marquee from "./components/Marquee";
 import Parallax from "./components/Parallax";
 import { LINKS, BUSINESS, SUBBRANDS } from "./lib/site";
 
@@ -74,7 +73,7 @@ export default function Home() {
         </div>
       </header>
 
-      <Marquee items={["PLAY", "SMILE", "CONNECT", "PICKLEBOX", "24H OPEN"]} speed={28} />
+      <div className="wrap"><div className="ribbon" /></div>
 
       {/* ── 브랜드 스토리 ── */}
       <section className="section story" id="story">
@@ -152,7 +151,6 @@ export default function Home() {
       </section>
 
       {/* ── 레슨/멤버십 CTA ── */}
-      <Marquee items={["JOIN NOW", "레슨", "멤버십", "커뮤니티", "PLAY THE JOY"]} tone="dark" speed={26} />
       <section className="section join" id="contact">
         <div className="wrap">
           <Reveal className="join__card">
