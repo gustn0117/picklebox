@@ -26,7 +26,7 @@ export default function Footer() {
                   Instagram {ig.handle}
                 </a>
               ))}
-              <a href={LINKS.youtube} target="_blank" rel="noopener">YouTube 조민정테니스TV</a>
+              <a href={LINKS.youtube} target="_blank" rel="noopener">YouTube 쫌치는언니</a>
             </div>
           </div>
 

@@ -12,7 +12,7 @@ export const metadata = {
 
 // 대표 약력 — [대괄호] = 확정 후 교체.
 const CAREER = [
-  "조민정테니스TV 운영 · 테니스/피클볼 코치",
+  "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치",
   "[테니스 선수·지도자 경력 연도]",
   "[피클볼 지도자 자격 / 대회 이력]",
   "PICKLEBOX(테니스포레) 대표",
@@ -78,7 +78,7 @@ export default function Founder() {
           <div className="channels">
             <a href={LINKS.youtube} target="_blank" rel="noopener" className="channels__card">
               <span className="channels__tag">YouTube</span>
-              <b>조민정테니스TV</b>
+              <b>쫌치는언니</b>
               <span className="channels__go">채널 보기 <Arrow /></span>
             </a>
             {LINKS.instagram.map((ig) => (

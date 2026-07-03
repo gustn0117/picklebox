@@ -1,16 +1,15 @@
 // 사이트 전역 콘텐츠/링크 — 이후 자료가 채워지면 이 파일만 갱신하면 된다.
 export const LINKS = {
   store: "https://smartstore.naver.com/joytennis",
-  // 네이버 예약 URL — 확보 후 이 값만 교체하면 전 페이지 예약 버튼에 반영된다.
-  // 값이 비어 있으면 예약 버튼은 인스타그램 DM 문의로 자동 폴백한다.
-  reserve: "",
+  // 네이버 예약·문의 링크(네이버 플레이스). 예약·문의·오시는 길 버튼이 모두 이 링크로 연결된다.
+  reserve: "https://naver.me/FCAfFuDm",
   instagram: [
-    { handle: "@piclebox.official", url: "https://instagram.com/piclebox.official", label: "피클박스 공식" },
+    { handle: "@picklebox.official_", url: "https://instagram.com/picklebox.official_", label: "피클박스 공식" },
     { handle: "@tennis_cmj", url: "https://instagram.com/tennis_cmj", label: "조민정" },
-    { handle: "@tennisforest", url: "https://instagram.com/tennisforest", label: "테니스포레" },
+    { handle: "@tennisfore", url: "https://instagram.com/tennisfore", label: "테니스포레" },
   ],
-  youtube: "https://www.youtube.com/results?search_query=조민정테니스TV",
-  map: "https://map.naver.com/p/search/서울숲2길 32-14 갤러리아포레",
+  youtube: "https://www.youtube.com/results?search_query=쫌치는언니",
+  map: "https://naver.me/FCAfFuDm",
 };
 
 // 예약 링크 — reserve가 비어 있으면 인스타 DM으로 폴백.
