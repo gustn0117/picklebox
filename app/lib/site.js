@@ -4,7 +4,7 @@ export const LINKS = {
   // 네이버 예약·문의 링크(네이버 플레이스). 예약·문의·오시는 길 버튼이 모두 이 링크로 연결된다.
   reserve: "https://naver.me/FCAfFuDm",
   instagram: [
-    { handle: "@picklebox.official_", url: "https://instagram.com/picklebox.official_", label: "피클박스 공식" },
+    { handle: "@picklebox.official", url: "https://instagram.com/picklebox.official", label: "피클박스 공식" },
     { handle: "@tennis_cmj", url: "https://instagram.com/tennis_cmj", label: "조민정" },
     { handle: "@tennisfore", url: "https://instagram.com/tennisfore", label: "테니스포레" },
   ],
