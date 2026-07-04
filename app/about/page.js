@@ -33,7 +33,7 @@ export default function About() {
       {/* ── 브랜드 스토리 ── */}
       <section className="section story">
         <div className="wrap story__grid">
-          <Reveal className="story__mark photo-slot" />
+          <Reveal className="story__mark photo-slot photo-slot--story" />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">Brand Story</div>
             <h2 className="title">기대하지 못했던 선물상자를 열었을 때처럼.</h2>

@@ -142,18 +142,24 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- 히어로 ---------- */
 .hero { position: relative; overflow: hidden; background: var(--bg); }
-.hero__bg { position: absolute; inset: 0; z-index: 0; }
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url("/assets/hero-court-empty.webp") center 54% / cover no-repeat;
+}
 .hero__bg::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; z-index: 1;
   background:
-    radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--violet) 70%, transparent) 0%, transparent 55%),
-    radial-gradient(90% 70% at 80% 20%, color-mix(in srgb, var(--indigo) 55%, transparent) 0%, transparent 60%),
-    linear-gradient(180deg, #120a2e 0%, #0a0b18 45%, var(--bg) 100%);
+    linear-gradient(180deg, rgba(7, 8, 12, 0.18) 0%, rgba(7, 8, 12, 0.42) 48%, rgba(7, 8, 12, 0.92) 100%),
+    radial-gradient(100% 82% at 50% 6%, rgba(90, 46, 166, 0.35), transparent 62%),
+    linear-gradient(90deg, rgba(7, 8, 12, 0.58) 0%, rgba(7, 8, 12, 0.12) 50%, rgba(7, 8, 12, 0.58) 100%);
 }
 .hero__bg::after {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(80% 60% at 50% 120%, color-mix(in srgb, var(--court) 60%, transparent), transparent 60%);
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(7, 8, 12, 0.2) 58%, var(--bg) 100%),
+    radial-gradient(80% 60% at 50% 118%, color-mix(in srgb, var(--court) 45%, transparent), transparent 64%);
 }
+.hero .court { z-index: 2; opacity: 0.14; mix-blend-mode: screen; }
 .hero__inner { position: relative; z-index: 2; text-align: center; padding-top: clamp(70px, 12vw, 150px); padding-bottom: clamp(48px, 7vw, 96px); display: flex; flex-direction: column; align-items: center; }
 .hero__eyebrow { justify-content: center; }
 .hero__title {
@@ -181,26 +187,29 @@ img, svg { display: block; max-width: 100%; }
   position: relative; overflow: hidden; border-radius: var(--r-lg);
   background: linear-gradient(158deg, #14224a 0%, #0a0d16 100%);
   border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
 }
 .photo-slot::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; z-index: 1;
   background:
-    radial-gradient(90% 60% at 30% 10%, color-mix(in srgb, var(--volt) 12%, transparent), transparent 55%),
-    repeating-linear-gradient(0deg, transparent 0 38px, rgba(255,255,255,0.05) 38px 39px),
-    repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,255,255,0.05) 38px 39px);
+    linear-gradient(180deg, rgba(7, 8, 12, 0.02) 0%, rgba(7, 8, 12, 0.22) 62%, rgba(7, 8, 12, 0.78) 100%),
+    radial-gradient(80% 58% at 20% 0%, color-mix(in srgb, var(--volt) 16%, transparent), transparent 62%);
 }
 .photo-slot::after {
   content: "PICKLEBOX"; position: absolute; left: 22px; bottom: 18px;
   font-family: var(--font-label); font-weight: 700; font-size: 0.66rem;
-  letter-spacing: 0.34em; color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.34em; color: rgba(255, 255, 255, 0.46); z-index: 2;
 }
+.photo-slot--story { background-image: url("/assets/story-picklebox-still.webp"); }
+.photo-slot--founder { background-image: url("/assets/founder-court-objects.webp"); background-position: center 44%; }
 
 /* ---------- 스토리 ---------- */
 .story { background: var(--bg-2); }
 .story__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
 .story__mark {
   border-radius: var(--r-lg); aspect-ratio: 4 / 5; position: relative; overflow: hidden;
-  background: linear-gradient(158deg, #14224a 0%, #0a0d16 100%); border: 1px solid var(--line);
+  border: 1px solid var(--line);
 }
 .story__body p + p { margin-top: 18px; }
 .story__quote { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.35rem, 2.7vw, 2rem); letter-spacing: -0.02em; color: #fff; line-height: 1.25; margin-top: 34px; }
@@ -225,9 +234,20 @@ img, svg { display: block; max-width: 100%; }
 .feat p { color: var(--ink-soft); font-size: 0.94rem; line-height: 1.65; margin-top: 11px; }
 
 /* ---------- CTA 밴드 ---------- */
-.join { background: var(--bg-2); position: relative; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.join::after { content: ""; position: absolute; right: -140px; bottom: -180px; width: 620px; height: 620px; background: radial-gradient(circle, color-mix(in srgb, var(--volt) 12%, transparent), transparent 62%); z-index: 0; }
-.join::before { content: ""; position: absolute; left: -120px; top: -140px; width: 480px; height: 480px; background: radial-gradient(circle, color-mix(in srgb, var(--violet) 40%, transparent), transparent 60%); z-index: 0; }
+.join {
+  background: var(--bg-2) url("/assets/join-lounge-court.webp") center / cover no-repeat;
+  position: relative; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.join::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 8, 12, 0.96) 0%, rgba(7, 8, 12, 0.76) 52%, rgba(7, 8, 12, 0.46) 100%),
+    linear-gradient(180deg, rgba(7, 8, 12, 0.28) 0%, rgba(7, 8, 12, 0.86) 100%);
+}
+.join::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 1px);
+}
 .join .wrap { position: relative; z-index: 1; }
 .join__card { background: none; padding: 0; color: #fff; display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: center; }
 .join__card h2 { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.9rem, 4vw, 3rem); letter-spacing: -0.02em; line-height: 1.06; }
@@ -268,12 +288,18 @@ img, svg { display: block; max-width: 100%; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
 
 /* ---------- 페이지 히어로 ---------- */
-.pagehero { position: relative; overflow: hidden; padding: clamp(70px, 10vw, 132px) 0 clamp(48px, 6vw, 76px); border-bottom: 1px solid var(--line); background: var(--bg); }
+.pagehero {
+  position: relative; overflow: hidden;
+  padding: clamp(70px, 10vw, 132px) 0 clamp(48px, 6vw, 76px);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg) url("/assets/hero-court-empty.webp") center 44% / cover no-repeat;
+}
 .pagehero::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(80% 90% at 85% -20%, color-mix(in srgb, var(--violet) 55%, transparent), transparent 55%),
-    linear-gradient(180deg, #100a26 0%, var(--bg) 70%);
+    linear-gradient(90deg, rgba(7, 8, 12, 0.92) 0%, rgba(7, 8, 12, 0.72) 48%, rgba(7, 8, 12, 0.42) 100%),
+    linear-gradient(180deg, rgba(7, 8, 12, 0.2) 0%, var(--bg) 100%),
+    radial-gradient(80% 90% at 85% -20%, color-mix(in srgb, var(--violet) 46%, transparent), transparent 58%);
 }
 .pagehero .wrap { position: relative; z-index: 1; }
 .pagehero__head { display: flex; align-items: center; }

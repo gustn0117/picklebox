@@ -32,7 +32,7 @@ export default function Founder() {
       {/* ── 프로필 ── */}
       <section className="section story">
         <div className="wrap story__grid">
-          <Reveal className="story__mark photo-slot" style={{ aspectRatio: "4 / 5" }} />
+          <Reveal className="story__mark photo-slot photo-slot--founder" style={{ aspectRatio: "4 / 5" }} />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">조민정 · 대표</div>
             <h2 className="title">코트 위의 즐거움을, 더 많은 사람에게.</h2>
