@@ -23,8 +23,14 @@ export default function Home() {
       {/* ── 히어로 ── */}
       <header className="hero">
         <div className="hero__bg"><Court /></div>
+        <div className="hero__scan" aria-hidden="true" />
         <div className="wrap hero__inner">
           <div className="eyebrow hero__eyebrow">Premium Pickleball Club · Seoul</div>
+          <div className="hero__status" aria-hidden="true">
+            <span>37.5443°N 127.0374°E</span>
+            <span>24/7 Smart Court</span>
+            <span>Seoul Forest · KR</span>
+          </div>
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Play the Joy.</div>
           <p className="hero__ko">피클볼로 여는 즐거운 선물상자</p>
@@ -39,7 +45,7 @@ export default function Home() {
             <Link href="/about" className="btn btn--ghost">클럽 안내</Link>
             <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--ghost">스마트스토어</a>
           </div>
-          <div className="hero__stats">
+          <div className="hero__stats frame">
             <div className="hero__stat"><b>24H</b><span>무인 스마트 클럽</span></div>
             <div className="hero__stat"><b>6</b><span>브랜드 라인업</span></div>
             <div className="hero__stat"><b>서울숲</b><span>갤러리아 포레</span></div>

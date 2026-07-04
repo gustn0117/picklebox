@@ -1,4 +1,4 @@
-import { Anton, Archivo } from "next/font/google";
+import { Anton, Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 
 // 헤비 콘덴스드 대문자 디스플레이 — 히어로/워드마크/큰 제목.
@@ -14,6 +14,14 @@ const archivo = Archivo({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800", "900"],
   variable: "--font-archivo",
+  display: "swap",
+});
+
+// 테크/데이터 라벨용 모노스페이스 (좌표·상태·넘버링).
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -33,7 +41,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko" className={`${anton.variable} ${archivo.variable}`}>
+    <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`}>
       <head>
         <link
           rel="stylesheet"
