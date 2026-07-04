@@ -370,6 +370,51 @@ img, svg { display: block; max-width: 100%; }
 .channels__go { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-family: var(--font-label); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
 .channels__card:hover .channels__go { color: var(--volt); }
 
+/* ---------- 히어로 HUD (뷰파인더 코너) ---------- */
+.hud { position: absolute; inset: 22px 24px; z-index: 3; pointer-events: none; font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+.hud__c { position: absolute; display: inline-flex; align-items: center; gap: 9px; line-height: 1.3; }
+.hud__c::before { content: ""; width: 15px; height: 15px; border: 1.5px solid var(--wire); flex: none; }
+.hud__tl { top: 0; left: 0; }
+.hud__tl::before { border-right: 0; border-bottom: 0; }
+.hud__tr { top: 0; right: 0; flex-direction: row-reverse; }
+.hud__tr::before { border-left: 0; border-bottom: 0; }
+.hud__bl { bottom: 0; left: 0; align-items: flex-end; }
+.hud__bl::before { border-right: 0; border-top: 0; }
+.hud__br { bottom: 0; right: 0; flex-direction: row-reverse; align-items: flex-end; }
+.hud__br::before { border-left: 0; border-top: 0; }
+.hud__tr, .hud__br { color: var(--volt); }
+
+/* ---------- 에디토리얼 2단 섹션 헤더 ---------- */
+.section__head--split { display: grid; grid-template-columns: 220px 1fr; gap: 24px 40px; align-items: start; max-width: none; }
+.section__head--split > :first-child { padding-top: 8px; }
+.section__head--split .title { margin-top: 0; }
+
+/* ---------- 벤토 그리드 ---------- */
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap: 12px; }
+.bento__card {
+  position: relative; overflow: hidden; text-decoration: none;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel);
+  padding: 30px; min-height: 200px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.bento__card:hover { border-color: var(--volt); transform: translateY(-3px); }
+.bento__card--feat { grid-column: span 3; grid-row: span 2; min-height: 400px; }
+.bento__card--half { grid-column: span 3; }
+.bento__card--third { grid-column: span 2; }
+.bento__card--wide { grid-column: span 6; min-height: 210px; }
+.bento__ko { font-family: var(--mono); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--volt); margin-top: 8px; }
+.bento__card--img { background-size: cover; background-position: center; }
+.bento__card--img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(175deg, rgba(7, 8, 12, 0.15) 0%, rgba(7, 8, 12, 0.6) 55%, rgba(7, 8, 12, 0.94) 100%); }
+.bento__card > * { position: relative; z-index: 1; }
+.bento__num { font-family: var(--mono); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--wire); position: absolute; top: 26px; left: 30px; }
+.bento__key { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(1.5rem, 2vw, 2rem); line-height: 0.95; letter-spacing: 0.02em; color: #fff; transition: color 0.2s ease, text-shadow 0.2s ease; }
+.bento__key--feat { font-size: clamp(2.2rem, 3.4vw, 3.4rem); }
+.bento__card:hover .bento__key { color: var(--volt); text-shadow: 0 0 26px color-mix(in srgb, var(--volt) 45%, transparent); }
+.bento__desc { color: var(--ink-soft); margin-top: 12px; font-size: 0.95rem; line-height: 1.6; max-width: 44ch; }
+.bento__go { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-family: var(--mono); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--volt); }
+.bento__card:hover .bento__go .btn__arrow { transform: translateX(4px); }
+
 /* ---------- 애니메이션 ---------- */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal.in { opacity: 1; transform: none; }
@@ -384,6 +429,11 @@ img, svg { display: block; max-width: 100%; }
   .channels { grid-template-columns: repeat(2, 1fr); }
   .story__mark { aspect-ratio: 16 / 10; }
   .join__actions .btn { width: auto; }
+  .section__head--split { grid-template-columns: 1fr; gap: 16px; }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .bento__card--feat { grid-column: span 2; grid-row: auto; min-height: 300px; }
+  .bento__card--wide { grid-column: span 2; }
+  .bento__card--half, .bento__card--third { grid-column: span 1; }
 }
 
 @media (max-width: 560px) {
@@ -393,6 +443,10 @@ img, svg { display: block; max-width: 100%; }
   .brands__grid, .why__grid, .footer__top, .grid-3, .grid-2, .channels { grid-template-columns: 1fr; }
   .hero__stats { gap: 28px; }
   .hero__actions .btn, .join__actions .btn { width: 100%; }
+  .hud { display: none; }
+  .bento { grid-template-columns: 1fr; }
+  .bento__card--feat, .bento__card--wide, .bento__card--half, .bento__card--third { grid-column: span 1; }
+  .bento__card--feat { min-height: 260px; }
 }
 
 /* ---------- 접근성 ---------- */

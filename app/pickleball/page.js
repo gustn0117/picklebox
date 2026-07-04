@@ -38,9 +38,9 @@ export default function Pickleball() {
       {/* ── 기본 ── */}
       <section className="section">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Basics</div>
-            <h2 className="title">이렇게 즐깁니다</h2>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Basics</div></div>
+            <div><h2 className="title">이렇게 즐깁니다</h2></div>
           </div>
           <div className="grid-3">
             {BASICS.map((b, i) => (
@@ -57,9 +57,9 @@ export default function Pickleball() {
       {/* ── 매력 ── */}
       <section className="section story">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Why so loved</div>
-            <h2 className="title">왜 이렇게 빠르게 사랑받을까요?</h2>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Why so loved</div></div>
+            <div><h2 className="title">왜 이렇게 빠르게 사랑받을까요?</h2></div>
           </div>
           <div className="grid-2">
             {CHARMS.map((c, i) => (

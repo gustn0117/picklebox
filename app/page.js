@@ -6,14 +6,6 @@ import Court from "./components/Court";
 import Arrow from "./components/Arrow";
 import { LINKS, reserveHref } from "./lib/site";
 
-// 홈은 허브 역할 — 각 페이지로 안내하는 인덱스.
-const EXPLORE = [
-  { href: "/about", num: "01", key: "About PICKLEBOX", desc: "브랜드 스토리와 사업 소개, 여섯 가지 서비스 라인업.", tint: "green" },
-  { href: "/pickleball", num: "02", key: "What is Pickleball", desc: "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠.", tint: "lime" },
-  { href: "/founder", num: "03", key: "The Founder", desc: "테니스에서 피클볼로 — 조민정 대표가 그리는 이야기.", tint: "tangerine" },
-  { href: "/visit", num: "04", key: "Visit Us", desc: "서울숲 갤러리아 포레. 예약·지도·문의를 한 번에.", tint: "green" },
-];
-
 export default function Home() {
   return (
     <>
@@ -24,13 +16,14 @@ export default function Home() {
       <header className="hero">
         <div className="hero__bg"><Court /></div>
         <div className="hero__scan" aria-hidden="true" />
+        <div className="hud" aria-hidden="true">
+          <span className="hud__c hud__tl">37.5443°N<br />127.0374°E</span>
+          <span className="hud__c hud__tr">REC ●</span>
+          <span className="hud__c hud__bl">EST. 2026</span>
+          <span className="hud__c hud__br">SEOUL · KR</span>
+        </div>
         <div className="wrap hero__inner">
           <div className="eyebrow hero__eyebrow">Premium Pickleball Club · Seoul</div>
-          <div className="hero__status" aria-hidden="true">
-            <span>37.5443°N 127.0374°E</span>
-            <span>24/7 Smart Court</span>
-            <span>Seoul Forest · KR</span>
-          </div>
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Play the Joy.</div>
           <p className="hero__ko">피클볼로 여는 즐거운 선물상자</p>
@@ -45,7 +38,7 @@ export default function Home() {
             <Link href="/about" className="btn btn--ghost">클럽 안내</Link>
             <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--ghost">스마트스토어</a>
           </div>
-          <div className="hero__stats frame">
+          <div className="hero__stats">
             <div className="hero__stat"><b>24H</b><span>무인 스마트 클럽</span></div>
             <div className="hero__stat"><b>6</b><span>브랜드 라인업</span></div>
             <div className="hero__stat"><b>서울숲</b><span>갤러리아 포레</span></div>
@@ -64,29 +57,55 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ── 둘러보기(허브 인덱스) ── */}
+      {/* ── 둘러보기(벤토) ── */}
       <section className="section" id="explore">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Explore</div>
-            <span className="section__num">/ 01</span>
-            <h2 className="title title--ko">피클박스, 어디부터 볼까요?</h2>
-            <p className="lead">
-              브랜드 소개부터 피클볼 입문, 대표 이야기, 오시는 길까지 —
-              궁금한 곳으로 바로 이동해 보세요.
-            </p>
+          <div className="section__head section__head--split">
+            <div>
+              <div className="eyebrow">Explore</div>
+              <span className="section__num">/ 01</span>
+            </div>
+            <h2 className="title title--ko">피클박스,<br />어디부터 볼까요?</h2>
           </div>
-          <div className="explore__grid">
-            {EXPLORE.map((e, i) => (
-              <Reveal key={e.href} delay={(i % 4) * 60}>
-                <Link href={e.href} className={`explore__card explore__card--${e.tint}`}>
-                  <span className="explore__num">{e.num}</span>
-                  <div className="explore__key">{e.key}</div>
-                  <p className="explore__desc">{e.desc}</p>
-                  <span className="explore__go">바로가기 <Arrow /></span>
-                </Link>
-              </Reveal>
-            ))}
+          <div className="bento">
+            <Reveal
+              as={Link}
+              href="/about"
+              className="bento__card bento__card--feat bento__card--img"
+              style={{ backgroundImage: "url(/assets/story-picklebox-still.webp)" }}
+            >
+              <span className="bento__num">// 01</span>
+              <div className="bento__key bento__key--feat">About<br />PICKLEBOX</div>
+              <p className="bento__desc">브랜드 스토리와 사업 소개, 피클볼을 중심으로 한 여섯 가지 서비스 라인업.</p>
+              <span className="bento__go">바로가기 <Arrow /></span>
+            </Reveal>
+
+            <Reveal as={Link} href="/pickleball" className="bento__card bento__card--half" delay={70}>
+              <span className="bento__num">// 02</span>
+              <div className="bento__key">What is<br />Pickleball</div>
+              <p className="bento__desc">누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠.</p>
+              <span className="bento__go">바로가기 <Arrow /></span>
+            </Reveal>
+
+            <Reveal as={Link} href="/founder" className="bento__card bento__card--half" delay={140}>
+              <span className="bento__num">// 03</span>
+              <div className="bento__key">The<br />Founder</div>
+              <p className="bento__desc">테니스에서 피클볼로 — 조민정 대표가 그리는 이야기.</p>
+              <span className="bento__go">바로가기 <Arrow /></span>
+            </Reveal>
+
+            <Reveal
+              as={Link}
+              href="/visit"
+              className="bento__card bento__card--wide bento__card--img"
+              style={{ backgroundImage: "url(/assets/join-lounge-court.webp)" }}
+              delay={90}
+            >
+              <span className="bento__num">// 04</span>
+              <div className="bento__key">Visit Us</div>
+              <p className="bento__desc">서울숲 갤러리아 포레 · 예약·지도·문의를 한 번에. 24시간 언제든 문을 여는 스마트 클럽.</p>
+              <span className="bento__go">오시는 길 <Arrow /></span>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -96,6 +115,7 @@ export default function Home() {
         <div className="wrap">
           <Reveal className="join__card">
             <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>Join the Club</div>
               <h2 className="join__card--en">Play the Culture.</h2>
               <p>
                 피클볼이 처음이어도 괜찮습니다. 방문·예약 문의를 남겨주시면

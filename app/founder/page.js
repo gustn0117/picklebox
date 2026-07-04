@@ -56,9 +56,9 @@ export default function Founder() {
       {/* ── 철학 ── */}
       <section className="section">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Philosophy</div>
-            <h2 className="title">운동을 넘어, 사람을 연결합니다.</h2>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Philosophy</div></div>
+            <div><h2 className="title">운동을 넘어, 사람을 연결합니다.</h2></div>
           </div>
           <p className="lead" style={{ maxWidth: 720 }}>
             피클박스가 만들고 싶은 것은 단순한 운동 공간이 아닙니다. 처음 온 사람도 편하게 어울리고,
@@ -71,9 +71,9 @@ export default function Founder() {
       {/* ── 채널 ── */}
       <section className="section story">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Channels</div>
-            <h2 className="title">대표의 이야기, 더 가까이</h2>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Channels</div></div>
+            <div><h2 className="title">대표의 이야기, 더 가까이</h2></div>
           </div>
           <div className="channels">
             <a href={LINKS.youtube} target="_blank" rel="noopener" className="channels__card">

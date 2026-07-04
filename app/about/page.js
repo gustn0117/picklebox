@@ -53,13 +53,15 @@ export default function About() {
       {/* ── 사업 소개 ── */}
       <section className="section">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Our Business</div>
-            <h2 className="title">피클볼을 중심으로, 사업을 넓혀갑니다.</h2>
-            <p className="lead">
-              매장은 한 곳이지만, 굿즈 제작·판매와 브랜딩으로 피클볼 라이프스타일 전반으로
-              영역을 확장하고 있습니다.
-            </p>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Our Business</div></div>
+            <div>
+              <h2 className="title">피클볼을 중심으로, 사업을 넓혀갑니다.</h2>
+              <p className="lead">
+                매장은 한 곳이지만, 굿즈 제작·판매와 브랜딩으로 피클볼 라이프스타일 전반으로
+                영역을 확장하고 있습니다.
+              </p>
+            </div>
           </div>
           <div className="why__grid why__grid--light">
             {BUSINESS_POINTS.map((b, i) => (
@@ -76,25 +78,27 @@ export default function About() {
       {/* ── 서브브랜드 6종 ── */}
       <section className="section" id="brands">
         <div className="wrap">
-          <div className="section__head">
-            <div className="eyebrow">Our Services</div>
-            <h2 className="title">하나의 상자, 여섯 가지 즐거움</h2>
-            <p className="lead">
-              멤버십부터 여행까지 — PICKLEBOX의 여섯 브랜드가 피클볼을 중심으로 한 라이프스타일을 완성합니다.
-            </p>
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Our Services</div></div>
+            <div>
+              <h2 className="title">하나의 상자, 여섯 가지 즐거움</h2>
+              <p className="lead">
+                멤버십부터 여행까지 — PICKLEBOX의 여섯 브랜드가 피클볼을 중심으로 한 라이프스타일을 완성합니다.
+              </p>
+            </div>
           </div>
-          <div className="brands__grid">
-            {SUBBRANDS.map((b, i) => (
-              <Reveal key={b.key} className={`brand brand--${b.tint}`} delay={(i % 3) * 70}>
-                <span className="brand__num">{String(i + 1).padStart(2, "0")}</span>
-                <div className="brand__dot" />
-                <div className="brand__key">
-                  PICKLEBOX {b.key}
-                  <small>{b.ko}</small>
-                </div>
-                <p className="brand__desc">{b.desc}</p>
-              </Reveal>
-            ))}
+          <div className="bento">
+            {SUBBRANDS.map((b, i) => {
+              const span = ["bento__card--feat", "bento__card--half", "bento__card--half", "bento__card--third", "bento__card--third", "bento__card--third"][i];
+              return (
+                <Reveal key={b.key} className={`bento__card ${span}`} delay={(i % 3) * 70}>
+                  <span className="bento__num">// {String(i + 1).padStart(2, "0")}</span>
+                  <div className={`bento__key ${i === 0 ? "bento__key--feat" : ""}`}>{b.key}</div>
+                  <div className="bento__ko">{b.ko}</div>
+                  <p className="bento__desc">{b.desc}</p>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
