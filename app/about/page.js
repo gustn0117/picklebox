@@ -3,7 +3,6 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
-import Ball from "../components/Ball";
 import Arrow from "../components/Arrow";
 import { SUBBRANDS, reserveHref } from "../lib/site";
 
@@ -34,12 +33,7 @@ export default function About() {
       {/* ── 브랜드 스토리 ── */}
       <section className="section story">
         <div className="wrap story__grid">
-          <Reveal className="story__mark">
-            <span className="spark" style={{ width: 18, height: 18, left: "18%", top: "20%" }} />
-            <span className="spark" style={{ width: 12, height: 12, right: "22%", top: "30%" }} />
-            <span className="spark" style={{ width: 14, height: 14, left: "26%", bottom: "22%" }} />
-            <Ball body="#fff" dots="var(--green)" />
-          </Reveal>
+          <Reveal className="story__mark photo-slot" />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">Brand Story</div>
             <h2 className="title">기대하지 못했던 선물상자를 열었을 때처럼.</h2>
@@ -93,9 +87,7 @@ export default function About() {
             {SUBBRANDS.map((b, i) => (
               <Reveal key={b.key} className={`brand brand--${b.tint}`} delay={(i % 3) * 70}>
                 <span className="brand__num">{String(i + 1).padStart(2, "0")}</span>
-                <div className="brand__dot">
-                  <Ball body="#fff" dots={b.tint === "lime" ? "var(--ink)" : "var(--green)"} tail={false} />
-                </div>
+                <div className="brand__dot" />
                 <div className="brand__key">
                   PICKLEBOX {b.key}
                   <small>{b.ko}</small>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Ball from "./Ball";
 import { LINKS, BUSINESS } from "../lib/site";
 
 // 전 페이지 공유 푸터 — 외부 링크(스토어·인스타·유튜브·지도) 집약 + 사업자 정보.
@@ -9,10 +8,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer__top">
           <div>
-            <Link href="/" className="footer__brand">
-              <Ball body="var(--green)" dots="#fff" />
-              PICKLEBOX
-            </Link>
+            <Link href="/" className="footer__brand">PICKLEBOX</Link>
             <p className="footer__tagline">
               피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect.
             </p>

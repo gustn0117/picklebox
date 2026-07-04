@@ -63,10 +63,10 @@ export default function Pickleball() {
           </div>
           <div className="grid-2">
             {CHARMS.map((c, i) => (
-              <Reveal key={c.h} className="brand brand--green" delay={(i % 2) * 80}>
-                <span className="brand__num">{String(i + 1).padStart(2, "0")}</span>
-                <div className="brand__key" style={{ position: "relative", zIndex: 1 }}>{c.h}</div>
-                <p className="brand__desc">{c.p}</p>
+              <Reveal key={c.h} className="feat" delay={(i % 2) * 80}>
+                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                <h3>{c.h}</h3>
+                <p>{c.p}</p>
               </Reveal>
             ))}
           </div>

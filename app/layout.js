@@ -1,7 +1,15 @@
-import { Archivo } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import "./globals.css";
 
-// 각진 스포티 그로테스크 — 디스플레이/라벨/숫자용.
+// 헤비 콘덴스드 대문자 디스플레이 — 히어로/워드마크/큰 제목.
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
+  display: "swap",
+});
+
+// 라벨·버튼·숫자용 그로테스크(라틴).
 const archivo = Archivo({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800", "900"],
@@ -25,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko" className={archivo.variable}>
+    <html lang="ko" className={`${anton.variable} ${archivo.variable}`}>
       <head>
         <link
           rel="stylesheet"

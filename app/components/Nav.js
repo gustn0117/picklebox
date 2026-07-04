@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Ball from "./Ball";
 import { NAV, reserveHref } from "../lib/site";
 
 export default function Nav() {
@@ -13,10 +12,7 @@ export default function Nav() {
   return (
     <nav className="nav">
       <div className="wrap nav__inner">
-        <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">
-          <Ball body="var(--green)" dots="#fff" />
-          PICKLEBOX
-        </Link>
+        <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">PICKLEBOX</Link>
 
         <div className="nav__menu">
           {NAV.map((m) => (
