@@ -34,7 +34,7 @@ export default function Visit() {
         lead="지하철 수인분당선 서울숲역 인근, 갤러리아 포레에서 만나요."
       />
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="wrap">
           <div className="loc__grid">
             <div className="loc__info">
