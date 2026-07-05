@@ -24,6 +24,19 @@ const CHARMS = [
   { h: "지금 가장 빠르게", p: "전 세계에서 가장 빠르게 성장하는 라켓 스포츠. 국내에서도 코트와 동호인이 빠르게 늘고 있습니다." },
 ];
 
+const START = [
+  { s: "STEP 01", h: "코트 예약", p: "피클박스 코트를 예약하세요. 패들과 공은 준비되어 있어 몸만 오시면 됩니다." },
+  { s: "STEP 02", h: "규칙 익히기", p: "서브·키친·점수만 알면 끝. 레슨과 함께라면 5분이면 경기를 시작할 수 있습니다." },
+  { s: "STEP 03", h: "첫 랠리", p: "복식으로 함께 치면 더 재밌습니다. 웃고 떠들다 보면 어느새 한 게임이 끝나 있어요." },
+];
+
+const FAQ = [
+  { q: "운동을 안 해도 할 수 있나요?", a: "네. 격한 움직임이 적어 체력 부담이 적습니다. 남녀노소 누구나 가볍게 시작하기 좋은 생활 스포츠예요." },
+  { q: "테니스랑 뭐가 다른가요?", a: "코트가 훨씬 작고 공이 느리게 날아 진입이 쉽습니다. 넓게 뛰지 않아도 랠리가 오래 이어져 초보도 금방 재미를 느껴요." },
+  { q: "장비를 꼭 사야 하나요?", a: "처음엔 클럽에 비치된 장비로 충분합니다. 재미가 붙으면 스마트스토어에서 나만의 패들을 골라보세요." },
+  { q: "혼자 가도 즐길 수 있나요?", a: "네. 레슨과 커뮤니티를 통해 함께 칠 사람을 자연스럽게 만날 수 있습니다. 복식은 넷이 함께 즐기기 좋아요." },
+];
+
 export default function Pickleball() {
   return (
     <>
@@ -68,6 +81,44 @@ export default function Pickleball() {
                 <h3>{c.h}</h3>
                 <p>{c.p}</p>
               </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 시작하기 ── */}
+      <section className="section">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">How to start</div></div>
+            <div><h2 className="title">오늘 처음이어도, 3단계면 충분해요.</h2></div>
+          </div>
+          <div className="grid-3">
+            {START.map((s, i) => (
+              <Reveal key={s.h} className="feat" delay={(i % 3) * 70}>
+                <div className="feat__ico feat__ico--step">{s.s}</div>
+                <h3>{s.h}</h3>
+                <p>{s.p}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="section section--alt">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">FAQ</div></div>
+            <div><h2 className="title">자주 묻는 질문</h2></div>
+          </div>
+          <div className="faq">
+            {FAQ.map((f, i) => (
+              <div key={f.q} className="faq__item">
+                <div className="faq__n">// {String(i + 1).padStart(2, "0")}</div>
+                <div className="faq__q">{f.q}</div>
+                <div className="faq__a">{f.a}</div>
+              </div>
             ))}
           </div>
         </div>

@@ -6,6 +6,26 @@ import Court from "./components/Court";
 import Arrow from "./components/Arrow";
 import { LINKS, reserveHref } from "./lib/site";
 
+const STATS = [
+  { n: "45", u: "MIN", l: "한 게임의 온도" },
+  { n: "06", u: "", l: "서비스 브랜드" },
+  { n: "24", u: "H", l: "무인 스마트 운영" },
+  { n: "100", u: "%", l: "초보 환영" },
+];
+
+const WHY = [
+  { h: "24시간 무인 스마트 클럽", p: "언제든 문을 열고 들어와 나만의 시간에 피클볼을 즐기세요. 예약부터 입장까지 스마트하게." },
+  { h: "서울숲 라운지", p: "갤러리아 포레의 프라이빗 코트와 라운지에서 보내는 하루. 도심 속 프리미엄 컬처 공간." },
+  { h: "레슨 · 커뮤니티", p: "처음이어도 쉽게 배우고, 좋은 사람들과 자연스럽게 연결됩니다. 코치와 동호인이 함께." },
+  { h: "여행 · 컬처", p: "코트를 넘어 서울 관광과 해외 피클볼 투어까지. 피클볼로 여는 새로운 라이프스타일." },
+];
+
+const STEPS = [
+  { s: "STEP 01", h: "예약", p: "네이버 예약으로 원하는 시간을 선택하세요. 몇 번의 터치면 코트가 준비됩니다." },
+  { s: "STEP 02", h: "입장", p: "무인 스마트 출입으로 24시간 언제든. 기다림 없이 바로 나만의 코트로." },
+  { s: "STEP 03", h: "플레이", p: "패들과 공은 준비되어 있습니다. 처음이라면 레슨과 함께 첫날부터 랠리를." },
+];
+
 export default function Home() {
   return (
     <>
@@ -106,6 +126,71 @@ export default function Home() {
               <p className="bento__desc">서울숲 갤러리아 포레 · 예약·지도·문의를 한 번에. 24시간 언제든 문을 여는 스마트 클럽.</p>
               <span className="bento__go">오시는 길 <Arrow /></span>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 매니페스토 + 스탯 ── */}
+      <section className="section section--alt">
+        <div className="wrap">
+          <div className="eyebrow">Manifesto</div>
+          <div className="manifesto" style={{ marginTop: 26, marginBottom: "clamp(48px, 7vw, 84px)" }}>
+            <p>
+              <span className="hl">운동을 넘어,<br />사람을 잇다.</span> 서울숲에서 시작하는
+              새로운 <span className="hl--volt">피클볼 컬처</span>.
+            </p>
+          </div>
+          <div className="statband">
+            {STATS.map((s) => (
+              <div className="statband__cell" key={s.l}>
+                <div className="statband__n">{s.n}<em>{s.u}</em></div>
+                <div className="statband__l">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 왜 피클박스 ── */}
+      <section className="section">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div>
+              <div className="eyebrow">Why PICKLEBOX</div>
+              <span className="section__num">/ 02</span>
+            </div>
+            <h2 className="title title--ko">누구나 쉽게,<br />운동을 넘어 컬처까지.</h2>
+          </div>
+          <div className="why__grid">
+            {WHY.map((f, i) => (
+              <Reveal key={f.h} className="feat" delay={(i % 4) * 60}>
+                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                <h3>{f.h}</h3>
+                <p>{f.p}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 이용 방법 ── */}
+      <section className="section section--alt">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div>
+              <div className="eyebrow">How it works</div>
+              <span className="section__num">/ 03</span>
+            </div>
+            <h2 className="title title--ko">예약하고, 들어와,<br />바로 플레이.</h2>
+          </div>
+          <div className="grid-3">
+            {STEPS.map((s, i) => (
+              <Reveal key={s.h} className="feat" delay={(i % 3) * 70}>
+                <div className="feat__ico feat__ico--step">{s.s}</div>
+                <h3>{s.h}</h3>
+                <p>{s.p}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
