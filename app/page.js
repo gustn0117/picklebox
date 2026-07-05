@@ -4,13 +4,14 @@ import Footer from "./components/Footer";
 import Reveal from "./components/Reveal";
 import Court from "./components/Court";
 import Arrow from "./components/Arrow";
+import CountUp from "./components/CountUp";
 import { LINKS, reserveHref } from "./lib/site";
 
 const STATS = [
-  { n: "45", u: "MIN", l: "한 게임의 온도" },
-  { n: "06", u: "", l: "서비스 브랜드" },
-  { n: "24", u: "H", l: "무인 스마트 운영" },
-  { n: "100", u: "%", l: "초보 환영" },
+  { n: 45, pad: 0, u: "MIN", l: "한 게임의 온도" },
+  { n: 6, pad: 2, u: "", l: "서비스 브랜드" },
+  { n: 24, pad: 0, u: "H", l: "무인 스마트 운영" },
+  { n: 100, pad: 0, u: "%", l: "초보 환영" },
 ];
 
 const WHY = [
@@ -143,7 +144,7 @@ export default function Home() {
           <div className="statband">
             {STATS.map((s) => (
               <div className="statband__cell" key={s.l}>
-                <div className="statband__n">{s.n}<em>{s.u}</em></div>
+                <div className="statband__n"><CountUp to={s.n} pad={s.pad} /><em>{s.u}</em></div>
                 <div className="statband__l">{s.l}</div>
               </div>
             ))}

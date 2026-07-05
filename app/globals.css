@@ -130,7 +130,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- NEXT UP 정보 바 ---------- */
 .ticker { border-top: 1px solid var(--line); background: rgba(0, 0, 0, 0.4); position: relative; z-index: 3; }
-.ticker__inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 15px 0; font-family: var(--mono); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.ticker__inner { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 15px 0; font-family: var(--mono); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
 .ticker__hot { color: var(--volt); display: inline-flex; align-items: center; gap: 9px; }
 .ticker__hot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--volt); animation: livePulse 1.6s ease-in-out infinite; }
 .ticker__item { color: var(--ink-soft); }
@@ -446,6 +446,57 @@ img, svg { display: block; max-width: 100%; }
 .timeline .yr { font-family: var(--mono); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--volt); padding-top: 3px; }
 .timeline .ev b { display: block; font-weight: 800; color: #fff; font-size: 1.08rem; }
 .timeline .ev span { color: var(--ink-soft); font-size: 0.96rem; }
+
+/* ============================================================
+   이펙트
+   ============================================================ */
+
+/* 스크롤 진행바 */
+.fx-progress { position: fixed; top: 0; left: 0; width: 100%; height: 2px; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--volt), var(--wire)); box-shadow: 0 0 12px color-mix(in srgb, var(--volt) 70%, transparent); z-index: 100; pointer-events: none; }
+
+/* 커서 스포트라이트 */
+.fx-spot { position: fixed; top: 0; left: 0; width: 480px; height: 480px; border-radius: 50%; pointer-events: none; z-index: 2; opacity: 0; background: radial-gradient(circle, color-mix(in srgb, var(--volt) 9%, transparent), transparent 62%); mix-blend-mode: screen; will-change: transform; transition: opacity 0.5s ease; }
+
+/* 히어로 로드 순차 등장 */
+@keyframes heroIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.hero__eyebrow, .hero__status, .hero__title, .hero__accent, .hero__ko, .hero__desc, .hero__actions, .hero__stats { animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero__eyebrow { animation-delay: 0.06s; }
+.hero__status { animation-delay: 0.13s; }
+.hero__title { animation-delay: 0.2s; }
+.hero__accent { animation-delay: 0.28s; }
+.hero__ko { animation-delay: 0.36s; }
+.hero__desc { animation-delay: 0.42s; }
+.hero__actions { animation-delay: 0.5s; }
+.hero__stats { animation-delay: 0.58s; }
+
+/* 워드마크 글리치 (호버) */
+@keyframes glitch {
+  0% { text-shadow: 0 0 70px rgba(55, 232, 255, 0.22); transform: none; }
+  20% { text-shadow: -3px 0 var(--wire), 3px 0 var(--volt), 0 0 70px rgba(55, 232, 255, 0.22); transform: translateX(2px); }
+  40% { text-shadow: 3px 0 var(--wire), -3px 0 var(--volt); transform: translateX(-2px); }
+  60% { text-shadow: -2px 0 var(--volt), 2px 0 var(--wire); transform: translateX(1px); }
+  100% { text-shadow: 0 0 70px rgba(55, 232, 255, 0.22); transform: none; }
+}
+.hero__title:hover { animation: glitch 0.42s linear 1; }
+
+/* 내비 언더라인 슬라이드 */
+.nav__link { position: relative; }
+.nav__link::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -7px; height: 1.5px; background: var(--volt); transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.nav__link:hover::after, .nav__link.is-active::after { right: 0; }
+
+/* 버튼 샤인 스윕 */
+.btn { position: relative; overflow: hidden; }
+.btn::after { content: ""; position: absolute; top: 0; left: -130%; width: 55%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent); transform: skewX(-18deg); transition: left 0.55s ease; }
+.btn:hover::after { left: 150%; }
+
+/* 벤토 이미지 호버 */
+.bento__card--img { transition: border-color 0.2s ease, transform 0.3s ease, filter 0.45s ease; }
+.bento__card--img:hover { filter: brightness(1.14) saturate(1.1) contrast(1.03); }
+
+/* CTA 글로우 브리딩 */
+@keyframes glowPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+.join::after { animation: glowPulse 4.5s ease-in-out infinite; }
+.join::before { animation: glowPulse 6s ease-in-out infinite reverse; }
 
 /* ---------- 애니메이션 ---------- */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }

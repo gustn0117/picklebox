@@ -1,5 +1,6 @@
 import { Anton, Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
+import Fx from "./components/Fx";
 
 // 헤비 콘덴스드 대문자 디스플레이 — 히어로/워드마크/큰 제목.
 const anton = Anton({
@@ -50,7 +51,7 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body>{children}</body>
+      <body><Fx />{children}</body>
     </html>
   );
 }
