@@ -416,8 +416,8 @@ img, svg { display: block; max-width: 100%; }
 .bento__card:hover .bento__go .btn__arrow { transform: translateX(4px); }
 
 /* ---------- 매니페스토 ---------- */
-.manifesto { max-width: 22ch; }
-.manifesto p { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.7rem, 3.6vw, 3rem); line-height: 1.28; letter-spacing: -0.025em; color: var(--stone); }
+.manifesto { max-width: 720px; }
+.manifesto p { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.7rem, 3.6vw, 3rem); line-height: 1.28; letter-spacing: -0.025em; color: var(--stone); text-wrap: balance; }
 .manifesto .hl { color: #fff; }
 .manifesto .hl--volt { color: var(--volt); }
 
