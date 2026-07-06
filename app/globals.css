@@ -1,30 +1,30 @@
 /* ============================================================
-   PICKLEBOX — 디자인 시스템 (Dark / Sports Entertainment)
-   컬러: 잉크 블랙 · 일렉트릭 볼트 그린 · 인디고 · 크림 화이트
+   PICKLEBOX — 디자인 시스템 (Court Teal / Purple)
+   컬러: 터쿼이즈 코트 · 퍼플 바닥 · 오프화이트 라인
    타이포: Anton(콘덴스드 디스플레이) + Archivo(라벨) + Pretendard(본문)
    ============================================================ */
 
 :root {
-  --bg: #2a2138;
-  --bg-2: #322847;
-  --panel: #3d3252;
-  --panel-2: #493d60;
-  --line: rgba(255, 255, 255, 0.14);
-  --line-2: rgba(255, 255, 255, 0.22);
+  --bg: #21152a;
+  --bg-2: #2b1a34;
+  --panel: #35223f;
+  --panel-2: #432a4d;
+  --line: rgba(248, 244, 236, 0.16);
+  --line-2: rgba(248, 244, 236, 0.28);
 
-  --ink: #f3f5ef;          /* 본문/제목 (라이트) */
-  --ink-soft: #a6adb8;     /* 보조 텍스트 */
-  --stone: #6a7079;        /* 캡션/뮤트 */
+  --ink: #fbf7ef;          /* 본문/제목 (라이트) */
+  --ink-soft: #c8bfcc;     /* 보조 텍스트 */
+  --stone: #918799;        /* 캡션/뮤트 */
 
-  --volt: #9dff1c;         /* 일렉트릭 그린 (주 네온) */
-  --volt-deep: #7ee000;
-  --volt-ink: #0a1400;     /* 볼트 위 텍스트 */
-  --wire: #34d3e6;         /* 일렉트릭 틸 (보조 네온) */
-  --wire-deep: #12a7bd;
+  --volt: #009eae;         /* 코트 터쿼이즈 */
+  --volt-deep: #007f8c;
+  --volt-ink: #06191d;     /* 터쿼이즈 위 텍스트 */
+  --wire: #f8f4ec;         /* 코트 라인 화이트 */
+  --wire-deep: #d8cec2;
 
-  --indigo: #4a2382;       /* 히어로 분위기(딥 퍼플) */
-  --violet: #8a3a86;       /* 코트 마젠타 퍼플 */
-  --court: #1a7d8f;        /* 코트 틸 */
+  --indigo: #3b214d;       /* 히어로 분위기(딥 퍼플) */
+  --violet: #823174;       /* 코트 퍼플 */
+  --court: #009aac;        /* 코트 틸 */
 
   --font-display: var(--font-anton), "Pretendard Variable", Pretendard, sans-serif;
   --font-label: var(--font-archivo), "Pretendard Variable", Pretendard, sans-serif;
@@ -120,7 +120,7 @@ img, svg { display: block; max-width: 100%; }
   border: 1.5px solid transparent; cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
-.btn--primary { background: var(--volt); color: var(--volt-ink); box-shadow: 0 8px 26px -10px color-mix(in srgb, var(--volt) 75%, transparent); }
+.btn--primary { background: var(--volt); color: var(--volt-ink); box-shadow: 0 8px 26px -10px color-mix(in srgb, var(--court) 75%, transparent); }
 .btn--primary:hover { background: #fff; box-shadow: 0 10px 32px -8px color-mix(in srgb, var(--volt) 85%, transparent); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line-2); }
 .btn--ghost:hover { border-color: var(--wire); color: var(--wire); box-shadow: 0 0 22px -6px color-mix(in srgb, var(--wire) 55%, transparent); }
@@ -167,15 +167,15 @@ img, svg { display: block; max-width: 100%; }
 .hero__bg::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(180deg, rgba(22, 15, 30, 0.16) 0%, rgba(22, 15, 30, 0.4) 48%, rgba(22, 15, 30, 0.9) 100%),
-    radial-gradient(95% 80% at 28% 2%, color-mix(in srgb, var(--violet) 62%, transparent), transparent 60%),
-    radial-gradient(78% 72% at 88% 18%, color-mix(in srgb, var(--court) 46%, transparent), transparent 62%),
-    linear-gradient(90deg, rgba(22, 15, 30, 0.5) 0%, rgba(22, 15, 30, 0.1) 50%, rgba(22, 15, 30, 0.5) 100%);
+    linear-gradient(180deg, rgba(33, 21, 42, 0.08) 0%, rgba(33, 21, 42, 0.36) 48%, rgba(33, 21, 42, 0.9) 100%),
+    radial-gradient(95% 80% at 28% 2%, color-mix(in srgb, var(--violet) 54%, transparent), transparent 60%),
+    radial-gradient(78% 72% at 88% 18%, color-mix(in srgb, var(--court) 38%, transparent), transparent 62%),
+    linear-gradient(90deg, rgba(33, 21, 42, 0.48) 0%, rgba(33, 21, 42, 0.08) 50%, rgba(33, 21, 42, 0.48) 100%);
 }
 .hero__bg::after {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(180deg, transparent 0%, rgba(15, 19, 30, 0.2) 58%, var(--bg) 100%),
+    linear-gradient(180deg, transparent 0%, rgba(33, 21, 42, 0.2) 58%, var(--bg) 100%),
     radial-gradient(80% 60% at 50% 118%, color-mix(in srgb, var(--court) 45%, transparent), transparent 64%);
 }
 .hero .court { z-index: 2; opacity: 0.16; mix-blend-mode: screen; }
@@ -192,7 +192,7 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
   font-size: clamp(3.6rem, 13vw, 10rem); line-height: 0.9; letter-spacing: 0.005em;
   color: #fff; margin-top: 22px;
-  text-shadow: 0 0 70px rgba(55, 232, 255, 0.22), 0 0 30px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 70px rgba(0, 158, 174, 0.22), 0 0 30px rgba(0, 0, 0, 0.4);
 }
 .hero__accent {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
@@ -219,7 +219,7 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- 이미지 패널 (다크) ---------- */
 .photo-slot {
   position: relative; overflow: hidden; border-radius: var(--r-lg);
-  background: linear-gradient(158deg, #14224a 0%, #0a0d16 100%);
+  background: linear-gradient(158deg, var(--violet) 0%, var(--bg) 100%);
   border: 1px solid var(--line);
   background-size: cover;
   background-position: center;
@@ -227,8 +227,8 @@ img, svg { display: block; max-width: 100%; }
 .photo-slot::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(180deg, rgba(15, 19, 30, 0.02) 0%, rgba(15, 19, 30, 0.22) 62%, rgba(15, 19, 30, 0.78) 100%),
-    radial-gradient(80% 58% at 20% 0%, color-mix(in srgb, var(--volt) 16%, transparent), transparent 62%);
+    linear-gradient(180deg, rgba(33, 21, 42, 0.02) 0%, rgba(33, 21, 42, 0.2) 62%, rgba(33, 21, 42, 0.76) 100%),
+    radial-gradient(80% 58% at 20% 0%, color-mix(in srgb, var(--court) 16%, transparent), transparent 62%);
 }
 .photo-slot::after {
   content: "// PICKLEBOX"; position: absolute; left: 20px; bottom: 16px;
@@ -279,8 +279,8 @@ img, svg { display: block; max-width: 100%; }
 .join::before {
   content: ""; position: absolute; inset: 0; z-index: 0;
   background:
-    linear-gradient(90deg, rgba(15, 19, 30, 0.96) 0%, rgba(15, 19, 30, 0.76) 52%, rgba(15, 19, 30, 0.46) 100%),
-    linear-gradient(180deg, rgba(15, 19, 30, 0.28) 0%, rgba(15, 19, 30, 0.86) 100%);
+    linear-gradient(90deg, rgba(33, 21, 42, 0.96) 0%, rgba(33, 21, 42, 0.76) 52%, rgba(33, 21, 42, 0.46) 100%),
+    linear-gradient(180deg, rgba(33, 21, 42, 0.24) 0%, rgba(33, 21, 42, 0.88) 100%);
 }
 .join::after {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -338,9 +338,9 @@ img, svg { display: block; max-width: 100%; }
 .pagehero::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(15, 19, 30, 0.92) 0%, rgba(15, 19, 30, 0.72) 48%, rgba(15, 19, 30, 0.42) 100%),
-    linear-gradient(180deg, rgba(15, 19, 30, 0.2) 0%, var(--bg) 100%),
-    radial-gradient(80% 90% at 85% -20%, color-mix(in srgb, var(--violet) 46%, transparent), transparent 58%);
+    linear-gradient(90deg, rgba(33, 21, 42, 0.92) 0%, rgba(33, 21, 42, 0.72) 48%, rgba(33, 21, 42, 0.42) 100%),
+    linear-gradient(180deg, rgba(33, 21, 42, 0.18) 0%, var(--bg) 100%),
+    radial-gradient(80% 90% at 85% -20%, color-mix(in srgb, var(--court) 34%, transparent), transparent 58%);
 }
 .pagehero .wrap { position: relative; z-index: 1; }
 .pagehero__head { display: flex; align-items: center; }
@@ -411,7 +411,7 @@ img, svg { display: block; max-width: 100%; }
 .bento__card--wide { grid-column: span 6; min-height: 210px; }
 .bento__ko { font-family: var(--mono); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--volt); margin-top: 8px; }
 .bento__card--img { background-size: cover; background-position: center; }
-.bento__card--img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(175deg, rgba(15, 19, 30, 0.15) 0%, rgba(15, 19, 30, 0.6) 55%, rgba(15, 19, 30, 0.94) 100%); }
+.bento__card--img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(175deg, rgba(33, 21, 42, 0.12) 0%, rgba(33, 21, 42, 0.58) 55%, rgba(33, 21, 42, 0.92) 100%); }
 .bento__card > * { position: relative; z-index: 1; }
 .bento__num { font-family: var(--mono); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--wire); position: absolute; top: 26px; left: 30px; }
 .bento__key { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(1.5rem, 2vw, 2rem); line-height: 0.95; letter-spacing: 0.02em; color: #fff; transition: color 0.2s ease, text-shadow 0.2s ease; }
@@ -455,7 +455,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- 피처 카드(이벤트) ---------- */
 .feature-card { position: relative; overflow: hidden; border-radius: var(--r-lg); border: 1px solid var(--line); background-color: var(--panel); background-size: cover; background-position: center; min-height: 440px; padding: clamp(34px, 5vw, 68px); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; }
-.feature-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(33, 40, 56, 0.28) 0%, rgba(33, 40, 56, 0.75) 55%, rgba(33, 40, 56, 0.97) 100%); }
+.feature-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(33, 21, 42, 0.22) 0%, rgba(33, 21, 42, 0.72) 55%, rgba(33, 21, 42, 0.96) 100%); }
 .feature-card > * { position: relative; z-index: 1; }
 .feature-card__tag { font-family: var(--mono); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--volt); }
 .feature-card__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.1rem, 4.6vw, 3.8rem); line-height: 0.96; letter-spacing: 0.01em; color: #fff; margin-top: 16px; }
@@ -487,11 +487,11 @@ img, svg { display: block; max-width: 100%; }
 
 /* 워드마크 글리치 (호버) */
 @keyframes glitch {
-  0% { text-shadow: 0 0 70px rgba(55, 232, 255, 0.22); transform: none; }
-  20% { text-shadow: -3px 0 var(--wire), 3px 0 var(--volt), 0 0 70px rgba(55, 232, 255, 0.22); transform: translateX(2px); }
+  0% { text-shadow: 0 0 70px rgba(0, 158, 174, 0.22); transform: none; }
+  20% { text-shadow: -3px 0 var(--wire), 3px 0 var(--volt), 0 0 70px rgba(0, 158, 174, 0.22); transform: translateX(2px); }
   40% { text-shadow: 3px 0 var(--wire), -3px 0 var(--volt); transform: translateX(-2px); }
   60% { text-shadow: -2px 0 var(--volt), 2px 0 var(--wire); transform: translateX(1px); }
-  100% { text-shadow: 0 0 70px rgba(55, 232, 255, 0.22); transform: none; }
+  100% { text-shadow: 0 0 70px rgba(0, 158, 174, 0.22); transform: none; }
 }
 .hero__title:hover { animation: glitch 0.42s linear 1; }
 

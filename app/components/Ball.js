@@ -1,6 +1,6 @@
 // 웃는 피클볼 심볼 — 로고 모티프를 SVG로 재현해 자유롭게 리컬러/애니메이션한다.
 // body: 공 몸통 색, dots: 구멍/표정 색, tail: 말풍선 꼬리 표시 여부
-export default function Ball({ body = "#ffffff", dots = "#1FA84E", tail = true, className, ...rest }) {
+export default function Ball({ body = "#ffffff", dots = "#009eae", tail = true, className, ...rest }) {
   // 로고와 동일하게 가로로 긴 타원 구멍. 모두 공 안쪽에 위치(맨 위 구멍 삐짐 방지).
   const holes = [
     [50, 18],
