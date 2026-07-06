@@ -15,6 +15,13 @@ export const LINKS = {
 // 예약 링크 — reserve가 비어 있으면 인스타 DM으로 폴백.
 export const reserveHref = LINKS.reserve || LINKS.instagram[0].url;
 
+// 굿즈 판매처 — [URL]은 확보 후 교체.
+export const SHOPS = [
+  { name: "네이버 스마트스토어", url: LINKS.store },
+  { name: "더카트", url: "" },
+  { name: "테니스메트로", url: "" },
+];
+
 // 상단 내비게이션 — 레퍼런스와 동일 구성.
 export const NAV = [
   { href: "/", label: "Home" },

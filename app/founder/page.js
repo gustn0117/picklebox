@@ -10,19 +10,15 @@ export const metadata = {
   description: "테니스에서 피클볼로 — 조민정 대표가 그리는 피클박스 이야기.",
 };
 
-// 대표 약력 — [대괄호] = 확정 후 교체.
+// 대표 약력.
 const CAREER = [
   "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치",
-  "[테니스 선수·지도자 경력 연도]",
-  "[피클볼 지도자 자격 / 대회 이력]",
-  "PICKLEBOX(테니스포레) 대표",
-];
-
-const CAREER_TL = [
-  { yr: "[연도]", h: "테니스 선수 · 지도자", p: "라켓 스포츠와 함께한 시작. [선수·지도 경력을 이곳에 채웁니다.]" },
-  { yr: "[연도]", h: "쫌치는언니 채널", p: "유튜브에서 라켓 스포츠의 재미를 전하는 콘텐츠 크리에이터로." },
-  { yr: "[연도]", h: "피클볼 입문 · 지도", p: "피클볼의 매력에 빠져 지도자의 길로. [자격·대회 이력]." },
-  { yr: "2026", h: "PICKLEBOX 대표", p: "서울숲 갤러리아 포레에 무인 스마트 피클볼 클럽을 런칭." },
+  "전 대한테니스협회 이사",
+  "ITF(국제테니스연맹) Level 1 Coaching 자격증",
+  "ITF(국제테니스연맹) Level 2 Coaching 이수",
+  "명지대학교 졸업",
+  "2025 제2회 오크밸리 피클볼대회 우승",
+  "2025 피클볼 일본 Federation 우승 · 준우승",
 ];
 
 export default function Founder() {
@@ -47,10 +43,6 @@ export default function Founder() {
               오랜 시간 라켓 스포츠와 함께해 온 조민정 대표는, 피클볼이 가진
               &lsquo;쉽게 배우고 함께 웃는&rsquo; 힘에 매료되어 피클박스를 시작했습니다.
             </p>
-            <p style={{ color: "var(--ink-soft)", marginTop: 16 }}>
-              [대표 개인 스토리 — 테니스 경력, 피클볼을 만나게 된 계기, 피클박스를 통해
-              이루고 싶은 것 등을 이곳에 채웁니다.]
-            </p>
             <ul className="career">
               {CAREER.map((c) => (
                 <li key={c}>{c}</li>
@@ -72,24 +64,6 @@ export default function Founder() {
             좋은 사람들과 다시 만나고 싶어지는 곳 — 코트 위의 작은 즐거움이 일상의 활력이 되는 문화를
             만들어 갑니다.
           </p>
-        </div>
-      </section>
-
-      {/* ── 커리어 ── */}
-      <section className="section section--alt">
-        <div className="wrap">
-          <div className="section__head section__head--split">
-            <div><div className="eyebrow">Career</div></div>
-            <div><h2 className="title">라켓과 함께한 여정.</h2></div>
-          </div>
-          <ul className="timeline">
-            {CAREER_TL.map((t) => (
-              <li key={t.h}>
-                <span className="yr">{t.yr}</span>
-                <span className="ev"><b>{t.h}</b><span>{t.p}</span></span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

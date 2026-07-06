@@ -20,7 +20,7 @@ const VALUES = [
 const TIMELINE = [
   { yr: "[2024]", h: "브랜드 출발", p: "조민정 대표, 테니스에서 피클볼로. 서울의 새로운 컬처를 구상." },
   { yr: "[2025]", h: "서울숲 1호점", p: "갤러리아 포레에 24시간 무인 스마트 클럽 오픈." },
-  { yr: "[2026]", h: "라인업 확장", p: "굿즈·아카데미·투어까지 여섯 개 서비스 브랜드 완성." },
+  { yr: "[2026]", h: "라인업 확장", p: "굿즈·아카데미·투어까지 여섯 개 서비스 브랜드로 사업 구상." },
   { yr: "NOW", h: "컬처 플랫폼", p: "셀럽·커뮤니티·컬처를 잇는 피클볼 라이프스타일 플랫폼으로." },
 ];
 
@@ -31,7 +31,6 @@ export default function About() {
       <PageHero
         eyebrow="About PICKLEBOX"
         num="01"
-        title="하나의 상자를 열면, 피클볼의 모든 즐거움."
         lead="피클박스는 피클볼을 중심으로 코트·레슨·커뮤니티·굿즈·여행을 잇는 라이프스타일 브랜드입니다."
       />
 
@@ -41,7 +40,7 @@ export default function About() {
           <Reveal className="story__mark photo-slot photo-slot--story" />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">Brand Story</div>
-            <h2 className="title">기대하지 못했던 선물상자를 열었을 때처럼.</h2>
+            <h2 className="title title--sm">기대하지 못했던 선물상자를 열었을 때처럼.</h2>
             <p className="lead">
               피클볼 한 게임에는 운동의 즐거움만 있는 것이 아닙니다. 처음 만난 사람과 인사를 나누고,
               공을 주고받으며 함께 웃고, 일상의 스트레스를 잠시 내려놓는 시간이 담겨 있습니다.

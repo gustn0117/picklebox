@@ -7,7 +7,7 @@ export default function PageHero({ eyebrow, num, title, lead }) {
           <div className="eyebrow">{eyebrow}</div>
           {num && <span className="section__num">/ {num}</span>}
         </div>
-        <h1 className="pagehero__title pagehero__title--ko">{title}</h1>
+        {title && <h1 className="pagehero__title pagehero__title--ko">{title}</h1>}
         {lead && <p className="lead pagehero__lead">{lead}</p>}
       </div>
     </header>

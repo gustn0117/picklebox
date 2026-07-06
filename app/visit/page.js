@@ -65,7 +65,7 @@ export default function Visit() {
                   네이버 지도로 열기
                 </a>
                 <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--ghost">
-                  스마트스토어
+                  네이버 스마트스토어
                 </a>
               </div>
             </div>
