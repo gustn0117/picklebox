@@ -11,14 +11,6 @@ export const metadata = {
   description: "PICKLEBOX 브랜드 스토리와 사업 소개, 피클볼을 중심으로 한 여섯 가지 서비스 라인업을 소개합니다.",
 };
 
-// 사업 소개 블록 — 확장 방향. [대괄호] = 확정 후 교체할 사실.
-const BUSINESS_POINTS = [
-  { h: "무인 스마트 클럽", p: "서울숲 갤러리아 포레의 24시간 무인 피클볼 클럽을 중심으로, 예약부터 입장까지 편리하게 운영합니다." },
-  { h: "굿즈 제작 · 판매", p: "패들·웨어·액세서리 등 피클볼 라이프 굿즈를 직접 기획·제작해 스마트스토어에서 선보이고 있습니다." },
-  { h: "레슨 · 커뮤니티", p: "처음이어도 쉽게 배우는 레슨과, 좋은 사람들이 모이는 커뮤니티로 피클볼 문화를 넓혀갑니다." },
-  { h: "확장하는 브랜드", p: "매장을 시작으로 굿즈·여행·행사까지 — 피클볼을 즐기는 모든 순간을 하나의 브랜드로 연결합니다." },
-];
-
 const VALUES = [
   { k: "Play", ko: "즐거움", p: "누구나 즐기는 피클볼. 진입 장벽을 낮춰 첫날의 재미를 선물합니다." },
   { k: "Connect", ko: "연결", p: "코트가 곧 커뮤니티. 좋은 사람과 좋은 경기를 자연스럽게 잇습니다." },
@@ -60,31 +52,6 @@ export default function About() {
             </p>
             <p className="story__quote">피클볼을 치고, 웃고, 연결되며<br />일상에 즐거움을 선물하는 공간.</p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── 사업 소개 ── */}
-      <section className="section">
-        <div className="wrap">
-          <div className="section__head section__head--split">
-            <div><div className="eyebrow">Our Business</div></div>
-            <div>
-              <h2 className="title">피클볼을 중심으로, 사업을 넓혀갑니다.</h2>
-              <p className="lead">
-                매장은 한 곳이지만, 굿즈 제작·판매와 브랜딩으로 피클볼 라이프스타일 전반으로
-                영역을 확장하고 있습니다.
-              </p>
-            </div>
-          </div>
-          <div className="why__grid why__grid--light">
-            {BUSINESS_POINTS.map((b, i) => (
-              <Reveal key={b.h} className="feat" delay={(i % 4) * 60}>
-                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
-                <h3>{b.h}</h3>
-                <p>{b.p}</p>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
