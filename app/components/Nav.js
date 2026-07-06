@@ -7,12 +7,16 @@ import { NAV, reserveHref } from "../lib/site";
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = (href) => pathname === href;
+  const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <nav className="nav">
       <div className="wrap nav__inner">
-        <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">PICKLEBOX</Link>
+        <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="nav__logo" src="/pb-icon.png" alt="" width="34" height="34" />
+          <span>PICKLEBOX</span>
+        </Link>
 
         <div className="nav__menu">
           {NAV.map((m) => (
@@ -24,9 +28,15 @@ export default function Nav() {
               {m.label}
             </Link>
           ))}
+        </div>
+
+        <div className="nav__cta-group">
           <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary nav__cta">
-            예약하기
+            Join the Game
           </a>
+          <Link href="/partners" className="btn btn--ghost nav__cta">
+            Partner with Us
+          </Link>
         </div>
 
         <button
@@ -52,8 +62,11 @@ export default function Nav() {
             </Link>
           ))}
           <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>
-            예약하기
+            Join the Game
           </a>
+          <Link href="/partners" className="btn btn--ghost" onClick={() => setOpen(false)}>
+            Partner with Us
+          </Link>
         </div>
       )}
     </nav>

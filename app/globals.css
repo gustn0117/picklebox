@@ -5,12 +5,12 @@
    ============================================================ */
 
 :root {
-  --bg: #07080c;
-  --bg-2: #0b0d13;
-  --panel: #12151d;
-  --panel-2: #171b25;
-  --line: rgba(255, 255, 255, 0.10);
-  --line-2: rgba(255, 255, 255, 0.18);
+  --bg: #151a26;
+  --bg-2: #1b2130;
+  --panel: #232a3b;
+  --panel-2: #2c3446;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-2: rgba(255, 255, 255, 0.2);
 
   --ink: #f3f5ef;          /* 본문/제목 (라이트) */
   --ink-soft: #a6adb8;     /* 보조 텍스트 */
@@ -143,12 +143,14 @@ img, svg { display: block; max-width: 100%; }
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   border-bottom: 1px solid var(--line);
 }
-.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
-.nav__brand { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--volt); }
-.nav__menu { display: flex; align-items: center; gap: 30px; }
-.nav__link { font-family: var(--font-label); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); transition: color 0.15s ease; }
+.nav__inner { display: flex; align-items: center; gap: 22px; height: 72px; }
+.nav__brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 400; font-size: 1.28rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--volt); }
+.nav__logo { width: 32px; height: 32px; display: block; }
+.nav__menu { display: flex; align-items: center; gap: 19px; margin-left: 12px; }
+.nav__link { font-family: var(--font-label); font-weight: 700; font-size: 0.71rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); transition: color 0.15s ease; white-space: nowrap; }
 .nav__link:hover { color: var(--ink); }
-.nav__cta { padding: 12px 20px; font-size: 0.72rem; }
+.nav__cta-group { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.nav__cta { padding: 11px 15px; font-size: 0.64rem; white-space: nowrap; }
 .nav__burger { display: none; }
 
 /* ---------- 코트 그래픽 ---------- */
@@ -447,6 +449,16 @@ img, svg { display: block; max-width: 100%; }
 .timeline .ev b { display: block; font-weight: 800; color: #fff; font-size: 1.08rem; }
 .timeline .ev span { color: var(--ink-soft); font-size: 0.96rem; }
 
+/* ---------- 피처 카드(이벤트) ---------- */
+.feature-card { position: relative; overflow: hidden; border-radius: var(--r-lg); border: 1px solid var(--line); background-color: var(--panel); background-size: cover; background-position: center; min-height: 440px; padding: clamp(34px, 5vw, 68px); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; }
+.feature-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(21, 26, 38, 0.28) 0%, rgba(21, 26, 38, 0.75) 55%, rgba(21, 26, 38, 0.97) 100%); }
+.feature-card > * { position: relative; z-index: 1; }
+.feature-card__tag { font-family: var(--mono); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--volt); }
+.feature-card__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.1rem, 4.6vw, 3.8rem); line-height: 0.96; letter-spacing: 0.01em; color: #fff; margin-top: 16px; }
+.feature-card__meta { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--wire); margin-top: 20px; }
+.feature-card__desc { color: var(--ink-soft); margin-top: 14px; max-width: 540px; line-height: 1.7; }
+.feature-card .btn { margin-top: 30px; }
+
 /* ============================================================
    이펙트
    ============================================================ */
@@ -503,6 +515,11 @@ img, svg { display: block; max-width: 100%; }
 .reveal.in { opacity: 1; transform: none; }
 
 /* ---------- 반응형 ---------- */
+@media (max-width: 1160px) {
+  .nav__menu, .nav__cta-group { display: none; }
+  .nav__burger { display: inline-flex; }
+}
+
 @media (max-width: 900px) {
   .story__grid, .join__card, .loc__grid { grid-template-columns: 1fr; }
   .brands__grid { grid-template-columns: repeat(2, 1fr); }

@@ -47,7 +47,7 @@ export default function Home() {
           <div className="eyebrow hero__eyebrow">Premium Pickleball Club · Seoul</div>
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Play the Joy.</div>
-          <p className="hero__ko">피클볼로 여는 즐거운 선물상자</p>
+          <p className="hero__ko">피클볼을 넘어, 사람과 도시를 연결하는 라이프스타일 스포츠 플랫폼</p>
           <p className="hero__desc">
             셀럽·커뮤니티·컬처가 함께하는 서울숲의 프리미엄 피클볼 클럽.
             24시간 무인 스마트 코트부터 레슨·굿즈·투어까지 하나로.

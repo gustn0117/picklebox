@@ -15,12 +15,16 @@ export const LINKS = {
 // 예약 링크 — reserve가 비어 있으면 인스타 DM으로 폴백.
 export const reserveHref = LINKS.reserve || LINKS.instagram[0].url;
 
-// 상단 내비게이션 페이지 목록 — Nav/Footer 공유.
+// 상단 내비게이션 — 레퍼런스와 동일 구성.
 export const NAV = [
-  { href: "/about", label: "피클박스 안내" },
-  { href: "/pickleball", label: "피클볼이란?" },
-  { href: "/founder", label: "대표 소개" },
-  { href: "/visit", label: "오시는 길" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About PICKLEBOX" },
+  { href: "/events", label: "Events" },
+  { href: "/founder", label: "Play with Minjung" },
+  { href: "/community", label: "Global Community" },
+  { href: "/partners", label: "Partners" },
+  { href: "/journal", label: "Journal" },
+  { href: "/visit", label: "Contact" },
 ];
 
 export const BUSINESS = {
