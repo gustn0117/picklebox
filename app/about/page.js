@@ -17,6 +17,15 @@ const VALUES = [
   { k: "Culture", ko: "컬처", p: "운동을 넘어 라이프스타일로. 굿즈·여행·행사로 확장하는 새로운 컬처." },
 ];
 
+const PICKLE_APPEAL = [
+  { h: "누구나 쉽게 시작", p: "라켓이 가볍고 룰이 간단해 초보자도 쉽게 적응할 수 있어요. 어린이부터 노년층까지 세대 구분 없이 함께 즐길 수 있는 스포츠입니다." },
+  { h: "부상 위험이 적음", p: "테니스보다 코트가 작고 움직임이 적어 무릎·허리에 무리가 덜 갑니다. 격렬한 운동은 아니어서 운동 초보자에게도 좋아요." },
+  { h: "운동 효과가 뛰어남", p: "유산소 운동, 순발력, 반사신경, 균형 감각 향상에 도움이 됩니다. 칼로리 소모량도 많아 다이어트·건강관리에도 효과적이에요." },
+  { h: "사교성과 커뮤니티", p: "복식 위주의 경기로 자연스럽게 사람들과 소통하게 됩니다. 개방적이고 친화적인 피클볼 커뮤니티는 친구 만들기에도 좋아요." },
+  { h: "빠른 진행과 재미", p: "게임 템포가 빨라 지루하지 않고, 짧은 시간에 여러 경기를 즐길 수 있어요. 라켓과 볼의 반응이 재미있고 중독성이 있습니다." },
+  { h: "글로벌 트렌드", p: "미국을 중심으로 빠르게 성장 중인 스포츠로, 향후 올림픽 종목 가능성도 제기됩니다. 국제학교 도입 종목이라 유학 이력에도 도움이 됩니다." },
+];
+
 const TIMELINE = [
   { yr: "[2024]", h: "브랜드 출발", p: "조민정 대표, 테니스에서 피클볼로. 서울의 새로운 컬처를 구상." },
   { yr: "[2025]", h: "서울숲 1호점", p: "갤러리아 포레에 24시간 무인 스마트 클럽 오픈." },
@@ -54,8 +63,27 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── 왜 피클볼 ── */}
+      <section className="section">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Why Pickleball</div></div>
+            <div><h2 className="title title--sm">미국 1위 레저스포츠 상륙!<br />5분 만에 중독되는 이것?</h2></div>
+          </div>
+          <div className="grid-2">
+            {PICKLE_APPEAL.map((c, i) => (
+              <Reveal key={c.h} className="feat" delay={(i % 2) * 80}>
+                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                <h3>{c.h}</h3>
+                <p>{c.p}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── 서브브랜드 6종 ── */}
-      <section className="section" id="brands">
+      <section className="section section--alt" id="brands">
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Our Services</div></div>
