@@ -81,12 +81,9 @@ export default function Home() {
       {/* ── 둘러보기(벤토) ── */}
       <section className="section" id="explore">
         <div className="wrap">
-          <div className="section__head section__head--split">
-            <div>
-              <div className="eyebrow">Explore</div>
-              <span className="section__num">/ 01</span>
-            </div>
-            <h2 className="title title--ko">피클박스,<br />어디부터 볼까요?</h2>
+          <div className="section__head">
+            <div className="eyebrow">Explore</div>
+            <span className="section__num">/ 01</span>
           </div>
           <div className="bento">
             <Reveal
