@@ -14,7 +14,7 @@ export default function Nav() {
       <div className="wrap nav__inner">
         <Link href="/" className="nav__brand" aria-label="PICKLEBOX 홈">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="nav__logo" src="/pb-logo.png" alt="PICKLEBOX" />
+          <img className="nav__logo" src="/pb-logomark.png?v=2" alt="PICKLEBOX" />
         </Link>
 
         <div className="nav__menu">
