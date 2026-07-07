@@ -78,7 +78,7 @@ export default function Home() {
             >
               <span className="bento__num">// 01</span>
               <div className="bento__key bento__key--feat">About<br />PICKLEBOX</div>
-              <p className="bento__desc">브랜드 스토리와 사업 소개, 피클볼을 중심으로 한 여섯 가지 서비스 라인업.</p>
+              <p className="bento__desc">피클박스는 즐거움을 여는 선물상자입니다.</p>
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
 

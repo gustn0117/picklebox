@@ -44,8 +44,8 @@ export const BUSINESS = {
 export const SUBBRANDS = [
   { key: "CLUB", ko: "클럽", desc: "멤버십·셀럽 게임·커뮤니티가 모이는 피클박스의 중심", tint: "green" },
   { key: "HOUSE", ko: "하우스", desc: "서울숲 라운지와 프라이빗 코트에서 즐기는 하루", tint: "lime" },
-  { key: "SEOUL", ko: "서울", desc: "관광·서울시 협업으로 서울에서만 만나는 피클볼", tint: "tangerine" },
-  { key: "ACADEMY", ko: "아카데미", desc: "누구나 쉽게 시작하는 레슨과 코치 양성 프로그램", tint: "green" },
+  { key: "SEOUL", ko: "서울", desc: "K-피클볼 문화를 세계의 여행객과 도시생활자에게 소개하는 대표 스포츠 라이프스타일 브랜드", tint: "tangerine" },
+  { key: "ACADEMY", ko: "아카데미", desc: "레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램", tint: "green" },
   { key: "TOUR", ko: "투어", desc: "코트를 넘어 떠나는 해외 피클볼 여행", tint: "tangerine" },
   { key: "PARTY", ko: "파티", desc: "브랜드 행사와 셀럽 파티로 이어지는 즐거움", tint: "lime" },
 ];

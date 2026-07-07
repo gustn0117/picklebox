@@ -14,15 +14,13 @@ export const metadata = {
 const LINEUP = [
   { k: "Celebrity Match", ko: "셀럽 매치", p: "방송인·인플루언서와 함께하는 이벤트 매치. 관전과 참여를 동시에." },
   { k: "Open Tournament", ko: "오픈 토너먼트", p: "레벨별로 겨루는 정식 토너먼트. 초보부터 상급까지 누구나." },
-  { k: "Pickle Party", ko: "피클 파티", p: "경기 후 이어지는 브랜드 파티. 음악·굿즈·네트워킹까지." },
-  { k: "Open Class", ko: "오픈 클래스", p: "코치와 함께하는 원데이 클래스. 처음이라도 규칙부터 랠리까지." },
+  { k: "PICKLEBOX Party", ko: "피클박스 파티", p: "경기 후 이어지는 브랜드 파티. 음악·굿즈·네트워킹까지." },
 ];
 
 const SCHEDULE = [
   { yr: "[상반기]", h: "Seoul Celebrity Open", p: "광나루 · 셀럽 초청 오픈 매치 · [일정·라인업 공개 예정]" },
   { yr: "[매월]", h: "Monthly Open Match", p: "정기 오픈 매치 · 레벨별 참가 · 커뮤니티 랭킹" },
   { yr: "[수시]", h: "Pickle Party Night", p: "브랜드 파티 · 음악 · 네트워킹" },
-  { yr: "상시", h: "Open Class", p: "원데이 클래스 · 예약제 운영" },
 ];
 
 export default function Events() {
@@ -32,7 +30,7 @@ export default function Events() {
       <PageHero
         eyebrow="Events"
         title="코트 위의 축제, 피클박스 이벤트."
-        lead="셀럽·커뮤니티·컬처가 한 코트에서 만납니다. 셀럽 매치부터 오픈 토너먼트, 피클 파티까지 — 서울의 새로운 스포츠 엔터테인먼트."
+        lead="셀럽·커뮤니티·컬처가 한 코트에서 만납니다. 셀럽 매치부터 오픈 토너먼트, 피클볼까지 — 서울의 새로운 스포츠 엔터테인먼트."
       />
 
       {/* ── NEXT UP 피처 ── */}
@@ -61,7 +59,7 @@ export default function Events() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Lineup</div></div>
-            <div><h2 className="title">네 가지 방식으로 즐기는 이벤트.</h2></div>
+            <div><h2 className="title">세 가지 방식으로 즐기는 이벤트.</h2></div>
           </div>
           <div className="grid-2">
             {LINEUP.map((e, i) => (
