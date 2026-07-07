@@ -62,7 +62,6 @@ export default function Home() {
           <div className="hero__stats">
             <div className="hero__stat"><b>24H</b><span>무인 스마트 클럽</span></div>
             <div className="hero__stat"><b>6</b><span>브랜드 라인업</span></div>
-            <div className="hero__stat"><b>서울숲</b><span>갤러리아 포레</span></div>
           </div>
         </div>
         <div className="ticker">
