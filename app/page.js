@@ -38,7 +38,11 @@ export default function Home() {
         <div className="hero__bg"><Court /></div>
         <div className="hero__scan" aria-hidden="true" />
         <div className="hud" aria-hidden="true">
-          <span className="hud__c hud__tl">37.5443°N<br />127.0374°E</span>
+          <span className="hud__c hud__tl hud__brand">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/pb-icon-orange.png" alt="" className="hud__brand-ico" />
+            <b className="hud__brand-txt">PICKLEBOX</b>
+          </span>
           <span className="hud__c hud__tr">REC ●</span>
           <span className="hud__c hud__bl">EST. 2026</span>
           <span className="hud__c hud__br">SEOUL · KR</span>
