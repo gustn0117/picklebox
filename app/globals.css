@@ -201,6 +201,7 @@ img, svg { display: block; max-width: 100%; }
   text-shadow: 0 0 34px color-mix(in srgb, var(--volt) 55%, transparent);
 }
 .hero__ko { font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 600; margin-top: 26px; color: var(--ink); }
+@media (min-width: 1120px) { .hero__ko { white-space: nowrap; } }
 .hero__desc { max-width: 560px; margin-top: 14px; color: var(--ink-soft); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; justify-content: center; }
 

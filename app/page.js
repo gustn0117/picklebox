@@ -48,10 +48,6 @@ export default function Home() {
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Play the Joy.</div>
           <p className="hero__ko">피클박스는 즐거움을 여는 선물상자입니다.<br />피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.</p>
-          <p className="hero__desc">
-            셀럽·커뮤니티·컬처가 함께하는 서울숲의 프리미엄 피클볼 클럽.
-            24시간 무인 스마트 코트부터 레슨·굿즈·투어까지 하나로.
-          </p>
           <div className="hero__actions">
             <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary">
               예약하기 <Arrow />
