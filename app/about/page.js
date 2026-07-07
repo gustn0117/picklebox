@@ -40,7 +40,6 @@ export default function About() {
       <PageHero
         eyebrow="About PICKLEBOX"
         num="01"
-        lead="피클박스는 피클볼을 중심으로 코트·레슨·커뮤니티·굿즈·여행을 잇는 라이프스타일 브랜드입니다."
       />
 
       {/* ── 브랜드 스토리 ── */}
