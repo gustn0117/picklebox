@@ -244,9 +244,8 @@ img, svg { display: block; max-width: 100%; }
   border: 1px solid var(--line);
 }
 .story__logo {
-  background:
-    url("/pb-logomark2.png") center / 66% no-repeat,
-    linear-gradient(158deg, var(--violet) 0%, var(--bg) 100%);
+  border: none;
+  background: url("/pb-logomark2.png") center / 82% no-repeat;
 }
 .story__body p + p { margin-top: 18px; }
 .story__quote { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.35rem, 2.7vw, 2rem); letter-spacing: -0.02em; color: #fff; line-height: 1.25; margin-top: 34px; }
