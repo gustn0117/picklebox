@@ -5,7 +5,7 @@ import Reveal from "./components/Reveal";
 import Court from "./components/Court";
 import Arrow from "./components/Arrow";
 import CountUp from "./components/CountUp";
-import { LINKS, reserveHref } from "./lib/site";
+import { reserveHref } from "./lib/site";
 
 const STATS = [
   { n: 45, pad: 0, u: "MIN", l: "한 게임의 온도" },
@@ -57,7 +57,6 @@ export default function Home() {
               예약하기 <Arrow />
             </a>
             <Link href="/about" className="btn btn--ghost">클럽 안내</Link>
-            <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--ghost">네이버 스마트스토어</a>
           </div>
         </div>
         <div className="ticker">
