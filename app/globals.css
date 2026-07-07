@@ -391,10 +391,10 @@ img, svg { display: block; max-width: 100%; }
 .hud__br { bottom: 0; right: 0; flex-direction: row-reverse; align-items: flex-end; }
 .hud__br::before { border-left: 0; border-top: 0; }
 .hud__tr, .hud__br { color: var(--volt); }
-.hud__brand { gap: 11px; }
+.hud__brand { gap: clamp(10px, 1vw, 16px); }
 .hud__brand::before { display: none; }
-.hud__brand-ico { width: 42px; height: 42px; display: block; border-radius: 10px; }
-.hud__brand-txt { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; letter-spacing: 0.01em; text-transform: none; color: #ff7a2f; line-height: 1; }
+.hud__brand-ico { width: clamp(3.4rem, 8vw, 6rem); height: clamp(3.4rem, 8vw, 6rem); display: block; border-radius: 22%; }
+.hud__brand-txt { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.6rem, 6.5vw, 5rem); letter-spacing: 0.01em; text-transform: none; color: #ff7a2f; line-height: 1; }
 
 /* ---------- 에디토리얼 2단 섹션 헤더 ---------- */
 .section__head--split { display: grid; grid-template-columns: 220px 1fr; gap: 24px 40px; align-items: start; max-width: none; }
