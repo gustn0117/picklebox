@@ -48,12 +48,6 @@ export default function Home() {
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Play the Joy.</div>
           <p className="hero__ko">피클박스는 즐거움을 여는 선물상자입니다.<br />피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.</p>
-          <div className="hero__actions">
-            <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary">
-              예약하기 <Arrow />
-            </a>
-            <Link href="/about" className="btn btn--ghost">클럽 안내</Link>
-          </div>
         </div>
         <div className="ticker">
           <div className="wrap ticker__inner">
