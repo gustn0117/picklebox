@@ -203,9 +203,6 @@ img, svg { display: block; max-width: 100%; }
 .hero__ko { font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 600; margin-top: 26px; color: var(--ink); }
 .hero__desc { max-width: 560px; margin-top: 14px; color: var(--ink-soft); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; justify-content: center; }
-.hero__stats { position: relative; display: flex; gap: 48px; margin-top: 56px; padding: 26px 40px 0; border-top: 1px solid var(--line); flex-wrap: wrap; justify-content: center; }
-.hero__stat b { font-family: var(--font-display); font-weight: 400; font-size: 2rem; letter-spacing: 0.02em; color: #fff; display: block; }
-.hero__stat span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); }
 
 /* 코너 브래킷 프레임 (BOX 모티프) */
 .frame { position: relative; }
@@ -475,7 +472,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* 히어로 로드 순차 등장 */
 @keyframes heroIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-.hero__eyebrow, .hero__status, .hero__title, .hero__accent, .hero__ko, .hero__desc, .hero__actions, .hero__stats { animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero__eyebrow, .hero__status, .hero__title, .hero__accent, .hero__ko, .hero__desc, .hero__actions { animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .hero__eyebrow { animation-delay: 0.06s; }
 .hero__status { animation-delay: 0.13s; }
 .hero__title { animation-delay: 0.2s; }
@@ -483,7 +480,6 @@ img, svg { display: block; max-width: 100%; }
 .hero__ko { animation-delay: 0.36s; }
 .hero__desc { animation-delay: 0.42s; }
 .hero__actions { animation-delay: 0.5s; }
-.hero__stats { animation-delay: 0.58s; }
 
 /* 워드마크 글리치 (호버) */
 @keyframes glitch {
@@ -549,7 +545,6 @@ img, svg { display: block; max-width: 100%; }
   .nav__menu { display: none; }
   .nav__burger { display: inline-flex; }
   .brands__grid, .why__grid, .footer__top, .grid-3, .grid-2, .channels { grid-template-columns: 1fr; }
-  .hero__stats { gap: 28px; }
   .hero__actions .btn, .join__actions .btn { width: 100%; }
   .hud { display: none; }
   .bento { grid-template-columns: 1fr; }

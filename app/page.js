@@ -59,10 +59,6 @@ export default function Home() {
             <Link href="/about" className="btn btn--ghost">클럽 안내</Link>
             <a href={LINKS.store} target="_blank" rel="noopener" className="btn btn--ghost">네이버 스마트스토어</a>
           </div>
-          <div className="hero__stats">
-            <div className="hero__stat"><b>24H</b><span>무인 스마트 클럽</span></div>
-            <div className="hero__stat"><b>6</b><span>브랜드 라인업</span></div>
-          </div>
         </div>
         <div className="ticker">
           <div className="wrap ticker__inner">
