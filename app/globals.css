@@ -431,8 +431,9 @@ img, svg { display: block; max-width: 100%; }
 .hud__tr, .hud__br { color: var(--volt); }
 .hud__brand { gap: clamp(10px, 1vw, 16px); }
 .hud__brand::before { display: none; }
-.hud__brand-ico { width: clamp(3.4rem, 8vw, 6rem); height: clamp(3.4rem, 8vw, 6rem); display: block; border-radius: 22%; }
-.hud__brand-txt { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.6rem, 6.5vw, 5rem); letter-spacing: 0.01em; text-transform: none; color: #ff7a2f; line-height: 1; }
+/* 브랜드 원본 로고 자산(오렌지) 그대로 사용 — 아이콘은 라운드/투명이 이미 포함됨. */
+.hud__brand-ico { height: clamp(3.4rem, 8vw, 6rem); width: auto; display: block; }
+.hud__brand-txt { height: clamp(1.8rem, 4.4vw, 3.4rem); width: auto; display: block; }
 
 /* ---------- 에디토리얼 2단 섹션 헤더 ---------- */
 .section__head--split { display: grid; grid-template-columns: 220px 1fr; gap: 24px 40px; align-items: start; max-width: none; }
