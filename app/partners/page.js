@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { LINKS, reserveHref } from "../lib/site";
+import { partnerMailHref, reserveHref } from "../lib/site";
 
 export const metadata = {
   title: "Partners — PICKLEBOX",
@@ -78,7 +78,7 @@ export default function Partners() {
               <p>제휴·협업 제안을 남겨주시면 담당자가 검토 후 연락드립니다. 브랜드·공간·셀럽·글로벌 모두 환영합니다.</p>
             </div>
             <div className="join__actions">
-              <a href={LINKS.instagram[0].url} target="_blank" rel="noopener" className="btn btn--lime">
+              <a href={partnerMailHref} className="btn btn--lime">
                 제휴 제안하기 <Arrow />
               </a>
               <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--ghost">방문·상담</a>

@@ -10,13 +10,36 @@ export const metadata = {
   description: "피클볼 컬처, 가이드, 이벤트 비하인드. 피클박스가 전하는 이야기.",
 };
 
-// 저널 아티클 — [준비 중] 실제 발행 시 교체.
+const ytLink = (id) => `https://youtu.be/${id}`;
+const ytThumb = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+
+// 저널 아티클 — 기사/영상 링크. soon은 발행 예정.
 const POSTS = [
-  { cat: "Culture", title: "피클볼이 서울의 새로운 컬처가 되기까지", date: "[준비 중]" },
-  { cat: "Guide", title: "처음 피클볼, 5분이면 시작하는 법", date: "[준비 중]" },
-  { cat: "Event", title: "셀럽 피클볼 오픈 비하인드", date: "[준비 중]" },
-  { cat: "Interview", title: "조민정 대표가 그리는 피클박스", date: "[준비 중]" },
-  { cat: "Goods", title: "패들 고르는 법 — 입문자를 위한 가이드", date: "[준비 중]" },
+  {
+    cat: "Culture",
+    title: "피클볼이 서울의 새로운 컬처가 되기까지",
+    article: { url: "https://v.daum.net/v/32pHevoMy5", source: "다음 뉴스" },
+  },
+  {
+    cat: "Guide",
+    title: "처음 피클볼, 5분이면 시작하는 법",
+    videos: ["5QIzcd2lmPA"],
+  },
+  {
+    cat: "Event",
+    title: "셀럽 피클볼 오픈 비하인드",
+    videos: ["kXbj82FYCEg", "MmUg3iDA9gE", "iZNW57gY7PU"],
+  },
+  {
+    cat: "Interview",
+    title: "조민정 대표가 그리는 피클박스",
+    videos: ["_xoRmKzH21M"],
+  },
+  {
+    cat: "Goods",
+    title: "패들 고르는 법 — 입문자를 위한 가이드",
+    soon: true,
+  },
 ];
 
 export default function Journal() {
@@ -26,23 +49,52 @@ export default function Journal() {
       <PageHero
         eyebrow="Journal"
         title="피클박스 저널."
-        lead="피클볼 컬처와 입문 가이드, 이벤트 비하인드까지 — 피클박스가 전하는 이야기를 곧 만나보세요."
+        lead="피클볼 컬처와 입문 가이드, 이벤트 비하인드까지 — 피클박스가 전하는 이야기."
       />
 
       <section className="section">
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Latest</div></div>
-            <div><h2 className="title">곧 발행됩니다.</h2></div>
+            <div><h2 className="title">기사와 영상으로 만나는 피클박스.</h2></div>
           </div>
-          <ul className="timeline">
-            {POSTS.map((p) => (
-              <li key={p.title}>
-                <span className="yr">{p.cat}</span>
-                <span className="ev"><b>{p.title}</b><span>{p.date}</span></span>
-              </li>
+
+          <div className="journal">
+            {POSTS.map((p, i) => (
+              <Reveal key={p.title} className="jcard" delay={(i % 3) * 60}>
+                <div className="jcard__meta">
+                  <span className="jcard__cat">{p.cat}</span>
+                  {p.soon && <span className="jcard__soon">준비 중</span>}
+                </div>
+                <h3 className="jcard__title">{p.title}</h3>
+
+                {p.article && (
+                  <a href={p.article.url} target="_blank" rel="noopener" className="jcard__go">
+                    {p.article.source}에서 기사 읽기 <Arrow />
+                  </a>
+                )}
+
+                {p.videos && (
+                  <div className="jcard__thumbs">
+                    {p.videos.map((v) => (
+                      <a
+                        key={v}
+                        href={ytLink(v)}
+                        target="_blank"
+                        rel="noopener"
+                        className="jthumb"
+                        aria-label={`${p.title} — 유튜브에서 보기`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={ytThumb(v)} alt="" loading="lazy" />
+                        <span className="jthumb__play" aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 

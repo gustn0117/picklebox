@@ -3,6 +3,8 @@ export const LINKS = {
   store: "https://smartstore.naver.com/joytennis",
   // 네이버 예약·문의 링크(네이버 플레이스). 예약·문의·오시는 길 버튼이 모두 이 링크로 연결된다.
   reserve: "https://naver.me/FCAfFuDm",
+  // 제휴·협업 제안 메일 수신처.
+  email: "minjung93@naver.com",
   instagram: [
     { handle: "@picklebox.official", url: "https://instagram.com/picklebox.official", label: "피클박스 공식" },
     { handle: "@tennis_cmj", url: "https://instagram.com/tennis_cmj", label: "조민정" },
@@ -15,11 +17,14 @@ export const LINKS = {
 // 예약 링크 — reserve가 비어 있으면 인스타 DM으로 폴백.
 export const reserveHref = LINKS.reserve || LINKS.instagram[0].url;
 
-// 굿즈 판매처 — [URL]은 확보 후 교체.
+// 제휴 제안 메일 — 제목이 미리 채워진 메일 작성 화면으로 연결된다.
+export const partnerMailHref = `mailto:${LINKS.email}?subject=${encodeURIComponent("[PICKLEBOX] 제휴·협업 제안")}`;
+
+// 굿즈 판매처.
 export const SHOPS = [
   { name: "네이버 스마트스토어", url: LINKS.store },
-  { name: "더카트", url: "" },
-  { name: "테니스메트로", url: "" },
+  { name: "더카트", url: "https://www.thecart.co.kr/Brand/501020224051" },
+  { name: "테니스메트로", url: "https://www.tennismetro.co.kr/goods/goods_list.php?brandCd=034" },
 ];
 
 // 상단 내비게이션 — 레퍼런스와 동일 구성.
