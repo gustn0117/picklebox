@@ -40,9 +40,7 @@ export default function Home() {
         <div className="hud" aria-hidden="true">
           <span className="hud__c hud__tl hud__brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/pb-icon-orange.png" alt="" className="hud__brand-ico" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/pb-wordmark-orange.png" alt="" className="hud__brand-txt" />
+            <img src="/pb-logo-orange.png" alt="" className="hud__brand-logo" />
           </span>
           <span className="hud__c hud__tr">REC ●</span>
           <span className="hud__c hud__bl">EST. 2026</span>
@@ -51,7 +49,7 @@ export default function Home() {
         <div className="wrap hero__inner">
           <div className="eyebrow hero__eyebrow">Premium Pickleball Club · Seoul</div>
           <h1 className="hero__title">PICKLEBOX</h1>
-          <div className="hero__accent">Play the Joy.</div>
+          <div className="hero__accent">Open the Box, Play the Joy.</div>
           <p className="hero__ko">피클박스는 즐거움을 여는 선물상자입니다.<br />피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.</p>
         </div>
         <div className="ticker">
