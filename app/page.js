@@ -40,7 +40,9 @@ export default function Home() {
         <div className="hud" aria-hidden="true">
           <span className="hud__c hud__tl hud__brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/pb-logo-orange.png" alt="" className="hud__brand-logo" />
+            <img src="/pb-icon-orange.png" alt="" className="hud__brand-ico" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/pb-wordmark-orange.png" alt="" className="hud__brand-txt" />
           </span>
           <span className="hud__c hud__tr">REC ●</span>
           <span className="hud__c hud__bl">EST. 2026</span>
