@@ -1,0 +1,116 @@
+// PICKLEBOX CMS 데이터 모델. SQLite + Prisma.
+generator client {
+  provider = "prisma-client-js"
+  // 로컬(native) + Docker alpine 런타임(openssl 3.0.x musl) 엔진 모두 생성
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 각 페이지 상단/메인 배너 이미지 + 문구
+model Banner {
+  id        Int      @id @default(autoincrement())
+  page      String   @default("home") // home, about, events ...
+  imageUrl  String?
+  title     String?
+  subtitle  String?
+  linkUrl   String?
+  visible   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 이벤트 (라인업 + 일정)
+model Event {
+  id          Int      @id @default(autoincrement())
+  kind        String   @default("lineup") // lineup | schedule
+  titleEn     String?
+  titleKo     String
+  description String   @default("")
+  period      String?  // 예: 상반기, 매월, 상시
+  imageUrl    String?
+  visible     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 아카데미 프로그램
+model AcademyProgram {
+  id          Int      @id @default(autoincrement())
+  titleEn     String?
+  titleKo     String
+  description String   @default("")
+  imageUrl    String?
+  visible     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 여행 상품 (소개 전용: 이미지 + 설명 + 외부 링크)
+model Tour {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @default("")
+  period      String?
+  imageUrl    String?
+  linkUrl     String?
+  visible     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 굿즈 (소개 + 구매 링크)
+model Goods {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @default("")
+  imageUrl    String?
+  buyUrl      String   @default("")
+  visible     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 저널 (기사 링크 또는 유튜브 영상)
+model JournalPost {
+  id         Int      @id @default(autoincrement())
+  category   String   @default("Culture")
+  title      String
+  type       String   @default("article") // article | video | soon
+  articleUrl String?
+  videoIds   String   @default("[]") // JSON 배열 문자열 (유튜브 ID 목록)
+  soon       Boolean  @default(false)
+  visible    Boolean  @default(true)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// 사진 / 갤러리
+model Photo {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  caption   String?
+  album     String?
+  visible   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 핵심 문구 (섹션 제목/설명 등 편집 가능한 주요 텍스트) key-value
+model SiteCopy {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique // 예: hero.tagline
+  label     String   // 관리자 표시명
+  value     String   @default("")
+  updatedAt DateTime @updatedAt
+}
