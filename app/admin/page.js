@@ -1,16 +1,31 @@
-// 관리자 대시보드 (Task 4.9에서 콘텐츠 카드로 확장 예정)
+import Link from "next/link";
+import { db } from "../lib/db";
+import { MODEL_LIST } from "../lib/adminModels";
+import AdminTopbar from "./components/AdminTopbar";
+
 export const dynamic = "force-dynamic";
 
-export default function AdminHome() {
+export default async function AdminHome() {
+  const counts = {};
+  for (const m of MODEL_LIST) {
+    try { counts[m.slug] = await db[m.prisma].count(); } catch { counts[m.slug] = 0; }
+  }
   return (
-    <div style={{ padding: 40, fontFamily: "'Pretendard Variable', Pretendard, sans-serif" }}>
-      <h1 style={{ color: "#ff7a2f" }}>PICKLEBOX 관리자</h1>
-      <p>로그인되었습니다.</p>
-      <form action="/api/admin/logout" method="post">
-        <button type="submit" style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid #ccc", cursor: "pointer" }}>
-          로그아웃
-        </button>
-      </form>
-    </div>
+    <>
+      <AdminTopbar />
+      <div className="admin-wrap">
+        <h1 style={{ fontSize: 24, fontWeight: 800, marginTop: 10 }}>콘텐츠 관리</h1>
+        <p style={{ color: "#8a8a95", marginTop: 6 }}>관리할 항목을 선택하세요. 저장하면 실제 사이트에 바로 반영됩니다.</p>
+        <div className="a-cards">
+          {MODEL_LIST.map((m) => (
+            <Link key={m.slug} href={`/admin/${m.slug}`} className="a-card">
+              <div className="a-card__icon">{m.icon}</div>
+              <div className="a-card__label">{m.label}</div>
+              <div className="a-card__count">{counts[m.slug]}개 항목</div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

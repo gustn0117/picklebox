@@ -1,0 +1,63 @@
+/* 관리자 전용 스타일 — 사이트 본문과 분리된 밝고 단순한 폼 위주 UI */
+.admin-root {
+  min-height: 100vh;
+  background: #f4f4f7;
+  color: #1a1420;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.admin-wrap { max-width: 820px; margin: 0 auto; padding: 20px 18px 80px; }
+
+/* 상단바 */
+.a-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; background: #fff; border-bottom: 1px solid #e6e6ec; padding: 12px 18px; }
+.a-top__brand { font-weight: 800; color: #ff7a2f; letter-spacing: 0.03em; text-decoration: none; }
+.a-top__right { display: flex; gap: 8px; align-items: center; }
+.a-top a { text-decoration: none; }
+
+/* 대시보드 카드 */
+.a-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 22px; }
+.a-card { display: block; background: #fff; border: 1px solid #e6e6ec; border-radius: 14px; padding: 20px; text-decoration: none; color: inherit; transition: transform .12s, box-shadow .12s; }
+.a-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.a-card__icon { font-size: 26px; }
+.a-card__label { font-weight: 700; font-size: 17px; margin-top: 8px; }
+.a-card__count { color: #8a8a95; font-size: 13px; margin-top: 2px; }
+
+/* 목록 페이지 */
+.a-head { display: flex; align-items: center; justify-content: space-between; margin: 20px 0 14px; }
+.a-head h1 { font-size: 22px; font-weight: 800; }
+.a-list { display: flex; flex-direction: column; gap: 10px; }
+.a-empty { color: #8a8a95; background: #fff; border: 1px dashed #d8d8e0; border-radius: 12px; padding: 28px; text-align: center; }
+
+.a-row { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #e6e6ec; border-radius: 12px; padding: 12px 14px; }
+.a-row--hidden { opacity: .55; }
+.a-thumb { width: 54px; height: 54px; border-radius: 8px; object-fit: cover; flex: none; background: #f0f0f4; }
+.a-thumb--empty { display: grid; place-items: center; font-size: 22px; color: #bbb; }
+.a-row__body { flex: 1; min-width: 0; }
+.a-row__title { font-weight: 700; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.a-row__sub { color: #9a9aa4; font-size: 12px; margin-top: 2px; }
+.a-row__actions { display: flex; gap: 6px; align-items: center; flex: none; }
+
+/* 버튼 */
+.a-btn { padding: 7px 12px; border-radius: 8px; border: 1px solid #d5d5dd; background: #fff; color: #333; font-size: 13px; font-weight: 600; cursor: pointer; }
+.a-btn:hover { background: #f6f6f9; }
+.a-btn--primary { background: #009eae; border-color: #009eae; color: #fff; }
+.a-btn--primary:hover { background: #008695; }
+.a-btn--danger { color: #d3453b; border-color: #eecccc; }
+.a-btn--danger:hover { background: #fdf1f1; }
+.a-icon { width: 34px; height: 34px; border-radius: 8px; border: 1px solid #e2e2e8; background: #fff; cursor: pointer; font-size: 14px; line-height: 1; }
+.a-icon:hover { background: #f6f6f9; }
+.a-icon:disabled { opacity: .35; cursor: default; }
+
+/* 폼 */
+.a-form { background: #fff; border: 1px solid #d7ecef; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 6px 20px rgba(0,158,174,.06); }
+.a-form__title { font-weight: 800; margin-bottom: 12px; }
+.a-field { margin-bottom: 13px; display: flex; flex-direction: column; gap: 6px; }
+.a-field > label { font-size: 13px; font-weight: 600; color: #444; }
+.a-field input[type="text"], .a-field input[type="url"], .a-field textarea, .a-field select {
+  padding: 10px 12px; border: 1px solid #dcdce3; border-radius: 9px; font-size: 15px; font-family: inherit; outline: none; width: 100%; box-sizing: border-box; background: #fff;
+}
+.a-field textarea { resize: vertical; }
+.a-field input:focus, .a-field textarea:focus, .a-field select:focus { border-color: #009eae; }
+.a-check { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+.a-form__actions { display: flex; gap: 8px; margin-top: 6px; }
+.a-err { color: #d3453b; font-size: 13px; margin: 6px 0; }
