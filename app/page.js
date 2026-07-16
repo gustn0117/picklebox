@@ -32,9 +32,17 @@ const STEPS = [
 
 export default async function Home() {
   let copy = {};
+  let banners = [];
+  let photos = [];
   try {
-    const rows = await db.siteCopy.findMany();
+    const [rows, bnr, pho] = await Promise.all([
+      db.siteCopy.findMany(),
+      db.banner.findMany({ where: { page: "home", visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+      db.photo.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    ]);
     copy = Object.fromEntries(rows.map((c) => [c.key, c.value]));
+    banners = bnr.filter((b) => b.imageUrl); // 이미지 있는 배너만 노출
+    photos = pho;
   } catch {
     copy = {};
   }
@@ -81,6 +89,30 @@ export default async function Home() {
           </div>
         </div>
       </header>
+
+      {/* ── 프로모 배너 (관리자 콘텐츠) ── */}
+      {banners.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            {banners.map((b) => (
+              <a
+                key={b.id}
+                className="promo"
+                href={b.linkUrl || undefined}
+                target={b.linkUrl ? "_blank" : undefined}
+                rel={b.linkUrl ? "noopener" : undefined}
+                style={{ backgroundImage: `url(${b.imageUrl})` }}
+              >
+                <div className="promo__body">
+                  {b.title && <h2 className="promo__title">{b.title}</h2>}
+                  {b.subtitle && <p className="promo__sub">{b.subtitle}</p>}
+                  {b.linkUrl && <span className="promo__go">자세히 보기 <Arrow /></span>}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── 둘러보기(벤토) ── */}
       <section className="section" id="explore">
@@ -196,6 +228,30 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── 갤러리 (관리자 콘텐츠) ── */}
+      {photos.length > 0 && (
+        <section className="section section--alt">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div>
+                <div className="eyebrow">Gallery</div>
+                <span className="section__num">/ 04</span>
+              </div>
+              <h2 className="title title--ko">피클박스의 순간들.</h2>
+            </div>
+            <div className="gallery">
+              {photos.map((p) => (
+                <figure key={p.id} className="gallery__item">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.imageUrl} alt={p.caption || ""} loading="lazy" />
+                  {p.caption && <figcaption>{p.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── CTA 밴드 ── */}
       <section className="section join">

@@ -247,6 +247,26 @@ img, svg { display: block; max-width: 100%; }
   border: none;
   background: url("/pb-logomark2.png") center / 82% no-repeat;
 }
+/* ---------- CMS 콘텐츠 섹션 (아카데미·투어 카드 이미지 / 프로모 배너 / 갤러리) ---------- */
+.feat__img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-md); margin-bottom: 16px; border: 1px solid var(--line); display: block; }
+
+/* 프로모 배너 (관리자 Banner) */
+.promo { position: relative; display: block; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); background-size: cover; background-position: center; min-height: clamp(200px, 30vw, 340px); text-decoration: none; }
+.promo + .promo { margin-top: 16px; }
+.promo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(33,21,42,0.82) 0%, rgba(33,21,42,0.35) 60%, rgba(33,21,42,0.15) 100%); }
+.promo__body { position: relative; z-index: 1; padding: clamp(28px, 5vw, 56px); max-width: 640px; }
+.promo__title { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2.4rem); color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+.promo__sub { color: var(--ink-soft); margin-top: 10px; font-size: clamp(0.95rem, 1.6vw, 1.15rem); }
+.promo__go { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--volt); font-weight: 700; }
+
+/* 갤러리 (관리자 Photo) */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.gallery__item { position: relative; margin: 0; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
+.gallery__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+.gallery__item:hover img { transform: scale(1.05); }
+.gallery__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 14px 12px; font-size: 0.8rem; color: #fff; background: linear-gradient(0deg, rgba(0,0,0,0.6), transparent); }
+@media (prefers-reduced-motion: reduce) { .gallery__item img { transition: none; } .gallery__item:hover img { transform: none; } }
+
 /* ---------- 저널 (기사 · 영상 카드) ---------- */
 .journal { display: grid; gap: clamp(16px, 2vw, 26px); }
 .jcard {

@@ -5,6 +5,9 @@ import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { SUBBRANDS, reserveHref } from "../lib/site";
+import { db } from "../lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "피클박스 안내 — PICKLEBOX",
@@ -33,7 +36,11 @@ const TIMELINE = [
   { yr: "NOW", h: "컬처 플랫폼", p: "셀럽·커뮤니티·컬처를 잇는 피클볼 라이프스타일 플랫폼으로." },
 ];
 
-export default function About() {
+export default async function About() {
+  const [academy, tours] = await Promise.all([
+    db.academyProgram.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.tour.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+  ]);
   return (
     <>
       <Nav />
@@ -108,6 +115,60 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* ── 아카데미 프로그램 (관리자 콘텐츠) ── */}
+      {academy.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div><div className="eyebrow">Academy</div></div>
+              <div><h2 className="title title--sm">아카데미 프로그램</h2></div>
+            </div>
+            <div className="grid-3">
+              {academy.map((a, i) => (
+                <Reveal key={a.id} className="feat" delay={(i % 3) * 70}>
+                  {a.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="feat__img" src={a.imageUrl} alt="" loading="lazy" />
+                  )}
+                  <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                  <h3>{a.titleEn ? `${a.titleEn} · ` : ""}{a.titleKo}</h3>
+                  <p>{a.description}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── 피클볼 투어 (관리자 콘텐츠) ── */}
+      {tours.length > 0 && (
+        <section className="section section--alt">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div><div className="eyebrow">Tour</div></div>
+              <div><h2 className="title title--sm">피클볼 투어</h2></div>
+            </div>
+            <div className="grid-2">
+              {tours.map((t, i) => (
+                <Reveal key={t.id} className="feat" delay={(i % 2) * 80}>
+                  {t.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="feat__img" src={t.imageUrl} alt="" loading="lazy" />
+                  )}
+                  <h3>{t.title}{t.period ? ` · ${t.period}` : ""}</h3>
+                  <p>{t.description}</p>
+                  {t.linkUrl && (
+                    <a href={t.linkUrl} target="_blank" rel="noopener" className="btn btn--ghost" style={{ marginTop: 14 }}>
+                      자세히 보기 <Arrow />
+                    </a>
+                  )}
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 가치 ── */}
       <section className="section">
