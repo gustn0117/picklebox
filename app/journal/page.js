@@ -4,6 +4,9 @@ import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS } from "../lib/site";
+import { db } from "../lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Journal — PICKLEBOX",
@@ -13,36 +16,21 @@ export const metadata = {
 const ytLink = (id) => `https://youtu.be/${id}`;
 const ytThumb = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 
-// 저널 아티클 — 기사/영상 링크. soon은 발행 예정.
-const POSTS = [
-  {
-    cat: "Culture",
-    title: "피클볼이 서울의 새로운 컬처가 되기까지",
-    article: { url: "https://v.daum.net/v/32pHevoMy5", source: "다음 뉴스" },
-  },
-  {
-    cat: "Guide",
-    title: "처음 피클볼, 5분이면 시작하는 법",
-    videos: ["5QIzcd2lmPA"],
-  },
-  {
-    cat: "Event",
-    title: "셀럽 피클볼 오픈 비하인드",
-    videos: ["kXbj82FYCEg", "MmUg3iDA9gE", "iZNW57gY7PU"],
-  },
-  {
-    cat: "Interview",
-    title: "조민정 대표가 그리는 피클박스",
-    videos: ["_xoRmKzH21M"],
-  },
-  {
-    cat: "Goods",
-    title: "패들 고르는 법 — 입문자를 위한 가이드",
-    soon: true,
-  },
-];
+function parseVideos(raw) {
+  try {
+    const v = JSON.parse(raw || "[]");
+    return Array.isArray(v) ? v.filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+}
 
-export default function Journal() {
+export default async function Journal() {
+  const posts = await db.journalPost.findMany({
+    where: { visible: true },
+    orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
+  });
+
   return (
     <>
       <Nav />
@@ -60,40 +48,44 @@ export default function Journal() {
           </div>
 
           <div className="journal">
-            {POSTS.map((p, i) => (
-              <Reveal key={p.title} className="jcard" delay={(i % 3) * 60}>
-                <div className="jcard__meta">
-                  <span className="jcard__cat">{p.cat}</span>
-                  {p.soon && <span className="jcard__soon">준비 중</span>}
-                </div>
-                <h3 className="jcard__title">{p.title}</h3>
-
-                {p.article && (
-                  <a href={p.article.url} target="_blank" rel="noopener" className="jcard__go">
-                    {p.article.source}에서 기사 읽기 <Arrow />
-                  </a>
-                )}
-
-                {p.videos && (
-                  <div className="jcard__thumbs">
-                    {p.videos.map((v) => (
-                      <a
-                        key={v}
-                        href={ytLink(v)}
-                        target="_blank"
-                        rel="noopener"
-                        className="jthumb"
-                        aria-label={`${p.title} — 유튜브에서 보기`}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={ytThumb(v)} alt="" loading="lazy" />
-                        <span className="jthumb__play" aria-hidden="true" />
-                      </a>
-                    ))}
+            {posts.map((p, i) => {
+              const videos = p.type === "video" ? parseVideos(p.videoIds) : [];
+              const isSoon = p.soon || p.type === "soon";
+              return (
+                <Reveal key={p.id} className="jcard" delay={(i % 3) * 60}>
+                  <div className="jcard__meta">
+                    <span className="jcard__cat">{p.category}</span>
+                    {isSoon && <span className="jcard__soon">준비 중</span>}
                   </div>
-                )}
-              </Reveal>
-            ))}
+                  <h3 className="jcard__title">{p.title}</h3>
+
+                  {p.type === "article" && p.articleUrl && (
+                    <a href={p.articleUrl} target="_blank" rel="noopener" className="jcard__go">
+                      기사 원문 보기 <Arrow />
+                    </a>
+                  )}
+
+                  {videos.length > 0 && (
+                    <div className="jcard__thumbs">
+                      {videos.map((v) => (
+                        <a
+                          key={v}
+                          href={ytLink(v)}
+                          target="_blank"
+                          rel="noopener"
+                          className="jthumb"
+                          aria-label={`${p.title} — 유튜브에서 보기`}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={ytThumb(v)} alt="" loading="lazy" />
+                          <span className="jthumb__play" aria-hidden="true" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

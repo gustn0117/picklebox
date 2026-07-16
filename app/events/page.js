@@ -5,25 +5,23 @@ import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { reserveHref } from "../lib/site";
+import { db } from "../lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Events — PICKLEBOX",
   description: "셀럽·커뮤니티·컬처가 만나는 피클박스 이벤트. 셀럽 매치, 오픈 토너먼트, 피클 파티까지.",
 };
 
-const LINEUP = [
-  { k: "Celebrity Match", ko: "셀럽 매치", p: "방송인·인플루언서와 함께하는 이벤트 매치. 관전과 참여를 동시에." },
-  { k: "Open Tournament", ko: "오픈 토너먼트", p: "레벨별로 겨루는 정식 토너먼트. 초보부터 상급까지 누구나." },
-  { k: "PICKLEBOX Party", ko: "피클박스 파티", p: "경기 후 이어지는 브랜드 파티. 음악·굿즈·네트워킹까지." },
-];
+export default async function Events() {
+  const events = await db.event.findMany({
+    where: { visible: true },
+    orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
+  });
+  const lineup = events.filter((e) => e.kind === "lineup");
+  const schedule = events.filter((e) => e.kind === "schedule");
 
-const SCHEDULE = [
-  { yr: "[상반기]", h: "Seoul Celebrity Open", p: "광나루 · 셀럽 초청 오픈 매치 · [일정·라인업 공개 예정]" },
-  { yr: "[매월]", h: "Monthly Open Match", p: "정기 오픈 매치 · 레벨별 참가 · 커뮤니티 랭킹" },
-  { yr: "[수시]", h: "Pickle Party Night", p: "브랜드 파티 · 음악 · 네트워킹" },
-];
-
-export default function Events() {
   return (
     <>
       <Nav />
@@ -55,41 +53,45 @@ export default function Events() {
       </section>
 
       {/* ── 라인업 ── */}
-      <section className="section section--alt">
-        <div className="wrap">
-          <div className="section__head section__head--split">
-            <div><div className="eyebrow">Lineup</div></div>
-            <div><h2 className="title">세 가지 방식으로 즐기는 이벤트.</h2></div>
+      {lineup.length > 0 && (
+        <section className="section section--alt">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div><div className="eyebrow">Lineup</div></div>
+              <div><h2 className="title">이렇게 즐기는 이벤트.</h2></div>
+            </div>
+            <div className="grid-2">
+              {lineup.map((e, i) => (
+                <Reveal key={e.id} className="feat" delay={(i % 2) * 80}>
+                  <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                  <h3>{e.titleEn ? `${e.titleEn} · ` : ""}{e.titleKo}</h3>
+                  <p>{e.description}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
-          <div className="grid-2">
-            {LINEUP.map((e, i) => (
-              <Reveal key={e.k} className="feat" delay={(i % 2) * 80}>
-                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
-                <h3>{e.k} · {e.ko}</h3>
-                <p>{e.p}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── 일정 ── */}
-      <section className="section">
-        <div className="wrap">
-          <div className="section__head section__head--split">
-            <div><div className="eyebrow">Schedule</div></div>
-            <div><h2 className="title">다가오는 일정.</h2></div>
+      {schedule.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div><div className="eyebrow">Schedule</div></div>
+              <div><h2 className="title">다가오는 일정.</h2></div>
+            </div>
+            <ul className="timeline">
+              {schedule.map((t) => (
+                <li key={t.id}>
+                  <span className="yr">{t.period ? `[${t.period}]` : ""}</span>
+                  <span className="ev"><b>{t.titleKo}</b><span>{t.description}</span></span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="timeline">
-            {SCHEDULE.map((t) => (
-              <li key={t.h}>
-                <span className="yr">{t.yr}</span>
-                <span className="ev"><b>{t.h}</b><span>{t.p}</span></span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── CTA ── */}
       <section className="section join">
