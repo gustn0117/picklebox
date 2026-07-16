@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
+import YtThumb from "../components/YtThumb";
 import { LINKS } from "../lib/site";
 import { db } from "../lib/db";
 
@@ -14,7 +15,6 @@ export const metadata = {
 };
 
 const ytLink = (id) => `https://youtu.be/${id}`;
-const ytThumb = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 
 function parseVideos(raw) {
   try {
@@ -76,8 +76,7 @@ export default async function Journal() {
                           className="jthumb"
                           aria-label={`${p.title} — 유튜브에서 보기`}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={ytThumb(v)} alt="" loading="lazy" />
+                          <YtThumb id={v} />
                           <span className="jthumb__play" aria-hidden="true" />
                         </a>
                       ))}

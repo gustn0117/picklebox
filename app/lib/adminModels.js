@@ -73,7 +73,7 @@ export const MODELS = {
       { key: "title", label: "제목", type: "text", required: true },
       { key: "type", label: "형태", type: "select", options: [{ v: "article", t: "기사 링크" }, { v: "video", t: "유튜브 영상" }, { v: "soon", t: "준비 중" }] },
       { key: "articleUrl", label: "기사 링크(형태=기사)", type: "url" },
-      { key: "videoIds", label: "유튜브 영상 ID(형태=영상, 줄바꿈/쉼표로 여러 개)", type: "videoIds" },
+      { key: "videoIds", label: "유튜브 영상 (형태=영상 · 여러 개는 줄바꿈)", type: "videoIds", placeholder: "유튜브 주소를 그대로 붙여넣으세요\nhttps://youtu.be/5QIzcd2lmPA?si=... → 자동으로 정리됩니다" },
       { key: "soon", label: "준비 중 배지", type: "checkbox" },
     ],
   },
@@ -104,13 +104,26 @@ export function getModel(slug) {
   return MODELS[slug] || null;
 }
 
+// 유튜브 주소를 어떤 형태로 붙여넣어도 11자리 영상 ID만 뽑아낸다.
+// 지원: 순수 ID / youtu.be/ID / watch?v=ID / embed·shorts·live/ID / 뒤에 ?si=·&t= 등이 붙은 경우
+export function extractYouTubeId(raw) {
+  const s = String(raw || "").trim();
+  if (!s) return null;
+  let m = s.match(/[?&]v=([A-Za-z0-9_-]{11})/); // watch?v=ID
+  if (m) return m[1];
+  m = s.match(/(?:youtu\.be\/|\/embed\/|\/shorts\/|\/live\/)([A-Za-z0-9_-]{11})/); // youtu.be/ID 등
+  if (m) return m[1];
+  m = s.match(/([A-Za-z0-9_-]{11})/); // 그 외: 첫 11자리(뒤에 &t 같은 꼬리표가 붙어도 안전)
+  return m ? m[1] : null;
+}
+
 // 폼 값 → DB 저장값 강제 변환(필드 타입 기준).
 export function coerceValue(field, raw) {
   if (field.type === "checkbox") return raw === true || raw === "true" || raw === "on" || raw === 1;
   if (field.type === "videoIds") {
-    if (Array.isArray(raw)) return JSON.stringify(raw.filter(Boolean));
-    const ids = String(raw || "").split(/[\s,]+/).map((s) => s.trim()).filter(Boolean);
-    return JSON.stringify(ids);
+    const list = Array.isArray(raw) ? raw : String(raw || "").split(/[\s,]+/);
+    const ids = list.map(extractYouTubeId).filter(Boolean);
+    return JSON.stringify([...new Set(ids)]); // 중복 제거
   }
   const s = raw == null ? "" : String(raw);
   return s;
