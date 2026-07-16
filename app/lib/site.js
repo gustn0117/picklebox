@@ -31,10 +31,10 @@ export const SHOPS = [
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About PICKLEBOX" },
-  { href: "/events", label: "Events" },
-  { href: "/founder", label: "Play with Minjung" },
+  { href: "/founder", label: "About CEO" },
   { href: "/community", label: "Global Community" },
   { href: "/partners", label: "Partners" },
+  { href: "/events", label: "Events" },
   { href: "/journal", label: "Journal" },
   { href: "/visit", label: "Contact" },
 ];
