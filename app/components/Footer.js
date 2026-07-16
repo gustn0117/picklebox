@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { LINKS, BUSINESS, SHOPS } from "../lib/site";
+import { LINKS, BUSINESS } from "../lib/site";
+import { db } from "../lib/db";
 
 function IgIcon() {
   return (
@@ -21,7 +22,14 @@ function YtIcon() {
 }
 
 // 전 페이지 공유 푸터 — 외부 링크(스토어·인스타·유튜브·지도) 집약 + 사업자 정보.
-export default function Footer() {
+// 굿즈 판매처는 관리자(CMS)에서 관리되는 Goods를 읽어 표시.
+export default async function Footer() {
+  let shops = [];
+  try {
+    shops = await db.goods.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] });
+  } catch {
+    shops = [];
+  }
   return (
     <footer className="footer">
       <div className="wrap">
@@ -50,8 +58,8 @@ export default function Footer() {
           <div>
             <h4>Shop & Visit</h4>
             <div className="footer__links">
-              {SHOPS.map((s) => (
-                <a key={s.name} href={s.url || "#"} target="_blank" rel="noopener">{s.name}</a>
+              {shops.map((s) => (
+                <a key={s.id} href={s.buyUrl || "#"} target="_blank" rel="noopener">{s.name}</a>
               ))}
               <Link href="/visit">오시는 길</Link>
               <Link href="/visit">예약 · 문의</Link>

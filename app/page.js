@@ -6,6 +6,9 @@ import Court from "./components/Court";
 import Arrow from "./components/Arrow";
 import CountUp from "./components/CountUp";
 import { reserveHref } from "./lib/site";
+import { db } from "./lib/db";
+
+export const dynamic = "force-dynamic";
 
 const STATS = [
   { n: 45, pad: 0, u: "MIN", l: "한 게임의 온도" },
@@ -27,7 +30,19 @@ const STEPS = [
   { s: "STEP 03", h: "플레이", p: "패들과 공은 준비되어 있습니다. 처음이라면 레슨과 함께 첫날부터 랠리를." },
 ];
 
-export default function Home() {
+export default async function Home() {
+  let copy = {};
+  try {
+    const rows = await db.siteCopy.findMany();
+    copy = Object.fromEntries(rows.map((c) => [c.key, c.value]));
+  } catch {
+    copy = {};
+  }
+  const c = (k, d) => (copy[k] && copy[k].trim() ? copy[k] : d);
+  const heroEyebrow = c("hero.eyebrow", "Premium Pickleball Club · Seoul");
+  const heroLine1 = c("hero.tagline1", "피클박스는 즐거움을 여는 선물상자입니다.");
+  const heroLine2 = c("hero.tagline2", "피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.");
+
   return (
     <>
       <span id="top" />
@@ -49,10 +64,10 @@ export default function Home() {
           <span className="hud__c hud__br">SEOUL · KR</span>
         </div>
         <div className="wrap hero__inner">
-          <div className="eyebrow hero__eyebrow">Premium Pickleball Club · Seoul</div>
+          <div className="eyebrow hero__eyebrow">{heroEyebrow}</div>
           <h1 className="hero__title">PICKLEBOX</h1>
           <div className="hero__accent">Open the Box, Play the Joy.</div>
-          <p className="hero__ko">피클박스는 즐거움을 여는 선물상자입니다.<br />피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.</p>
+          <p className="hero__ko">{heroLine1}<br />{heroLine2}</p>
         </div>
         <div className="ticker">
           <div className="wrap ticker__inner">
