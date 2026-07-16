@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "../lib/db";
 import { MODEL_LIST } from "../lib/adminModels";
 import AdminTopbar from "./components/AdminTopbar";
+import Icon from "./components/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function AdminHome() {
         <div className="a-cards">
           {MODEL_LIST.map((m) => (
             <Link key={m.slug} href={`/admin/${m.slug}`} className="a-card">
-              <div className="a-card__icon">{m.icon}</div>
+              <div className="a-card__icon"><Icon name={m.icon} size={28} /></div>
               <div className="a-card__label">{m.label}</div>
               <div className="a-card__count">{counts[m.slug]}개 항목</div>
             </Link>

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ImageUpload from "./ImageUpload";
+import Icon from "./Icon";
 
 const api = (slug, path = "") => `/api/admin/${slug}${path}`;
 
@@ -69,7 +70,7 @@ export default function AdminList({ slug, config, initialRows }) {
   return (
     <div>
       <div className="a-head">
-        <h1>{config.icon} {config.label}</h1>
+        <h1><Icon name={config.icon} size={22} /> {config.label}</h1>
         {config.canCreate && editing !== "new" && (
           <button className="a-btn a-btn--primary" onClick={startNew}>+ 새로 추가</button>
         )}
@@ -91,7 +92,7 @@ export default function AdminList({ slug, config, initialRows }) {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img className="a-thumb" src={row.imageUrl} alt="" />
                 ) : (
-                  <div className="a-thumb a-thumb--empty">{config.icon}</div>
+                  <div className="a-thumb a-thumb--empty"><Icon name={config.icon} size={22} /></div>
                 )}
                 <div className="a-row__body">
                   <div className="a-row__title">{row[config.titleKey] || "(제목 없음)"}</div>
@@ -100,13 +101,13 @@ export default function AdminList({ slug, config, initialRows }) {
                 <div className="a-row__actions">
                   {config.hasVisible && (
                     <button className="a-icon" title={row.visible ? "노출 중(끄기)" : "숨김(켜기)"} onClick={() => toggle(row)}>
-                      {row.visible ? "👁️" : "🚫"}
+                      <Icon name={row.visible ? "eye" : "eyeOff"} size={17} />
                     </button>
                   )}
                   {config.ordered && (
                     <>
-                      <button className="a-icon" title="위로" onClick={() => move(row, "up")} disabled={i === 0}>▲</button>
-                      <button className="a-icon" title="아래로" onClick={() => move(row, "down")} disabled={i === rows.length - 1}>▼</button>
+                      <button className="a-icon" title="위로" onClick={() => move(row, "up")} disabled={i === 0}><Icon name="up" size={16} /></button>
+                      <button className="a-icon" title="아래로" onClick={() => move(row, "down")} disabled={i === rows.length - 1}><Icon name="down" size={16} /></button>
                     </>
                   )}
                   <button className="a-btn" onClick={() => startEdit(row)}>수정</button>

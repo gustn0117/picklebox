@@ -6,7 +6,7 @@
 
 export const MODELS = {
   banner: {
-    slug: "banner", prisma: "banner", label: "배너", icon: "🖼️",
+    slug: "banner", prisma: "banner", label: "배너", icon: "banner",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "title", subKey: "page",
     fields: [
@@ -18,7 +18,7 @@ export const MODELS = {
     ],
   },
   events: {
-    slug: "events", prisma: "event", label: "이벤트", icon: "🎉",
+    slug: "events", prisma: "event", label: "이벤트", icon: "events",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "titleKo", subKey: "kind",
     fields: [
@@ -31,7 +31,7 @@ export const MODELS = {
     ],
   },
   academy: {
-    slug: "academy", prisma: "academyProgram", label: "아카데미", icon: "🎓",
+    slug: "academy", prisma: "academyProgram", label: "아카데미", icon: "academy",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "titleKo", subKey: "titleEn",
     fields: [
@@ -42,7 +42,7 @@ export const MODELS = {
     ],
   },
   tours: {
-    slug: "tours", prisma: "tour", label: "여행 상품", icon: "✈️",
+    slug: "tours", prisma: "tour", label: "여행 상품", icon: "tours",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "title", subKey: "period",
     fields: [
@@ -54,7 +54,7 @@ export const MODELS = {
     ],
   },
   goods: {
-    slug: "goods", prisma: "goods", label: "굿즈", icon: "🛍️",
+    slug: "goods", prisma: "goods", label: "굿즈", icon: "goods",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "name", subKey: "buyUrl",
     fields: [
@@ -65,7 +65,7 @@ export const MODELS = {
     ],
   },
   journal: {
-    slug: "journal", prisma: "journalPost", label: "저널", icon: "📰",
+    slug: "journal", prisma: "journalPost", label: "저널", icon: "journal",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "title", subKey: "category",
     fields: [
@@ -78,7 +78,7 @@ export const MODELS = {
     ],
   },
   photos: {
-    slug: "photos", prisma: "photo", label: "사진/갤러리", icon: "📷",
+    slug: "photos", prisma: "photo", label: "사진/갤러리", icon: "photos",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "caption", subKey: "album",
     fields: [
@@ -88,7 +88,7 @@ export const MODELS = {
     ],
   },
   copy: {
-    slug: "copy", prisma: "siteCopy", label: "핵심 문구", icon: "✏️",
+    slug: "copy", prisma: "siteCopy", label: "핵심 문구", icon: "copy",
     ordered: false, hasVisible: false, canCreate: false, canDelete: false,
     titleKey: "label", subKey: "key",
     fields: [

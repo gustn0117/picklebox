@@ -18,13 +18,14 @@
 .a-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 22px; }
 .a-card { display: block; background: #fff; border: 1px solid #e6e6ec; border-radius: 14px; padding: 20px; text-decoration: none; color: inherit; transition: transform .12s, box-shadow .12s; }
 .a-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
-.a-card__icon { font-size: 26px; }
+.a-card__icon { color: #009eae; height: 28px; }
 .a-card__label { font-weight: 700; font-size: 17px; margin-top: 8px; }
 .a-card__count { color: #8a8a95; font-size: 13px; margin-top: 2px; }
 
 /* 목록 페이지 */
 .a-head { display: flex; align-items: center; justify-content: space-between; margin: 20px 0 14px; }
-.a-head h1 { font-size: 22px; font-weight: 800; }
+.a-head h1 { font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.a-head h1 svg { color: #009eae; }
 .a-list { display: flex; flex-direction: column; gap: 10px; }
 .a-empty { color: #8a8a95; background: #fff; border: 1px dashed #d8d8e0; border-radius: 12px; padding: 28px; text-align: center; }
 
@@ -44,7 +45,8 @@
 .a-btn--primary:hover { background: #008695; }
 .a-btn--danger { color: #d3453b; border-color: #eecccc; }
 .a-btn--danger:hover { background: #fdf1f1; }
-.a-icon { width: 34px; height: 34px; border-radius: 8px; border: 1px solid #e2e2e8; background: #fff; cursor: pointer; font-size: 14px; line-height: 1; }
+.a-btn--icon { display: inline-flex; align-items: center; gap: 5px; }
+.a-icon { width: 34px; height: 34px; border-radius: 8px; border: 1px solid #e2e2e8; background: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: #555; }
 .a-icon:hover { background: #f6f6f9; }
 .a-icon:disabled { opacity: .35; cursor: default; }
 
