@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: picklebox
+    restart: unless-stopped
+    ports:
+      - "3080:3000"
+    volumes:
+      - /home/server/apps/picklebox/persistent-data:/app/data
+    # 시크릿(ADMIN_PASSWORD·SESSION_SECRET 등)은 서버의 .env.production 에 보관(레포 미포함)
+    env_file:
+      - .env.production

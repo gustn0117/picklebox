@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env
+.env.local
+dev.db
+prisma/dev.db
+prisma/*.db
+persistent-data
+*.log
+로고폴더
+0704.jpg
+사업자등록증.pdf
+docs
