@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { db } from "../lib/db";
 import { getCopy, pick } from "../lib/copy";
+import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +55,7 @@ export default async function Tours() {
                           <span className="tour-card__price">{t.price.toLocaleString()}원</span>
                         )}
                       </div>
-                      {t.description && <p className="tour-card__desc">{t.description}</p>}
+                      {t.description && <RichHtml text={t.description} className="tour-card__desc" />}
                       {days.length > 0 && (
                         <ul className="tour-card__days">
                           {days.map((d, k) => (

@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { db } from "../lib/db";
 import { getCopy, pick } from "../lib/copy";
+import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,7 @@ export default async function Goods() {
                   </div>
                   <div className="shop-card__body">
                     <h3 className="shop-card__name">{g.name}</h3>
-                    {g.description && <p className="shop-card__desc">{g.description}</p>}
+                    {g.description && <RichHtml text={g.description} className="shop-card__desc" />}
                     <div className="shop-card__foot">
                       {typeof g.price === "number" && (
                         <span className="shop-card__price">{g.price.toLocaleString()}원</span>

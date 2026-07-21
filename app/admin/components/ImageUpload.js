@@ -1,13 +1,22 @@
 "use client";
 import { useState, useRef } from "react";
+import ImageCropper from "./ImageCropper";
 
 // 이미지 업로드 필드 — 파일 선택/드래그 → 업로드 → 미리보기. value(url)를 onChange로 부모에 전달.
-export default function ImageUpload({ name, value = "", onChange, label = "이미지", hint }) {
+export default function ImageUpload({ name, value = "", onChange, label = "이미지", hint, aspect }) {
   const [url, setUrl] = useState(value || "");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const [drag, setDrag] = useState(false);
+  const [pending, setPending] = useState(null); // 자르기 대기 파일
   const inputRef = useRef(null);
+
+  // 파일을 고르면 먼저 자르기 팝업을 띄운다(비율이 정해진 경우).
+  function choose(file) {
+    if (!file) return;
+    if (aspect) setPending(file);
+    else upload(file);
+  }
 
   async function upload(file) {
     if (!file) return;
@@ -41,7 +50,7 @@ export default function ImageUpload({ name, value = "", onChange, label = "이�
       <div
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
         onDragLeave={() => setDrag(false)}
-        onDrop={(e) => { e.preventDefault(); setDrag(false); upload(e.dataTransfer.files?.[0]); }}
+        onDrop={(e) => { e.preventDefault(); setDrag(false); choose(e.dataTransfer.files?.[0]); }}
         onClick={() => inputRef.current?.click()}
         style={{
           border: `2px dashed ${drag ? "#009eae" : "#d0d0d8"}`,
@@ -71,8 +80,16 @@ export default function ImageUpload({ name, value = "", onChange, label = "이�
           </button>
         )}
       </div>
-      <input ref={inputRef} type="file" accept="image/*" hidden onChange={(e) => upload(e.target.files?.[0])} />
+      <input ref={inputRef} type="file" accept="image/*" hidden onChange={(e) => choose(e.target.files?.[0])} />
       <input type="hidden" name={name} value={url} readOnly />
+      {pending && (
+        <ImageCropper
+          file={pending}
+          aspect={aspect}
+          onCancel={() => { setPending(null); if (inputRef.current) inputRef.current.value = ""; }}
+          onDone={(f) => { setPending(null); upload(f); }}
+        />
+      )}
     </div>
   );
 }

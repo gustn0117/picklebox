@@ -8,6 +8,7 @@ import { SUBBRANDS, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { getCopy, pick } from "../lib/copy";
 import Multiline from "../components/Multiline";
+import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
@@ -128,7 +129,7 @@ export default async function About() {
                   )}
                   <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
                   <h3>{a.titleEn ? `${a.titleEn} · ` : ""}{a.titleKo}</h3>
-                  <p>{a.description}</p>
+                  <RichHtml text={a.description} />
                 </Reveal>
               ))}
             </div>
@@ -152,7 +153,7 @@ export default async function About() {
                     <img className="feat__img" src={t.imageUrl} alt="" loading="lazy" />
                   )}
                   <h3>{t.title}{t.period ? ` · ${t.period}` : ""}</h3>
-                  <p>{t.description}</p>
+                  <RichHtml text={t.description} />
                   {t.linkUrl && (
                     <a href={t.linkUrl} target="_blank" rel="noopener" className="btn btn--ghost" style={{ marginTop: 14 }}>
                       자세히 보기 <Arrow />
