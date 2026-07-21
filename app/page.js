@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Nav from "./components/Nav";
+import Sections from "./components/Sections";
 import Footer from "./components/Footer";
 import Reveal from "./components/Reveal";
 import Court from "./components/Court";
@@ -119,6 +120,8 @@ export default async function Home({ searchParams }) {
           </div>
         </section>
       )}
+
+      <Sections page="home" position="top" preview={preview} />
 
       {/* ── 둘러보기(벤토) ── */}
       <section className="section" id="explore">
@@ -258,6 +261,8 @@ export default async function Home({ searchParams }) {
           </div>
         </section>
       )}
+
+      <Sections page="home" position="bottom" preview={preview} />
 
       {/* ── CTA 밴드 ── */}
       <section className="section join">

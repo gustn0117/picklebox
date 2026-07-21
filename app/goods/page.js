@@ -1,4 +1,5 @@
 import Nav from "../components/Nav";
+import Sections from "../components/Sections";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
@@ -31,6 +32,8 @@ export default async function Goods({ searchParams }) {
         title={pick(c, "goods.hero.title", "피클박스 굿즈.")}
         lead={pick(c, "goods.hero.lead", "코트 위에서도, 일상에서도. 피클박스가 고른 피클볼 굿즈를 만나보세요.")}
       />
+
+      <Sections page="goods" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -69,6 +72,8 @@ export default async function Goods({ searchParams }) {
           )}
         </div>
       </section>
+
+      <Sections page="goods" position="bottom" preview={preview} />
 
       <Footer />
     </>
