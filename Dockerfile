@@ -21,6 +21,8 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 # 스키마·초기데이터가 담긴 seed DB(최초 실행 시 볼륨으로 복사)
 COPY --from=builder /app/seed/picklebox.db ./seed-picklebox.db
+# 기존 운영 DB 스키마 반영(migrate) + 문구 upsert(seed) 스크립트. @prisma/client 는 standalone 에 포함됨.
+COPY --from=builder /app/prisma ./prisma
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 EXPOSE 3000
