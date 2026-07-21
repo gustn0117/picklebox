@@ -666,3 +666,11 @@ img, svg { display: block; max-width: 100%; }
   * { animation: none !important; transition: none !important; scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* 파트너 로고 그리드 (관리자 콘텐츠) */
+.partner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+.partner-card { display: grid; place-items: center; min-height: 110px; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); text-decoration: none; transition: border-color .2s, transform .2s; }
+a.partner-card:hover { border-color: var(--volt); transform: translateY(-2px); }
+.partner-card img { max-width: 100%; max-height: 56px; object-fit: contain; display: block; }
+.partner-card__name { font-family: var(--font-body); font-weight: 700; color: var(--ink-soft); font-size: .95rem; text-align: center; }
+@media (prefers-reduced-motion: reduce) { a.partner-card:hover { transform: none; } }
