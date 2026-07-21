@@ -11,7 +11,7 @@ export const MODELS = {
     titleKey: "title", subKey: "page",
     fields: [
       { key: "page", label: "페이지", type: "text", placeholder: "home / about / events …", required: true },
-      { key: "imageUrl", label: "이미지", type: "image" },
+      { key: "imageUrl", label: "배너 이미지", type: "image", hint: "가로 1920×800 권장 · 넣어야 배너가 노출됩니다" },
       { key: "title", label: "제목", type: "text" },
       { key: "subtitle", label: "부제목", type: "text" },
       { key: "linkUrl", label: "링크(선택)", type: "url" },
@@ -27,7 +27,7 @@ export const MODELS = {
       { key: "titleKo", label: "제목", type: "text", required: true },
       { key: "description", label: "설명", type: "textarea" },
       { key: "period", label: "시기(선택)", type: "text", placeholder: "상반기 / 매월 / 상시 …" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image" },
+      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×900 권장 (16:9)" },
     ],
   },
   academy: {
@@ -38,7 +38,7 @@ export const MODELS = {
       { key: "titleEn", label: "영문 제목(선택)", type: "text" },
       { key: "titleKo", label: "프로그램명", type: "text", required: true },
       { key: "description", label: "설명", type: "textarea" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image" },
+      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×1000 권장" },
     ],
   },
   tours: {
@@ -47,10 +47,13 @@ export const MODELS = {
     titleKey: "title", subKey: "period",
     fields: [
       { key: "title", label: "상품명", type: "text", required: true },
-      { key: "description", label: "설명", type: "textarea" },
-      { key: "period", label: "기간(선택)", type: "text" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image" },
-      { key: "linkUrl", label: "외부 링크(선택)", type: "url" },
+      { key: "description", label: "상세 설명", type: "textarea" },
+      { key: "period", label: "기간(선택)", type: "text", placeholder: "예: 3박 4일 / 2026 봄" },
+      { key: "schedule", label: "일정 (한 줄에 하나씩)", type: "textarea", placeholder: "1일차 — 인천 출발, 현지 도착\n2일차 — 오전 레슨, 오후 자유" },
+      { key: "imageUrl", label: "대표 이미지", type: "image", hint: "가로 1600×900 권장 (16:9)" },
+      { key: "price", label: "가격(원) — 비우면 표시 안 됨", type: "number", placeholder: "예: 1290000" },
+      { key: "bookingUrl", label: "예약 링크", type: "url" },
+      { key: "linkUrl", label: "참고 링크(선택)", type: "url" },
     ],
   },
   goods: {
@@ -60,8 +63,21 @@ export const MODELS = {
     fields: [
       { key: "name", label: "상품명", type: "text", required: true },
       { key: "description", label: "설명(선택)", type: "textarea" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image" },
+      { key: "imageUrl", label: "상품 이미지", type: "image", hint: "정사각형 800×800 권장 (1:1)" },
+      { key: "price", label: "가격(원) — 비우면 표시 안 됨", type: "number", placeholder: "예: 39000" },
       { key: "buyUrl", label: "구매 링크", type: "url" },
+      { key: "soldOut", label: "품절 표시", type: "checkbox" },
+    ],
+  },
+  partners: {
+    slug: "partners", prisma: "partner", label: "파트너", icon: "partners",
+    ordered: true, hasVisible: true, canCreate: true, canDelete: true,
+    titleKey: "name", subKey: "linkUrl",
+    fields: [
+      { key: "name", label: "파트너명", type: "text", required: true },
+      { key: "logoUrl", label: "로고", type: "image", hint: "가로 400×200 권장 · 배경 투명 PNG" },
+      { key: "linkUrl", label: "링크(선택)", type: "url" },
+      { key: "description", label: "설명(선택)", type: "textarea" },
     ],
   },
   journal: {
@@ -82,13 +98,13 @@ export const MODELS = {
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "caption", subKey: "album",
     fields: [
-      { key: "imageUrl", label: "이미지", type: "image", required: true },
+      { key: "imageUrl", label: "이미지", type: "image", required: true, hint: "가로 1200×900 권장 (4:3)" },
       { key: "caption", label: "캡션(선택)", type: "text" },
       { key: "album", label: "분류(선택)", type: "text" },
     ],
   },
   copy: {
-    slug: "copy", prisma: "siteCopy", label: "핵심 문구", icon: "copy",
+    slug: "copy", prisma: "siteCopy", label: "문구 · 사이트 정보", icon: "copy", grouped: true,
     ordered: false, hasVisible: false, canCreate: false, canDelete: false,
     titleKey: "label", subKey: "key",
     fields: [
@@ -119,6 +135,10 @@ export function extractYouTubeId(raw) {
 
 // 폼 값 → DB 저장값 강제 변환(필드 타입 기준).
 export function coerceValue(field, raw) {
+  if (field.type === "number") {
+    const n = parseInt(String(raw ?? "").replace(/[^0-9-]/g, ""), 10);
+    return Number.isFinite(n) ? n : null;
+  }
   if (field.type === "checkbox") return raw === true || raw === "true" || raw === "on" || raw === 1;
   if (field.type === "videoIds") {
     const list = Array.isArray(raw) ? raw : String(raw || "").split(/[\s,]+/);

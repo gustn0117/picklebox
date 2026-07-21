@@ -5,12 +5,18 @@ import Icon from "./Icon";
 
 const api = (slug, path = "") => `/api/admin/${slug}${path}`;
 
+// 문구 그룹 표시명 / 표시 순서
+const GROUP_LABELS = {
+  site: "사이트 정보", home: "홈", about: "소개", founder: "대표", community: "커뮤니티",
+  partners: "파트너", events: "이벤트", journal: "저널", visit: "오시는 길", goods: "굿즈", tours: "투어",
+};
+const GROUP_ORDER = Object.keys(GROUP_LABELS);
+
 function emptyForm(fields) {
   const f = {};
   for (const fl of fields) f[fl.key] = fl.type === "checkbox" ? false : "";
   return f;
 }
-// DB 레코드 → 폼 값
 function rowToForm(fields, row) {
   const f = {};
   for (const fl of fields) {
@@ -24,7 +30,7 @@ function rowToForm(fields, row) {
 
 export default function AdminList({ slug, config, initialRows }) {
   const [rows, setRows] = useState(initialRows);
-  const [editing, setEditing] = useState(null); // "new" | id | null
+  const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({});
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -67,6 +73,11 @@ export default function AdminList({ slug, config, initialRows }) {
     reload();
   }
 
+  // ── 문구·사이트 정보: 그룹 탭 + 인라인 편집
+  if (config.grouped) {
+    return <GroupedCopy slug={slug} config={config} rows={rows} onSaved={reload} />;
+  }
+
   return (
     <div>
       <div className="a-head">
@@ -88,14 +99,18 @@ export default function AdminList({ slug, config, initialRows }) {
               <FormCard title="수정" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} />
             ) : (
               <div className={`a-row${config.hasVisible && !row.visible ? " a-row--hidden" : ""}`}>
-                {row.imageUrl ? (
+                {row.imageUrl || row.logoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img className="a-thumb" src={row.imageUrl} alt="" />
+                  <img className="a-thumb" src={row.imageUrl || row.logoUrl} alt="" />
                 ) : (
                   <div className="a-thumb a-thumb--empty"><Icon name={config.icon} size={22} /></div>
                 )}
                 <div className="a-row__body">
-                  <div className="a-row__title">{row[config.titleKey] || "(제목 없음)"}</div>
+                  <div className="a-row__title">
+                    {row[config.titleKey] || "(제목 없음)"}
+                    {row.soldOut ? <span className="a-badge">품절</span> : null}
+                    {typeof row.price === "number" ? <span className="a-price">{row.price.toLocaleString()}원</span> : null}
+                  </div>
                   {config.subKey && row[config.subKey] ? <div className="a-row__sub">{String(row[config.subKey])}</div> : null}
                 </div>
                 <div className="a-row__actions">
@@ -122,6 +137,67 @@ export default function AdminList({ slug, config, initialRows }) {
   );
 }
 
+// ── 문구 · 사이트 정보 (그룹 탭 + 항목별 인라인 저장)
+function GroupedCopy({ slug, config, rows, onSaved }) {
+  const groups = GROUP_ORDER.filter((g) => rows.some((r) => r.group === g));
+  const [active, setActive] = useState(groups[0] || "site");
+  const list = rows.filter((r) => r.group === active).sort((a, b) => a.sortOrder - b.sortOrder);
+
+  return (
+    <div>
+      <div className="a-head">
+        <h1><Icon name={config.icon} size={22} /> {config.label}</h1>
+      </div>
+      <p className="a-hintline">수정할 페이지를 고른 뒤 문구를 바꾸고 저장하세요. 비워두면 기본 문구가 표시됩니다.</p>
+
+      <div className="a-tabs">
+        {groups.map((g) => (
+          <button key={g} className={`a-tab${g === active ? " a-tab--on" : ""}`} onClick={() => setActive(g)}>
+            {GROUP_LABELS[g] || g}
+          </button>
+        ))}
+      </div>
+
+      <div className="a-copylist">
+        {list.map((row) => <CopyRow key={row.id} slug={slug} row={row} onSaved={onSaved} />)}
+      </div>
+    </div>
+  );
+}
+
+function CopyRow({ slug, row, onSaved }) {
+  const [val, setVal] = useState(row.value ?? "");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const dirty = val !== (row.value ?? "");
+
+  async function save() {
+    setBusy(true); setDone(false);
+    const r = await fetch(api(slug, `/${row.id}`), {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ value: val }),
+    });
+    setBusy(false);
+    if (r.ok) { setDone(true); setTimeout(() => setDone(false), 1800); onSaved && onSaved(); }
+  }
+
+  return (
+    <div className="a-copyrow">
+      <div className="a-copyrow__head">
+        <label>{row.label}</label>
+        {dirty && <button className="a-btn a-btn--primary a-btn--sm" onClick={save} disabled={busy}>{busy ? "저장 중…" : "저장"}</button>}
+        {done && <span className="a-saved">저장됨</span>}
+      </div>
+      {row.kind === "textarea" ? (
+        <textarea rows={3} value={val} onChange={(e) => setVal(e.target.value)} />
+      ) : (
+        <input type={row.kind === "url" ? "url" : "text"} value={val} onChange={(e) => setVal(e.target.value)} />
+      )}
+    </div>
+  );
+}
+
 function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }) {
   return (
     <div className="a-form">
@@ -129,12 +205,12 @@ function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }
       {fields.map((f) => (
         <div className="a-field" key={f.key}>
           {f.type === "image" ? (
-            <ImageUpload name={f.key} label={f.label} value={form[f.key]} onChange={(url) => setField(f.key, url)} />
+            <ImageUpload name={f.key} label={f.label} hint={f.hint} value={form[f.key]} onChange={(url) => setField(f.key, url)} />
           ) : (
             <>
               <label>{f.label}</label>
               {f.type === "textarea" || f.type === "videoIds" ? (
-                <textarea rows={f.type === "videoIds" ? 3 : 3} value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} />
+                <textarea rows={3} value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} />
               ) : f.type === "select" ? (
                 <select value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)}>
                   <option value="">선택…</option>
@@ -142,6 +218,8 @@ function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }
                 </select>
               ) : f.type === "checkbox" ? (
                 <label className="a-check"><input type="checkbox" checked={!!form[f.key]} onChange={(e) => setField(f.key, e.target.checked)} /> 사용</label>
+              ) : f.type === "number" ? (
+                <input type="number" value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} />
               ) : (
                 <input type={f.type === "url" ? "url" : "text"} value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} readOnly={f.readOnly} />
               )}

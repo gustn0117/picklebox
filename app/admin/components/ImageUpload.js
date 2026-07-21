@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 
 // 이미지 업로드 필드 — 파일 선택/드래그 → 업로드 → 미리보기. value(url)를 onChange로 부모에 전달.
-export default function ImageUpload({ name, value = "", onChange, label = "이미지" }) {
+export default function ImageUpload({ name, value = "", onChange, label = "이미지", hint }) {
   const [url, setUrl] = useState(value || "");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -34,7 +34,10 @@ export default function ImageUpload({ name, value = "", onChange, label = "이�
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      <label style={{ fontSize: 13, fontWeight: 600, color: "#444" }}>{label}</label>
+      <label style={{ fontSize: 13, fontWeight: 600, color: "#444" }}>
+        {label}
+        {hint && <span style={{ fontWeight: 400, color: "#9a9aa4", marginLeft: 8, fontSize: 12 }}>{hint}</span>}
+      </label>
       <div
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
         onDragLeave={() => setDrag(false)}

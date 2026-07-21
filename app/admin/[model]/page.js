@@ -17,7 +17,7 @@ export default async function ModelAdmin({ params }) {
   // 클라이언트로 넘길 직렬화 가능 config
   const clientCfg = {
     slug: cfg.slug, label: cfg.label, icon: cfg.icon,
-    ordered: cfg.ordered, hasVisible: cfg.hasVisible,
+    ordered: cfg.ordered, hasVisible: cfg.hasVisible, grouped: !!cfg.grouped,
     canCreate: cfg.canCreate, canDelete: cfg.canDelete,
     titleKey: cfg.titleKey, subKey: cfg.subKey, fields: cfg.fields,
   };

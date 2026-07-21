@@ -50,6 +50,28 @@
 .a-icon:hover { background: #f6f6f9; }
 .a-icon:disabled { opacity: .35; cursor: default; }
 
+/* 배지 · 가격 */
+.a-badge { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; color: #d3453b; border: 1px solid #eecccc; background: #fdf1f1; border-radius: 5px; padding: 1px 6px; vertical-align: middle; }
+.a-price { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 700; color: #009eae; vertical-align: middle; }
+
+/* 문구 · 사이트 정보 (그룹 탭 + 인라인 편집) */
+.a-hintline { color: #8a8a95; font-size: 13px; margin: -6px 0 14px; }
+.a-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.a-tab { padding: 7px 13px; border-radius: 999px; border: 1px solid #dcdce3; background: #fff; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; }
+.a-tab:hover { background: #f4f4f7; }
+.a-tab--on { background: #009eae; border-color: #009eae; color: #fff; }
+.a-copylist { display: flex; flex-direction: column; gap: 10px; }
+.a-copyrow { background: #fff; border: 1px solid #e6e6ec; border-radius: 12px; padding: 13px 15px; }
+.a-copyrow__head { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+.a-copyrow__head label { font-size: 13px; font-weight: 700; color: #333; flex: 1; }
+.a-copyrow input, .a-copyrow textarea {
+  width: 100%; box-sizing: border-box; padding: 9px 11px; border: 1px solid #dcdce3; border-radius: 9px;
+  font-size: 14px; font-family: inherit; outline: none; background: #fff; resize: vertical; line-height: 1.5;
+}
+.a-copyrow input:focus, .a-copyrow textarea:focus { border-color: #009eae; }
+.a-btn--sm { padding: 5px 11px; font-size: 12px; }
+.a-saved { font-size: 12px; font-weight: 700; color: #009eae; }
+
 /* 폼 */
 .a-form { background: #fff; border: 1px solid #d7ecef; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 6px 20px rgba(0,158,174,.06); }
 .a-form__title { font-weight: 800; margin-bottom: 12px; }
