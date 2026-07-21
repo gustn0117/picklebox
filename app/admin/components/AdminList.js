@@ -2,6 +2,7 @@
 import { useState } from "react";
 import ImageUpload from "./ImageUpload";
 import Icon from "./Icon";
+import RichText from "./RichText";
 
 const api = (slug, path = "") => `/api/admin/${slug}${path}`;
 
@@ -34,6 +35,25 @@ export default function AdminList({ slug, config, initialRows }) {
   const [form, setForm] = useState({});
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [dragId, setDragId] = useState(null);
+  const [overId, setOverId] = useState(null);
+
+  // 끌어놓기로 순서 변경 — 놓는 순간 전체 순서를 한 번에 저장
+  async function dropOn(targetId) {
+    if (dragId == null || dragId === targetId) { setDragId(null); setOverId(null); return; }
+    const ids = rows.map((r) => r.id);
+    const from = ids.indexOf(dragId), to = ids.indexOf(targetId);
+    if (from < 0 || to < 0) return;
+    ids.splice(to, 0, ids.splice(from, 1)[0]);
+    setRows(ids.map((id) => rows.find((r) => r.id === id)));
+    setDragId(null); setOverId(null);
+    await fetch(api(slug), {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action: "reorder", ids }),
+    });
+    reload();
+  }
 
   async function reload() {
     const r = await fetch(api(slug));
@@ -98,7 +118,16 @@ export default function AdminList({ slug, config, initialRows }) {
             {editing === row.id ? (
               <FormCard title="수정" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} />
             ) : (
-              <div className={`a-row${config.hasVisible && !row.visible ? " a-row--hidden" : ""}`}>
+              <div
+                className={`a-row${config.hasVisible && !row.visible ? " a-row--hidden" : ""}${overId === row.id ? " a-row--over" : ""}${dragId === row.id ? " a-row--dragging" : ""}`}
+                draggable={!!config.ordered}
+                onDragStart={() => setDragId(row.id)}
+                onDragOver={(e) => { if (config.ordered) { e.preventDefault(); setOverId(row.id); } }}
+                onDragLeave={() => setOverId((v) => (v === row.id ? null : v))}
+                onDrop={(e) => { e.preventDefault(); dropOn(row.id); }}
+                onDragEnd={() => { setDragId(null); setOverId(null); }}
+              >
+                {config.ordered && <span className="a-grip" title="끌어서 순서 변경">⠿</span>}
                 {row.imageUrl || row.logoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img className="a-thumb" src={row.imageUrl || row.logoUrl} alt="" />
@@ -205,11 +234,13 @@ function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }
       {fields.map((f) => (
         <div className="a-field" key={f.key}>
           {f.type === "image" ? (
-            <ImageUpload name={f.key} label={f.label} hint={f.hint} value={form[f.key]} onChange={(url) => setField(f.key, url)} />
+            <ImageUpload name={f.key} label={f.label} hint={f.hint} aspect={f.aspect} value={form[f.key]} onChange={(url) => setField(f.key, url)} />
           ) : (
             <>
               <label>{f.label}</label>
-              {f.type === "textarea" || f.type === "videoIds" ? (
+              {f.type === "rich" ? (
+                <RichText value={form[f.key]} onChange={(html) => setField(f.key, html)} placeholder={f.placeholder} />
+              ) : f.type === "textarea" || f.type === "videoIds" ? (
                 <textarea rows={3} value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} />
               ) : f.type === "select" ? (
                 <select value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)}>

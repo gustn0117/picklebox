@@ -8,6 +8,7 @@ import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { getCopy, pick } from "../lib/copy";
 import Multiline from "../components/Multiline";
+import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,7 @@ export default async function Events() {
                 <Reveal key={e.id} className="feat" delay={(i % 2) * 80}>
                   <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
                   <h3>{e.titleEn ? `${e.titleEn} · ` : ""}{e.titleKo}</h3>
-                  <p>{e.description}</p>
+                  <RichHtml text={e.description} />
                 </Reveal>
               ))}
             </div>

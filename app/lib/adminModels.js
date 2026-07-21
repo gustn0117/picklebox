@@ -1,7 +1,10 @@
+import { sanitizeHtml } from "./sanitize";
+
 // 관리자 CMS 모델 레지스트리 — 제네릭 CRUD API와 관리 UI가 공유하는 단일 설정.
 // 모든 값은 직렬화 가능(함수 없음) → 서버 페이지에서 클라이언트 컴포넌트로 그대로 전달 가능.
 //
-// field.type: text | textarea | url | image | select | videoIds | checkbox
+// field.type: text | textarea | rich | url | image | select | videoIds | checkbox | number
+// image 필드의 aspect: 자르기 팝업의 권장 비율
 // slug = URL/식별자, prisma = PrismaClient 델리게이트 속성명.
 
 export const MODELS = {
@@ -11,7 +14,7 @@ export const MODELS = {
     titleKey: "title", subKey: "page",
     fields: [
       { key: "page", label: "페이지", type: "text", placeholder: "home / about / events …", required: true },
-      { key: "imageUrl", label: "배너 이미지", type: "image", hint: "가로 1920×800 권장 · 넣어야 배너가 노출됩니다" },
+      { key: "imageUrl", label: "배너 이미지", type: "image", hint: "가로 1920×800 권장 · 넣어야 배너가 노출됩니다", aspect: 2.4 },
       { key: "title", label: "제목", type: "text" },
       { key: "subtitle", label: "부제목", type: "text" },
       { key: "linkUrl", label: "링크(선택)", type: "url" },
@@ -25,9 +28,9 @@ export const MODELS = {
       { key: "kind", label: "구분", type: "select", options: [{ v: "lineup", t: "라인업" }, { v: "schedule", t: "일정" }], required: true },
       { key: "titleEn", label: "영문 제목", type: "text" },
       { key: "titleKo", label: "제목", type: "text", required: true },
-      { key: "description", label: "설명", type: "textarea" },
+      { key: "description", label: "설명", type: "rich" },
       { key: "period", label: "시기(선택)", type: "text", placeholder: "상반기 / 매월 / 상시 …" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×900 권장 (16:9)" },
+      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×900 권장 (16:9)", aspect: 16/9 },
     ],
   },
   academy: {
@@ -37,8 +40,8 @@ export const MODELS = {
     fields: [
       { key: "titleEn", label: "영문 제목(선택)", type: "text" },
       { key: "titleKo", label: "프로그램명", type: "text", required: true },
-      { key: "description", label: "설명", type: "textarea" },
-      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×1000 권장" },
+      { key: "description", label: "설명", type: "rich" },
+      { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×1000 권장", aspect: 1.6 },
     ],
   },
   tours: {
@@ -47,10 +50,10 @@ export const MODELS = {
     titleKey: "title", subKey: "period",
     fields: [
       { key: "title", label: "상품명", type: "text", required: true },
-      { key: "description", label: "상세 설명", type: "textarea" },
+      { key: "description", label: "상세 설명", type: "rich" },
       { key: "period", label: "기간(선택)", type: "text", placeholder: "예: 3박 4일 / 2026 봄" },
       { key: "schedule", label: "일정 (한 줄에 하나씩)", type: "textarea", placeholder: "1일차 — 인천 출발, 현지 도착\n2일차 — 오전 레슨, 오후 자유" },
-      { key: "imageUrl", label: "대표 이미지", type: "image", hint: "가로 1600×900 권장 (16:9)" },
+      { key: "imageUrl", label: "대표 이미지", type: "image", hint: "가로 1600×900 권장 (16:9)", aspect: 16/9 },
       { key: "price", label: "가격(원) — 비우면 표시 안 됨", type: "number", placeholder: "예: 1290000" },
       { key: "bookingUrl", label: "예약 링크", type: "url" },
       { key: "linkUrl", label: "참고 링크(선택)", type: "url" },
@@ -62,8 +65,8 @@ export const MODELS = {
     titleKey: "name", subKey: "buyUrl",
     fields: [
       { key: "name", label: "상품명", type: "text", required: true },
-      { key: "description", label: "설명(선택)", type: "textarea" },
-      { key: "imageUrl", label: "상품 이미지", type: "image", hint: "정사각형 800×800 권장 (1:1)" },
+      { key: "description", label: "설명(선택)", type: "rich" },
+      { key: "imageUrl", label: "상품 이미지", type: "image", hint: "정사각형 800×800 권장 (1:1)", aspect: 1 },
       { key: "price", label: "가격(원) — 비우면 표시 안 됨", type: "number", placeholder: "예: 39000" },
       { key: "buyUrl", label: "구매 링크", type: "url" },
       { key: "soldOut", label: "품절 표시", type: "checkbox" },
@@ -98,7 +101,7 @@ export const MODELS = {
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,
     titleKey: "caption", subKey: "album",
     fields: [
-      { key: "imageUrl", label: "이미지", type: "image", required: true, hint: "가로 1200×900 권장 (4:3)" },
+      { key: "imageUrl", label: "이미지", type: "image", required: true, hint: "가로 1200×900 권장 (4:3)", aspect: 4/3 },
       { key: "caption", label: "캡션(선택)", type: "text" },
       { key: "album", label: "분류(선택)", type: "text" },
     ],
@@ -135,6 +138,7 @@ export function extractYouTubeId(raw) {
 
 // 폼 값 → DB 저장값 강제 변환(필드 타입 기준).
 export function coerceValue(field, raw) {
+  if (field.type === "rich") return sanitizeHtml(raw);
   if (field.type === "number") {
     const n = parseInt(String(raw ?? "").replace(/[^0-9-]/g, ""), 10);
     return Number.isFinite(n) ? n : null;
