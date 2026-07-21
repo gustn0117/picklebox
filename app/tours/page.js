@@ -1,4 +1,5 @@
 import Nav from "../components/Nav";
+import Sections from "../components/Sections";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
@@ -31,6 +32,8 @@ export default async function Tours({ searchParams }) {
         title={pick(c, "tours.hero.title", "피클볼 투어.")}
         lead={pick(c, "tours.hero.lead", "코트를 넘어 떠나는 여행. 피클볼과 함께하는 특별한 일정으로 안내합니다.")}
       />
+
+      <Sections page="tours" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -84,6 +87,8 @@ export default async function Tours({ searchParams }) {
           )}
         </div>
       </section>
+
+      <Sections page="tours" position="bottom" preview={preview} />
 
       <Footer />
     </>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Nav from "../components/Nav";
+import Sections from "../components/Sections";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
@@ -36,6 +37,8 @@ export default async function Events({ searchParams }) {
         title={pick(c, "events.hero.title", "코트 위의 축제, 피클박스 이벤트.")}
         lead={pick(c, "events.hero.lead", "셀럽·커뮤니티·컬처가 한 코트에서 만납니다. 셀럽 매치부터 오픈 토너먼트, 피클볼까지 — 서울의 새로운 스포츠 엔터테인먼트.")}
       />
+
+      <Sections page="events" position="top" preview={preview} />
 
       {/* ── NEXT UP 피처 ── */}
       <section className="section">
@@ -95,6 +98,8 @@ export default async function Events({ searchParams }) {
           </div>
         </section>
       )}
+
+      <Sections page="events" position="bottom" preview={preview} />
 
       {/* ── CTA ── */}
       <section className="section join">

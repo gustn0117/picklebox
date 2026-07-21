@@ -106,6 +106,35 @@ export const MODELS = {
       { key: "album", label: "분류(선택)", type: "text" },
     ],
   },
+  sections: {
+    slug: "sections", prisma: "section", label: "섹션", icon: "sections",
+    ordered: true, hasVisible: true, canCreate: true, canDelete: true, grouped: false,
+    titleKey: "title", subKey: "page",
+    fields: [
+      { key: "page", label: "어느 페이지에 넣을까요", type: "select", required: true, options: [
+        { v: "home", t: "홈" }, { v: "about", t: "소개" }, { v: "founder", t: "대표" },
+        { v: "community", t: "커뮤니티" }, { v: "partners", t: "파트너" }, { v: "events", t: "이벤트" },
+        { v: "goods", t: "굿즈" }, { v: "tours", t: "투어" }, { v: "journal", t: "저널" }, { v: "visit", t: "오시는 길" },
+      ] },
+      { key: "position", label: "위치", type: "select", options: [
+        { v: "top", t: "페이지 위쪽 (첫 화면 아래)" }, { v: "bottom", t: "페이지 아래쪽 (마무리 배너 앞)" },
+      ] },
+      { key: "type", label: "섹션 종류", type: "select", required: true, options: [
+        { v: "text", t: "글 — 제목 + 본문" },
+        { v: "cards", t: "카드 목록 — 여러 항목 소개" },
+        { v: "image", t: "이미지 배너 — 큰 사진 + 문구" },
+        { v: "cta", t: "안내 배너 — 문의·예약 유도" },
+      ] },
+      { key: "eyebrow", label: "작은 라벨(선택)", type: "text", placeholder: "예: Notice / Program" },
+      { key: "title", label: "제목", type: "text" },
+      { key: "body", label: "본문 (글 종류에서 사용)", type: "rich" },
+      { key: "imageUrl", label: "이미지 (이미지 배너에서 사용)", type: "image", hint: "가로 1920×800 권장", aspect: 2.4 },
+      { key: "cards", label: "카드 (카드 목록 종류에서 사용)", type: "cards" },
+      { key: "linkLabel", label: "버튼 이름(선택)", type: "text", placeholder: "예: 자세히 보기" },
+      { key: "linkUrl", label: "버튼 링크(선택)", type: "url" },
+      { key: "altBg", label: "배경을 조금 다르게", type: "checkbox" },
+    ],
+  },
   copy: {
     slug: "copy", prisma: "siteCopy", label: "문구 · 사이트 정보", icon: "copy", grouped: true,
     ordered: false, hasVisible: false, canCreate: false, canDelete: false,
@@ -139,6 +168,20 @@ export function extractYouTubeId(raw) {
 // 폼 값 → DB 저장값 강제 변환(필드 타입 기준).
 export function coerceValue(field, raw) {
   if (field.type === "rich") return sanitizeHtml(raw);
+  if (field.type === "cards") {
+    let list = raw;
+    if (typeof raw === "string") { try { list = JSON.parse(raw); } catch { list = []; } }
+    if (!Array.isArray(list)) list = [];
+    const clean = list
+      .map((c) => ({
+        title: String(c?.title ?? "").slice(0, 200),
+        description: sanitizeHtml(c?.description ?? ""),
+        imageUrl: String(c?.imageUrl ?? ""),
+        linkUrl: String(c?.linkUrl ?? ""),
+      }))
+      .filter((c) => c.title || c.description || c.imageUrl);
+    return JSON.stringify(clean);
+  }
   if (field.type === "number") {
     const n = parseInt(String(raw ?? "").replace(/[^0-9-]/g, ""), 10);
     return Number.isFinite(n) ? n : null;

@@ -163,3 +163,27 @@ model Revision {
 
   @@index([model, recordId])
 }
+
+// 관리자가 페이지에 추가하는 섹션 (템플릿 4종). 카드들은 JSON 배열로 보관.
+model Section {
+  id        Int       @id @default(autoincrement())
+  page      String    @default("home")
+  type      String    @default("text") // text | cards | image | cta
+  position  String    @default("bottom") // top | bottom
+  eyebrow   String?
+  title     String?
+  body      String    @default("") // 서식 HTML
+  imageUrl  String?
+  linkUrl   String?
+  linkLabel String?
+  cards     String    @default("[]") // JSON: [{title, description, imageUrl, linkUrl}]
+  altBg     Boolean   @default(false)
+  visible   Boolean   @default(true)
+  publishAt DateTime?
+  deletedAt DateTime?
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([page, position])
+}

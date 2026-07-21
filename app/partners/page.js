@@ -1,4 +1,5 @@
 import Nav from "../components/Nav";
+import Sections from "../components/Sections";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
@@ -43,6 +44,8 @@ export default async function Partners({ searchParams }) {
         title={pick(c, "partners.hero.title", "함께 만드는 피클볼 컬처.")}
         lead={pick(c, "partners.hero.lead", "피클박스는 브랜드·공간·셀럽·글로벌 파트너와 함께 서울의 새로운 스포츠 컬처를 만들어 갑니다.")}
       />
+
+      <Sections page="partners" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -109,6 +112,8 @@ export default async function Partners({ searchParams }) {
           </div>
         </section>
       )}
+
+      <Sections page="partners" position="bottom" preview={preview} />
 
       <section className="section join">
         <div className="wrap">

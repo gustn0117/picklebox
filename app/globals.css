@@ -684,3 +684,10 @@ a.partner-card:hover { border-color: var(--volt); transform: translateY(-2px); }
 .rt-body ul, .rt-body ol { margin: 0 0 10px; padding-left: 20px; }
 .rt-body li { margin: 3px 0; }
 .rt-body h3, .rt-body h4 { color: var(--ink); font-weight: 800; margin: 12px 0 6px; }
+
+/* 관리자 추가 섹션 */
+.section__text { max-width: 760px; }
+.section__text .rt-body { font-size: clamp(1rem, 1.5vw, 1.1rem); }
+a.feat { text-decoration: none; display: block; transition: border-color .2s, transform .2s; }
+a.feat:hover { border-color: var(--volt); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { a.feat:hover { transform: none; } }

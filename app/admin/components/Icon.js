@@ -53,6 +53,12 @@ const PATHS = {
       <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
     </>
   ),
+  sections: (
+    <>
+      <rect x="3" y="3" width="18" height="6" rx="1.5" />
+      <rect x="3" y="13" width="18" height="8" rx="1.5" />
+    </>
+  ),
   partners: (
     <>
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />

@@ -3,6 +3,7 @@ import { useState } from "react";
 import ImageUpload from "./ImageUpload";
 import Icon from "./Icon";
 import RichText from "./RichText";
+import CardsEditor from "./CardsEditor";
 
 const api = (slug, path = "") => `/api/admin/${slug}${path}`;
 
@@ -15,13 +16,14 @@ const GROUP_ORDER = Object.keys(GROUP_LABELS);
 
 function emptyForm(fields) {
   const f = {};
-  for (const fl of fields) f[fl.key] = fl.type === "checkbox" ? false : "";
+  for (const fl of fields) f[fl.key] = fl.type === "checkbox" ? false : fl.type === "cards" ? "[]" : "";
   return f;
 }
 function rowToForm(fields, row) {
   const f = {};
   for (const fl of fields) {
     if (fl.type === "checkbox") f[fl.key] = !!row[fl.key];
+    else if (fl.type === "cards") f[fl.key] = row[fl.key] ?? "[]";
     else if (fl.type === "videoIds") {
       try { f[fl.key] = JSON.parse(row[fl.key] || "[]").join("\n"); } catch { f[fl.key] = ""; }
     } else f[fl.key] = row[fl.key] ?? "";
@@ -303,7 +305,9 @@ function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err, 
           ) : (
             <>
               <label>{f.label}</label>
-              {f.type === "rich" ? (
+              {f.type === "cards" ? (
+                <CardsEditor value={form[f.key]} onChange={(json) => setField(f.key, json)} />
+              ) : f.type === "rich" ? (
                 <RichText value={form[f.key]} onChange={(html) => setField(f.key, html)} placeholder={f.placeholder} />
               ) : f.type === "textarea" || f.type === "videoIds" ? (
                 <textarea rows={3} value={form[f.key]} onChange={(e) => setField(f.key, e.target.value)} placeholder={f.placeholder || ""} />

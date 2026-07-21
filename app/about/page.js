@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Nav from "../components/Nav";
+import Sections from "../components/Sections";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
@@ -55,6 +56,8 @@ export default async function About({ searchParams }) {
         eyebrow="About PICKLEBOX"
         num="01"
       />
+
+      <Sections page="about" position="top" preview={preview} />
 
       {/* ── 브랜드 스토리 ── */}
       <section className="section story">
@@ -205,6 +208,8 @@ export default async function About({ searchParams }) {
           </ul>
         </div>
       </section>
+
+      <Sections page="about" position="bottom" preview={preview} />
 
       {/* ── CTA ── */}
       <section className="section join">
