@@ -2,9 +2,12 @@ import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import { getCopy, pick } from "../lib/copy";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Global Community — PICKLEBOX",
@@ -24,21 +27,22 @@ const STEPS = [
   { s: "STEP 03", h: "플레이", p: "정기 세션에서 함께 치고, 웃고, 연결되세요." },
 ];
 
-export default function Community() {
+export default async function Community() {
+  const c = await getCopy("community");
   return (
     <>
       <Nav />
       <PageHero
         eyebrow="Global Community"
-        title="서울에서 세계로, 피클박스 커뮤니티."
-        lead="피클볼은 혼자여도 함께가 됩니다. 레벨별 매칭과 정기 모임, 글로벌 교류로 코트 위의 인연을 잇습니다."
+        title={pick(c, "community.hero.title", "서울에서 세계로, 피클박스 커뮤니티.")}
+        lead={pick(c, "community.hero.lead", "피클볼은 혼자여도 함께가 됩니다. 레벨별 매칭과 정기 모임, 글로벌 교류로 코트 위의 인연을 잇습니다.")}
       />
 
       <section className="section">
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">What we offer</div></div>
-            <div><h2 className="title">코트가 곧 커뮤니티입니다.</h2></div>
+            <div><h2 className="title">{pick(c, "community.a.title", "코트가 곧 커뮤니티입니다.")}</h2></div>
           </div>
           <div className="why__grid">
             {OFFERS.map((o, i) => (
@@ -56,7 +60,7 @@ export default function Community() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">How to join</div></div>
-            <div><h2 className="title">참여는 세 단계면 충분해요.</h2></div>
+            <div><h2 className="title">{pick(c, "community.b.title", "참여는 세 단계면 충분해요.")}</h2></div>
           </div>
           <div className="grid-3">
             {STEPS.map((s, i) => (
