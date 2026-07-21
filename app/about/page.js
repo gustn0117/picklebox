@@ -6,6 +6,8 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { SUBBRANDS, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
+import { getCopy, pick } from "../lib/copy";
+import Multiline from "../components/Multiline";
 
 export const dynamic = "force-dynamic";
 
@@ -37,9 +39,10 @@ const TIMELINE = [
 ];
 
 export default async function About() {
-  const [academy, tours] = await Promise.all([
+  const [academy, tours, c] = await Promise.all([
     db.academyProgram.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     db.tour.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    getCopy("about"),
   ]);
   return (
     <>
@@ -55,16 +58,10 @@ export default async function About() {
           <Reveal className="story__mark story__logo" />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">Brand Story</div>
-            <h2 className="title title--sm">기대하지 못했던 선물상자를 열었을 때처럼.</h2>
-            <p className="lead">
-              피클볼 한 게임에는 운동의 즐거움만 있는 것이 아닙니다. 처음 만난 사람과 인사를 나누고,
-              공을 주고받으며 함께 웃고, 일상의 스트레스를 잠시 내려놓는 시간이 담겨 있습니다.
-            </p>
-            <p style={{ color: "var(--ink-soft)", marginTop: 16 }}>
-              PICKLEBOX에 들어오는 순간 설렘이 시작되고, 코트 위에서는 웃음과 에너지가 쌓이며,
-              돌아갈 때는 좋은 기억과 새로운 인연을 담아갈 수 있습니다.
-            </p>
-            <p className="story__quote">피클볼을 치고, 웃고, 연결되며<br />일상에 즐거움을 선물하는 공간.</p>
+            <h2 className="title title--sm">{pick(c, "about.story.title", "기대하지 못했던 선물상자를 열었을 때처럼.")}</h2>
+<p className="lead">{pick(c, "about.story.p1", "피클볼 한 게임에는 운동의 즐거움만 있는 것이 아닙니다. 처음 만난 사람과 인사를 나누고, 공을 주고받으며 함께 웃고, 일상의 스트레스를 잠시 내려놓는 시간이 담겨 있습니다.")}</p>
+<p style={{ color: "var(--ink-soft)", marginTop: 16 }}>{pick(c, "about.story.p2", "PICKLEBOX에 들어오는 순간 설렘이 시작되고, 코트 위에서는 웃음과 에너지가 쌓이며, 돌아갈 때는 좋은 기억과 새로운 인연을 담아갈 수 있습니다.")}</p>
+            <p className="story__quote"><Multiline text={pick(c, "about.story.quote", "피클볼을 치고, 웃고, 연결되며\n일상에 즐거움을 선물하는 공간.")} /></p>
           </Reveal>
         </div>
       </section>
@@ -74,14 +71,14 @@ export default async function About() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Why Pickleball</div></div>
-            <div><h2 className="title title--sm">미국 1위 레저스포츠 상륙!<br />5분 만에 중독되는 이것?</h2></div>
+            <div><h2 className="title title--sm"><Multiline text={pick(c, "about.why.title", "미국 1위 레저스포츠 상륙!\n5분 만에 중독되는 이것?")} /></h2></div>
           </div>
           <div className="grid-2">
-            {PICKLE_APPEAL.map((c, i) => (
-              <Reveal key={c.h} className="feat" delay={(i % 2) * 80}>
+            {PICKLE_APPEAL.map((item, i) => (
+              <Reveal key={item.h} className="feat" delay={(i % 2) * 80}>
                 <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
-                <h3>{c.h}</h3>
-                <p>{c.p}</p>
+                <h3>{item.h}</h3>
+                <p>{item.p}</p>
               </Reveal>
             ))}
           </div>
@@ -94,10 +91,8 @@ export default async function About() {
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Our Services</div></div>
             <div>
-              <h2 className="title">하나의 상자, 여섯 가지 즐거움</h2>
-              <p className="lead">
-                멤버십부터 여행까지 — PICKLEBOX의 여섯 브랜드가 피클볼을 중심으로 한 라이프스타일을 완성합니다.
-              </p>
+              <h2 className="title">{pick(c, "about.services.title", "하나의 상자, 여섯 가지 즐거움")}</h2>
+<p className="lead">{pick(c, "about.services.lead", "멤버십부터 여행까지 — PICKLEBOX의 여섯 브랜드가 피클볼을 중심으로 한 라이프스타일을 완성합니다.")}</p>
             </div>
           </div>
           <div className="bento">
@@ -122,7 +117,7 @@ export default async function About() {
           <div className="wrap">
             <div className="section__head section__head--split">
               <div><div className="eyebrow">Academy</div></div>
-              <div><h2 className="title title--sm">아카데미 프로그램</h2></div>
+              <div><h2 className="title title--sm">{pick(c, "about.academy.title", "아카데미 프로그램")}</h2></div>
             </div>
             <div className="grid-3">
               {academy.map((a, i) => (
@@ -147,7 +142,7 @@ export default async function About() {
           <div className="wrap">
             <div className="section__head section__head--split">
               <div><div className="eyebrow">Tour</div></div>
-              <div><h2 className="title title--sm">피클볼 투어</h2></div>
+              <div><h2 className="title title--sm">{pick(c, "about.tour.title", "피클볼 투어")}</h2></div>
             </div>
             <div className="grid-2">
               {tours.map((t, i) => (
@@ -175,7 +170,7 @@ export default async function About() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Values</div></div>
-            <div><h2 className="title">피클박스가 지키는 세 가지.</h2></div>
+            <div><h2 className="title">{pick(c, "about.values.title", "피클박스가 지키는 세 가지.")}</h2></div>
           </div>
           <div className="grid-3">
             {VALUES.map((v, i) => (
@@ -194,7 +189,7 @@ export default async function About() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Timeline</div></div>
-            <div><h2 className="title">피클박스가 걸어온 길.</h2></div>
+            <div><h2 className="title">{pick(c, "about.timeline.title", "피클박스가 걸어온 길.")}</h2></div>
           </div>
           <ul className="timeline">
             {TIMELINE.map((t) => (
@@ -212,8 +207,8 @@ export default async function About() {
         <div className="wrap">
           <Reveal className="join__card">
             <div>
-              <h2>피클박스가 궁금하다면,<br />직접 만나보세요.</h2>
-              <p>서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다.</p>
+              <h2><Multiline text={pick(c, "about.cta.title", "피클박스가 궁금하다면,\n직접 만나보세요.")} /></h2>
+              <p>{pick(c, "about.cta.desc", "서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다.")}</p>
             </div>
             <div className="join__actions">
               <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--lime">

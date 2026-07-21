@@ -5,8 +5,10 @@ import Reveal from "./components/Reveal";
 import Court from "./components/Court";
 import Arrow from "./components/Arrow";
 import CountUp from "./components/CountUp";
+import Multiline from "./components/Multiline";
 import { reserveHref } from "./lib/site";
 import { db } from "./lib/db";
+import { getCopy, pick } from "./lib/copy";
 
 export const dynamic = "force-dynamic";
 
@@ -36,20 +38,21 @@ export default async function Home() {
   let photos = [];
   try {
     const [rows, bnr, pho] = await Promise.all([
-      db.siteCopy.findMany(),
+      getCopy("home"),
       db.banner.findMany({ where: { page: "home", visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
       db.photo.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     ]);
-    copy = Object.fromEntries(rows.map((c) => [c.key, c.value]));
+    copy = rows;
     banners = bnr.filter((b) => b.imageUrl); // 이미지 있는 배너만 노출
     photos = pho;
   } catch {
     copy = {};
   }
-  const c = (k, d) => (copy[k] && copy[k].trim() ? copy[k] : d);
-  const heroEyebrow = c("hero.eyebrow", "Premium Pickleball Club · Seoul");
-  const heroLine1 = c("hero.tagline1", "피클박스는 즐거움을 여는 선물상자입니다.");
-  const heroLine2 = c("hero.tagline2", "피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.");
+  const c = (k, d) => pick(copy, k, d);
+  const heroEyebrow = c("home.hero.eyebrow", "Premium Pickleball Club · Seoul");
+  const heroAccent = c("home.hero.accent", "Open the Box, Play the Joy.");
+  const heroLine1 = c("home.hero.tagline1", "피클박스는 즐거움을 여는 선물상자입니다.");
+  const heroLine2 = c("home.hero.tagline2", "피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다.");
 
   return (
     <>
@@ -74,7 +77,7 @@ export default async function Home() {
         <div className="wrap hero__inner">
           <div className="eyebrow hero__eyebrow">{heroEyebrow}</div>
           <h1 className="hero__title">PICKLEBOX</h1>
-          <div className="hero__accent">Open the Box, Play the Joy.</div>
+          <div className="hero__accent">{heroAccent}</div>
           <p className="hero__ko">{heroLine1}<br />{heroLine2}</p>
         </div>
         <div className="ticker">
@@ -193,7 +196,7 @@ export default async function Home() {
               <div className="eyebrow">Why PICKLEBOX</div>
               <span className="section__num">/ 02</span>
             </div>
-            <h2 className="title title--ko">누구나 쉽게,<br />운동을 넘어 컬처까지.</h2>
+            <h2 className="title title--ko"><Multiline text={c("home.why.title", "누구나 쉽게,\n운동을 넘어 컬처까지.")} /></h2>
           </div>
           <div className="why__grid">
             {WHY.map((f, i) => (
@@ -215,7 +218,7 @@ export default async function Home() {
               <div className="eyebrow">How it works</div>
               <span className="section__num">/ 03</span>
             </div>
-            <h2 className="title title--ko">예약하고, 들어와,<br />바로 플레이.</h2>
+            <h2 className="title title--ko"><Multiline text={c("home.how.title", "예약하고, 들어와,\n바로 플레이.")} /></h2>
           </div>
           <div className="grid-3">
             {STEPS.map((s, i) => (
@@ -238,7 +241,7 @@ export default async function Home() {
                 <div className="eyebrow">Gallery</div>
                 <span className="section__num">/ 04</span>
               </div>
-              <h2 className="title title--ko">피클박스의 순간들.</h2>
+              <h2 className="title title--ko">{c("home.gallery.title", "피클박스의 순간들.")}</h2>
             </div>
             <div className="gallery">
               {photos.map((p) => (
@@ -259,17 +262,14 @@ export default async function Home() {
           <Reveal className="join__card">
             <div>
               <div className="eyebrow" style={{ marginBottom: 20 }}>Join the Club</div>
-              <h2 className="join__card--en">Play the Culture.</h2>
-              <p>
-                피클볼이 처음이어도 괜찮습니다. 방문·예약 문의를 남겨주시면
-                코트와 레슨, 멤버십까지 편하게 안내해 드립니다.
-              </p>
+              <h2 className="join__card--en">{c("home.cta.title", "Play the Culture.")}</h2>
+              <p>{c("home.cta.desc", "피클볼이 처음이어도 괜찮습니다. 방문·예약 문의를 남겨주시면 코트와 레슨, 멤버십까지 편하게 안내해 드립니다.")}</p>
             </div>
             <div className="join__actions">
               <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--lime">
-                예약하기 <Arrow />
+                {c("home.cta.button", "예약하기")} <Arrow />
               </a>
-              <Link href="/visit" className="btn btn--ghost">오시는 길</Link>
+              <Link href="/visit" className="btn btn--ghost">{c("home.cta.button2", "오시는 길")}</Link>
             </div>
           </Reveal>
         </div>

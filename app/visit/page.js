@@ -1,8 +1,11 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import { getCopy, pick } from "../lib/copy";
 import Arrow from "../components/Arrow";
 import { LINKS, BUSINESS, reserveHref } from "../lib/site";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "오시는 길 — PICKLEBOX",
@@ -23,15 +26,16 @@ const FAQ = [
   { q: "몇 명이 함께 이용할 수 있나요?", a: "단식 2인, 복식 4인까지 즐기기 좋습니다. 커뮤니티·모임 이용은 [단체 안내]를 참고해 주세요." },
 ];
 
-export default function Visit() {
+export default async function Visit() {
+  const c = await getCopy("visit");
   return (
     <>
       <Nav />
       <PageHero
         eyebrow="Visit Us"
         num="04"
-        title="서울숲, 갤러리아 포레"
-        lead="지하철 수인분당선 서울숲역 인근, 갤러리아 포레에서 만나요."
+        title={pick(c, "visit.hero.title", "서울숲, 갤러리아 포레")}
+        lead={pick(c, "visit.hero.lead", "지하철 수인분당선 서울숲역 인근, 갤러리아 포레에서 만나요.")}
       />
 
       <section className="section">
@@ -87,7 +91,7 @@ export default function Visit() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Access & Facility</div></div>
-            <div><h2 className="title">방문 전, 이것만 알아두세요.</h2></div>
+            <div><h2 className="title">{pick(c, "visit.notice.title", "방문 전, 이것만 알아두세요.")}</h2></div>
           </div>
           <div className="why__grid">
             {ACCESS.map((a, i) => (
@@ -106,7 +110,7 @@ export default function Visit() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">FAQ</div></div>
-            <div><h2 className="title">자주 묻는 질문</h2></div>
+            <div><h2 className="title">{pick(c, "visit.faq.title", "자주 묻는 질문")}</h2></div>
           </div>
           <div className="faq">
             {FAQ.map((f, i) => (

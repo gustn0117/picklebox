@@ -6,6 +6,7 @@ import Arrow from "../components/Arrow";
 import YtThumb from "../components/YtThumb";
 import { LINKS } from "../lib/site";
 import { db } from "../lib/db";
+import { getCopy, pick } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
 
@@ -26,25 +27,25 @@ function parseVideos(raw) {
 }
 
 export default async function Journal() {
-  const posts = await db.journalPost.findMany({
-    where: { visible: true },
-    orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
-  });
+  const [posts, c] = await Promise.all([
+    db.journalPost.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    getCopy("journal"),
+  ]);
 
   return (
     <>
       <Nav />
       <PageHero
         eyebrow="Journal"
-        title="피클박스 저널."
-        lead="피클볼 컬처와 입문 가이드, 이벤트 비하인드까지 — 피클박스가 전하는 이야기."
+        title={pick(c, "journal.hero.title", "피클박스 저널.")}
+        lead={pick(c, "journal.hero.lead", "피클볼 컬처와 입문 가이드, 이벤트 비하인드까지 — 피클박스가 전하는 이야기.")}
       />
 
       <section className="section">
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Latest</div></div>
-            <div><h2 className="title">기사와 영상으로 만나는 피클박스.</h2></div>
+            <div><h2 className="title">{pick(c, "journal.latest.title", "기사와 영상으로 만나는 피클박스.")}</h2></div>
           </div>
 
           <div className="journal">
@@ -94,8 +95,8 @@ export default async function Journal() {
           <Reveal className="join__card">
             <div>
               <div className="eyebrow" style={{ marginBottom: 20 }}>Stay tuned</div>
-              <h2 className="join__card--en">Follow the story.</h2>
-              <p>새 소식은 인스타그램과 유튜브에서 가장 먼저 전해드립니다.</p>
+              <h2 className="join__card--en">{pick(c, "journal.cta.title", "Follow the story.")}</h2>
+              <p>{pick(c, "journal.cta.desc", "새 소식은 인스타그램과 유튜브에서 가장 먼저 전해드립니다.")}</p>
             </div>
             <div className="join__actions">
               <a href={LINKS.instagram[0].url} target="_blank" rel="noopener" className="btn btn--lime">

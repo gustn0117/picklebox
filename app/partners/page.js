@@ -4,6 +4,10 @@ import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { partnerMailHref, reserveHref } from "../lib/site";
+import { db } from "../lib/db";
+import { getCopy, pick } from "../lib/copy";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Partners — PICKLEBOX",
@@ -23,21 +27,25 @@ const WHY = [
   { h: "서울숲 거점", p: "갤러리아 포레라는 프리미엄 로케이션에서 오프라인 접점을 만듭니다." },
 ];
 
-export default function Partners() {
+export default async function Partners() {
+  const [partners, c] = await Promise.all([
+    db.partner.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    getCopy("partners"),
+  ]);
   return (
     <>
       <Nav />
       <PageHero
         eyebrow="Partners"
-        title="함께 만드는 피클볼 컬처."
-        lead="피클박스는 브랜드·공간·셀럽·글로벌 파트너와 함께 서울의 새로운 스포츠 컬처를 만들어 갑니다."
+        title={pick(c, "partners.hero.title", "함께 만드는 피클볼 컬처.")}
+        lead={pick(c, "partners.hero.lead", "피클박스는 브랜드·공간·셀럽·글로벌 파트너와 함께 서울의 새로운 스포츠 컬처를 만들어 갑니다.")}
       />
 
       <section className="section">
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Partnership</div></div>
-            <div><h2 className="title">이런 방식으로 함께합니다.</h2></div>
+            <div><h2 className="title">{pick(c, "partners.types.title", "이런 방식으로 함께합니다.")}</h2></div>
           </div>
           <div className="grid-2">
             {TYPES.map((t, i) => (
@@ -55,7 +63,7 @@ export default function Partners() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Why partner</div></div>
-            <div><h2 className="title">지금 함께해야 하는 이유.</h2></div>
+            <div><h2 className="title">{pick(c, "partners.why.title", "지금 함께해야 하는 이유.")}</h2></div>
           </div>
           <div className="grid-3">
             {WHY.map((w, i) => (
@@ -69,17 +77,47 @@ export default function Partners() {
         </div>
       </section>
 
+      {partners.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section__head section__head--split">
+              <div><div className="eyebrow">Our Partners</div></div>
+              <div><h2 className="title title--sm">{pick(c, "partners.list.title", "함께하는 파트너")}</h2></div>
+            </div>
+            <div className="partner-grid">
+              {partners.map((p) => {
+                const inner = (
+                  <>
+                    {p.logoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.logoUrl} alt={p.name} loading="lazy" />
+                    ) : (
+                      <span className="partner-card__name">{p.name}</span>
+                    )}
+                  </>
+                );
+                return p.linkUrl ? (
+                  <a key={p.id} className="partner-card" href={p.linkUrl} target="_blank" rel="noopener" title={p.name}>{inner}</a>
+                ) : (
+                  <div key={p.id} className="partner-card" title={p.name}>{inner}</div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="section join">
         <div className="wrap">
           <Reveal className="join__card">
             <div>
               <div className="eyebrow" style={{ marginBottom: 20 }}>Partner with Us</div>
-              <h2 className="join__card--en">Let&apos;s build it.</h2>
-              <p>제휴·협업 제안을 남겨주시면 담당자가 검토 후 연락드립니다. 브랜드·공간·셀럽·글로벌 모두 환영합니다.</p>
+              <h2 className="join__card--en">{pick(c, "partners.cta.title", "Let\u2019s build it.")}</h2>
+              <p>{pick(c, "partners.cta.desc", "제휴·협업 제안을 남겨주시면 담당자가 검토 후 연락드립니다. 브랜드·공간·셀럽·글로벌 모두 환영합니다.")}</p>
             </div>
             <div className="join__actions">
               <a href={partnerMailHref} className="btn btn--lime">
-                제휴 제안하기 <Arrow />
+                {pick(c, "partners.cta.button", "제휴 제안하기")} <Arrow />
               </a>
               <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--ghost">방문·상담</a>
             </div>

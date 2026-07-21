@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LINKS, BUSINESS } from "../lib/site";
 import { db } from "../lib/db";
+import { getCopy, pick, handleFromUrl } from "../lib/copy";
 
 function IgIcon() {
   return (
@@ -30,6 +31,13 @@ export default async function Footer() {
   } catch {
     shops = [];
   }
+  // 사이트 정보(주소·SNS·태그라인)는 관리자에서 수정 — 비어 있으면 기존 값 폴백
+  const c = await getCopy("site");
+  const igs = [
+    { url: pick(c, "site.instagram1", LINKS.instagram[0].url), fallback: LINKS.instagram[0].handle },
+    { url: pick(c, "site.instagram2", LINKS.instagram[1].url), fallback: LINKS.instagram[1].handle },
+    { url: pick(c, "site.instagram3", LINKS.instagram[2].url), fallback: LINKS.instagram[2].handle },
+  ].filter((x) => x.url);
   return (
     <footer className="footer">
       <div className="wrap">
@@ -37,19 +45,19 @@ export default async function Footer() {
           <div>
             <Link href="/" className="footer__brand">PICKLEBOX</Link>
             <p className="footer__tagline">
-              피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect.
+              {pick(c, "site.footerTagline", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect.")}
             </p>
           </div>
 
           <div>
             <h4>Follow</h4>
             <div className="footer__links">
-              {LINKS.instagram.map((ig) => (
+              {igs.map((ig) => (
                 <a key={ig.url} href={ig.url} target="_blank" rel="noopener" className="footer__soc">
-                  <IgIcon /><span>Instagram {ig.handle}</span>
+                  <IgIcon /><span>Instagram {handleFromUrl(ig.url, ig.fallback)}</span>
                 </a>
               ))}
-              <a href={LINKS.youtube} target="_blank" rel="noopener" className="footer__soc">
+              <a href={pick(c, "site.youtube", LINKS.youtube)} target="_blank" rel="noopener" className="footer__soc">
                 <YtIcon /><span>YouTube 쫌치는언니</span>
               </a>
             </div>
@@ -78,7 +86,7 @@ export default async function Footer() {
 
         <div className="footer__biz">
           <span>{BUSINESS.name} · 대표 {BUSINESS.ceo} · 사업자등록번호 {BUSINESS.bizNo}</span>
-          <span>{BUSINESS.address}</span>
+          <span>{pick(c, "site.address", BUSINESS.address)}</span>
           <span>© {2026} PICKLEBOX. All rights reserved.</span>
         </div>
       </div>

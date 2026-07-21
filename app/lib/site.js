@@ -35,6 +35,8 @@ export const NAV = [
   { href: "/community", label: "Global Community" },
   { href: "/partners", label: "Partners" },
   { href: "/events", label: "Events" },
+  { href: "/goods", label: "Goods" },
+  { href: "/tours", label: "Tour" },
   { href: "/journal", label: "Journal" },
   { href: "/visit", label: "Contact" },
 ];

@@ -1,9 +1,12 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import { getCopy, pick } from "../lib/copy";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "대표 소개 — PICKLEBOX",
@@ -21,15 +24,16 @@ const CAREER = [
   "2025 피클볼 일본 Federation 우승 · 준우승",
 ];
 
-export default function Founder() {
+export default async function Founder() {
+  const c = await getCopy("founder");
   return (
     <>
       <Nav />
       <PageHero
         eyebrow="Founder"
         num="03"
-        title="테니스에서 피클볼로, 즐거움을 잇다."
-        lead="라켓 하나로 사람과 사람을 연결해 온 조민정 대표가 피클박스를 시작한 이유."
+        title={pick(c, "founder.hero.title", "테니스에서 피클볼로, 즐거움을 잇다.")}
+        lead={pick(c, "founder.hero.lead", "라켓 하나로 사람과 사람을 연결해 온 조민정 대표가 피클박스를 시작한 이유.")}
       />
 
       {/* ── 프로필 ── */}
@@ -38,7 +42,7 @@ export default function Founder() {
           <Reveal className="story__mark photo-slot photo-slot--founder" style={{ aspectRatio: "4 / 5" }} />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">조민정 · 대표</div>
-            <h2 className="title">코트 위의 즐거움을, 더 많은 사람에게.</h2>
+            <h2 className="title">{pick(c, "founder.a.title", "코트 위의 즐거움을, 더 많은 사람에게.")}</h2>
             <p className="lead">
               오랜 시간 라켓 스포츠와 함께해 온 조민정 대표는, 피클볼이 가진
               &lsquo;쉽게 배우고 함께 웃는&rsquo; 힘에 매료되어 피클박스를 시작했습니다.
@@ -57,7 +61,7 @@ export default function Founder() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Philosophy</div></div>
-            <div><h2 className="title">운동을 넘어, 사람을 연결합니다.</h2></div>
+            <div><h2 className="title">{pick(c, "founder.b.title", "운동을 넘어, 사람을 연결합니다.")}</h2></div>
           </div>
           <p className="lead" style={{ maxWidth: 720 }}>
             피클박스가 만들고 싶은 것은 단순한 운동 공간이 아닙니다. 처음 온 사람도 편하게 어울리고,
