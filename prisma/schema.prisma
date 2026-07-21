@@ -19,6 +19,8 @@ model Banner {
   subtitle  String?
   linkUrl   String?
   visible   Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,6 +36,8 @@ model Event {
   period      String?  // 예: 상반기, 매월, 상시
   imageUrl    String?
   visible     Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -47,6 +51,8 @@ model AcademyProgram {
   description String   @default("")
   imageUrl    String?
   visible     Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -64,6 +70,8 @@ model Tour {
   schedule    String   @default("") // 일정 상세(줄바꿈 구분)
   bookingUrl  String? // 예약 링크
   visible     Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -79,6 +87,8 @@ model Goods {
   price       Int? // 비우면 가격 미표시
   soldOut     Boolean  @default(false)
   visible     Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -92,6 +102,8 @@ model Partner {
   linkUrl     String?
   description String   @default("")
   visible     Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -107,6 +119,8 @@ model JournalPost {
   videoIds   String   @default("[]") // JSON 배열 문자열 (유튜브 ID 목록)
   soon       Boolean  @default(false)
   visible    Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder  Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -119,6 +133,8 @@ model Photo {
   caption   String?
   album     String?
   visible   Boolean  @default(true)
+  publishAt DateTime? // 예약 공개 시각(비면 즉시)
+  deletedAt DateTime? // 휴지통(값 있으면 숨김)
   sortOrder Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -134,4 +150,16 @@ model SiteCopy {
   kind      String   @default("text") // text | textarea | url
   sortOrder Int      @default(0)
   updatedAt DateTime @updatedAt
+}
+
+// 수정·삭제 직전 상태 스냅샷 (되돌리기용). 항목당 최근 20건 유지.
+model Revision {
+  id        Int      @id @default(autoincrement())
+  model     String // 관리 모델 slug (events, goods …)
+  recordId  Int
+  snapshot  String // JSON 문자열
+  action    String   @default("update") // update | delete
+  createdAt DateTime @default(now())
+
+  @@index([model, recordId])
 }

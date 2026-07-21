@@ -6,6 +6,14 @@ const db = new PrismaClient();
 
 // 없으면 만들 테이블
 const TABLES = {
+  Revision: `CREATE TABLE IF NOT EXISTS "Revision" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "model" TEXT NOT NULL,
+    "recordId" INTEGER NOT NULL,
+    "snapshot" TEXT NOT NULL,
+    "action" TEXT NOT NULL DEFAULT 'update',
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
   Partner: `CREATE TABLE IF NOT EXISTS "Partner" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
@@ -20,7 +28,15 @@ const TABLES = {
 };
 
 // 없으면 추가할 컬럼 (테이블 → 컬럼 → 타입/기본값)
+const SCHEDULE_COLS = { publishAt: "DATETIME", deletedAt: "DATETIME" };
+
 const COLUMNS = {
+  Banner: { ...SCHEDULE_COLS },
+  Event: { ...SCHEDULE_COLS },
+  AcademyProgram: { ...SCHEDULE_COLS },
+  Partner: { ...SCHEDULE_COLS },
+  JournalPost: { ...SCHEDULE_COLS },
+  Photo: { ...SCHEDULE_COLS },
   SiteCopy: {
     group: "TEXT NOT NULL DEFAULT 'site'",
     kind: "TEXT NOT NULL DEFAULT 'text'",
@@ -29,11 +45,13 @@ const COLUMNS = {
   Goods: {
     price: "INTEGER",
     soldOut: "BOOLEAN NOT NULL DEFAULT 0",
+    ...SCHEDULE_COLS,
   },
   Tour: {
     price: "INTEGER",
     schedule: "TEXT NOT NULL DEFAULT ''",
     bookingUrl: "TEXT",
+    ...SCHEDULE_COLS,
   },
 };
 
@@ -43,6 +61,7 @@ async function main() {
   for (const [table, sql] of Object.entries(TABLES)) {
     await db.$executeRawUnsafe(sql);
   }
+  await db.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS "Revision_model_recordId_idx" ON "Revision"("model", "recordId")`);
 
   for (const [table, cols] of Object.entries(COLUMNS)) {
     let info;

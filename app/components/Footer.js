@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LINKS, BUSINESS } from "../lib/site";
 import { db } from "../lib/db";
+import { publishedWhere } from "../lib/publicWhere";
 import { getCopy, pick, handleFromUrl } from "../lib/copy";
 
 function IgIcon() {
@@ -27,7 +28,7 @@ function YtIcon() {
 export default async function Footer() {
   let shops = [];
   try {
-    shops = await db.goods.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] });
+    shops = await db.goods.findMany({ where: publishedWhere(), orderBy: [{ sortOrder: "asc" }, { id: "asc" }] });
   } catch {
     shops = [];
   }

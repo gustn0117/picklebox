@@ -8,6 +8,7 @@ import CountUp from "./components/CountUp";
 import Multiline from "./components/Multiline";
 import { reserveHref } from "./lib/site";
 import { db } from "./lib/db";
+import { contentWhere, isPreview } from "./lib/publicWhere";
 import { getCopy, pick } from "./lib/copy";
 
 export const dynamic = "force-dynamic";
@@ -32,15 +33,17 @@ const STEPS = [
   { s: "STEP 03", h: "플레이", p: "패들과 공은 준비되어 있습니다. 처음이라면 레슨과 함께 첫날부터 랠리를." },
 ];
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  const preview = await isPreview(searchParams);
+  const WHERE = contentWhere(preview);
   let copy = {};
   let banners = [];
   let photos = [];
   try {
     const [rows, bnr, pho] = await Promise.all([
       getCopy("home"),
-      db.banner.findMany({ where: { page: "home", visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
-      db.photo.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+      db.banner.findMany({ where: { page: "home", ...WHERE }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+      db.photo.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     ]);
     copy = rows;
     banners = bnr.filter((b) => b.imageUrl); // 이미지 있는 배너만 노출

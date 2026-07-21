@@ -6,6 +6,7 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
+import { contentWhere, isPreview } from "../lib/publicWhere";
 import { getCopy, pick } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import RichHtml from "../components/RichHtml";
@@ -17,9 +18,11 @@ export const metadata = {
   description: "셀럽·커뮤니티·컬처가 만나는 피클박스 이벤트. 셀럽 매치, 오픈 토너먼트, 피클 파티까지.",
 };
 
-export default async function Events() {
+export default async function Events({ searchParams }) {
+  const preview = await isPreview(searchParams);
+  const WHERE = contentWhere(preview);
   const [events, c] = await Promise.all([
-    db.event.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.event.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     getCopy("events"),
   ]);
   const lineup = events.filter((e) => e.kind === "lineup");
