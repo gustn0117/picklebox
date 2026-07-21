@@ -37,6 +37,9 @@ export default function AdminList({ slug, config, initialRows }) {
   const [err, setErr] = useState("");
   const [dragId, setDragId] = useState(null);
   const [overId, setOverId] = useState(null);
+  const [trash, setTrash] = useState(false);      // 휴지통 보기
+  const [history, setHistory] = useState(null);   // { row, items }
+  const [pub, setPub] = useState({ visible: true, publishAt: "" }); // 저장 시 공개 설정
 
   // 끌어놓기로 순서 변경 — 놓는 순간 전체 순서를 한 번에 저장
   async function dropOn(targetId) {
@@ -55,14 +58,17 @@ export default function AdminList({ slug, config, initialRows }) {
     reload();
   }
 
-  async function reload() {
-    const r = await fetch(api(slug));
+  async function reload(showTrash = trash) {
+    const r = await fetch(api(slug) + (showTrash ? "?trash=1" : ""));
     const d = await r.json();
     setRows(d.rows || []);
   }
 
-  function startNew() { setEditing("new"); setForm(emptyForm(config.fields)); setErr(""); }
-  function startEdit(row) { setEditing(row.id); setForm(rowToForm(config.fields, row)); setErr(""); }
+  function startNew() { setEditing("new"); setForm(emptyForm(config.fields)); setPub({ visible: true, publishAt: "" }); setErr(""); }
+  function startEdit(row) {
+    setEditing(row.id); setForm(rowToForm(config.fields, row)); setErr("");
+    setPub({ visible: row.visible !== false, publishAt: row.publishAt ? String(row.publishAt).slice(0, 16) : "" });
+  }
   function cancel() { setEditing(null); setErr(""); }
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -72,7 +78,7 @@ export default function AdminList({ slug, config, initialRows }) {
     const r = await fetch(isNew ? api(slug) : api(slug, `/${editing}`), {
       method: isNew ? "POST" : "PATCH",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(config.hasVisible ? { ...form, ...pub } : form),
     });
     if (r.ok) { setEditing(null); await reload(); }
     else { const d = await r.json().catch(() => ({})); setErr(d.error || "저장에 실패했습니다."); }
@@ -88,9 +94,30 @@ export default function AdminList({ slug, config, initialRows }) {
     reload();
   }
   async function remove(row) {
-    if (!confirm("정말 삭제할까요? 되돌릴 수 없습니다.")) return;
+    if (!confirm("휴지통으로 보낼까요? 나중에 복구할 수 있습니다.")) return;
     await fetch(api(slug, `/${row.id}`), { method: "DELETE" });
     reload();
+  }
+  async function restore(row) {
+    await fetch(api(slug, `/${row.id}`), { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "restore" }) });
+    reload();
+  }
+  async function purge(row) {
+    if (!confirm("영구 삭제할까요? 이 작업은 되돌릴 수 없습니다.")) return;
+    await fetch(api(slug, `/${row.id}?purge=1`), { method: "DELETE" });
+    reload();
+  }
+  async function openHistory(row) {
+    const r = await fetch(api(slug, `/${row.id}?revisions=1`));
+    const d = await r.json().catch(() => ({}));
+    setHistory({ row, items: d.revisions || [] });
+  }
+  async function revertTo(revisionId) {
+    await fetch(api(slug, `/${history.row.id}`), { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "revert", revisionId }) });
+    setHistory(null); reload();
+  }
+  function toggleTrash() {
+    const next = !trash; setTrash(next); setEditing(null); reload(next);
   }
 
   // ── 문구·사이트 정보: 그룹 탭 + 인라인 편집
@@ -101,22 +128,27 @@ export default function AdminList({ slug, config, initialRows }) {
   return (
     <div>
       <div className="a-head">
-        <h1><Icon name={config.icon} size={22} /> {config.label}</h1>
-        {config.canCreate && editing !== "new" && (
-          <button className="a-btn a-btn--primary" onClick={startNew}>+ 새로 추가</button>
-        )}
+        <h1><Icon name={config.icon} size={22} /> {config.label}{trash ? " · 휴지통" : ""}</h1>
+        <div style={{ display: "flex", gap: 8 }}>
+          {config.canDelete && (
+            <button className="a-btn" onClick={toggleTrash}>{trash ? "← 목록으로" : "휴지통"}</button>
+          )}
+          {config.canCreate && !trash && editing !== "new" && (
+            <button className="a-btn a-btn--primary" onClick={startNew}>+ 새로 추가</button>
+          )}
+        </div>
       </div>
 
       {editing === "new" && (
-        <FormCard title="새 항목" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} />
+        <FormCard title="새 항목" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} pub={config.hasVisible ? pub : null} setPub={setPub} />
       )}
 
       <div className="a-list">
-        {rows.length === 0 && editing !== "new" && <div className="a-empty">아직 항목이 없습니다. “새로 추가”를 눌러 등록하세요.</div>}
+        {rows.length === 0 && editing !== "new" && <div className="a-empty">{trash ? "휴지통이 비어 있습니다." : "아직 항목이 없습니다. “새로 추가”를 눌러 등록하세요."}</div>}
         {rows.map((row, i) => (
           <div key={row.id}>
             {editing === row.id ? (
-              <FormCard title="수정" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} />
+              <FormCard title="수정" fields={config.fields} form={form} setField={setField} onSave={save} onCancel={cancel} busy={busy} err={err} pub={config.hasVisible ? pub : null} setPub={setPub} />
             ) : (
               <div
                 className={`a-row${config.hasVisible && !row.visible ? " a-row--hidden" : ""}${overId === row.id ? " a-row--over" : ""}${dragId === row.id ? " a-row--dragging" : ""}`}
@@ -137,12 +169,23 @@ export default function AdminList({ slug, config, initialRows }) {
                 <div className="a-row__body">
                   <div className="a-row__title">
                     {row[config.titleKey] || "(제목 없음)"}
+                    {config.hasVisible && !row.visible ? <span className="a-badge a-badge--muted">비공개</span> : null}
+                    {row.publishAt && new Date(row.publishAt) > new Date()
+                      ? <span className="a-badge a-badge--soon">예약 {new Date(row.publishAt).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+                      : null}
                     {row.soldOut ? <span className="a-badge">품절</span> : null}
                     {typeof row.price === "number" ? <span className="a-price">{row.price.toLocaleString()}원</span> : null}
                   </div>
                   {config.subKey && row[config.subKey] ? <div className="a-row__sub">{String(row[config.subKey])}</div> : null}
                 </div>
                 <div className="a-row__actions">
+                  {trash ? (
+                    <>
+                      <button className="a-btn a-btn--primary" onClick={() => restore(row)}>복구</button>
+                      <button className="a-btn a-btn--danger" onClick={() => purge(row)}>영구 삭제</button>
+                    </>
+                  ) : (
+                  <>
                   {config.hasVisible && (
                     <button className="a-icon" title={row.visible ? "노출 중(끄기)" : "숨김(켜기)"} onClick={() => toggle(row)}>
                       <Icon name={row.visible ? "eye" : "eyeOff"} size={17} />
@@ -155,13 +198,35 @@ export default function AdminList({ slug, config, initialRows }) {
                     </>
                   )}
                   <button className="a-btn" onClick={() => startEdit(row)}>수정</button>
+                  <button className="a-btn" onClick={() => openHistory(row)}>이력</button>
                   {config.canDelete && <button className="a-btn a-btn--danger" onClick={() => remove(row)}>삭제</button>}
+                  </>
+                  )}
                 </div>
               </div>
             )}
           </div>
         ))}
       </div>
+
+      {history && (
+        <div className="cropper" onClick={(e) => { if (e.target === e.currentTarget) setHistory(null); }}>
+          <div className="cropper__panel">
+            <div className="cropper__title">수정 이력</div>
+            <p className="cropper__help">되돌릴 시점을 고르세요. 되돌리기 전 상태도 이력에 남습니다.</p>
+            <div className="a-histlist">
+              {history.items.length === 0 && <div className="a-empty">아직 이력이 없습니다.</div>}
+              {history.items.map((h) => (
+                <div key={h.id} className="a-histrow">
+                  <span>{new Date(h.createdAt).toLocaleString("ko-KR")}<em>{h.action === "delete" ? " · 삭제됨" : ""}</em></span>
+                  <button className="a-btn a-btn--sm" onClick={() => revertTo(h.id)}>이 내용으로 되돌리기</button>
+                </div>
+              ))}
+            </div>
+            <div className="cropper__actions"><button className="a-btn" onClick={() => setHistory(null)}>닫기</button></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -227,7 +292,7 @@ function CopyRow({ slug, row, onSaved }) {
   );
 }
 
-function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }) {
+function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err, pub, setPub }) {
   return (
     <div className="a-form">
       <div className="a-form__title">{title}</div>
@@ -258,9 +323,24 @@ function FormCard({ title, fields, form, setField, onSave, onCancel, busy, err }
           )}
         </div>
       ))}
+      {pub && (
+        <div className="a-publish">
+          <div className="a-publish__row">
+            <label className="a-check">
+              <input type="checkbox" checked={pub.visible} onChange={(e) => setPub({ ...pub, visible: e.target.checked })} />
+              지금 공개하기 <span className="a-publish__hint">(끄면 비공개로 저장 — 사이트에 안 보임)</span>
+            </label>
+          </div>
+          <div className="a-publish__row">
+            <label>예약 공개 (선택)</label>
+            <input type="datetime-local" value={pub.publishAt} onChange={(e) => setPub({ ...pub, publishAt: e.target.value })} />
+            {pub.publishAt && <button type="button" className="a-btn a-btn--sm" onClick={() => setPub({ ...pub, publishAt: "" })}>지우기</button>}
+          </div>
+        </div>
+      )}
       {err && <div className="a-err">{err}</div>}
       <div className="a-form__actions">
-        <button className="a-btn a-btn--primary" onClick={onSave} disabled={busy}>{busy ? "저장 중…" : "저장"}</button>
+        <button className="a-btn a-btn--primary" onClick={onSave} disabled={busy}>{busy ? "저장 중…" : (pub && !pub.visible ? "비공개로 저장" : "저장")}</button>
         <button className="a-btn" onClick={onCancel} disabled={busy}>취소</button>
       </div>
     </div>

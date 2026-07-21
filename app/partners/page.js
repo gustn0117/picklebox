@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { partnerMailHref, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
+import { contentWhere, isPreview } from "../lib/publicWhere";
 import { getCopy, pick } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
@@ -27,9 +28,11 @@ const WHY = [
   { h: "서울숲 거점", p: "갤러리아 포레라는 프리미엄 로케이션에서 오프라인 접점을 만듭니다." },
 ];
 
-export default async function Partners() {
+export default async function Partners({ searchParams }) {
+  const preview = await isPreview(searchParams);
+  const WHERE = contentWhere(preview);
   const [partners, c] = await Promise.all([
-    db.partner.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.partner.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     getCopy("partners"),
   ]);
   return (

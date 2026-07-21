@@ -12,7 +12,7 @@ export default async function ModelAdmin({ params }) {
   if (!cfg) notFound();
 
   const orderBy = cfg.ordered ? [{ sortOrder: "asc" }, { id: "asc" }] : [{ id: "asc" }];
-  const rows = await db[cfg.prisma].findMany({ orderBy });
+  const rows = await db[cfg.prisma].findMany({ where: cfg.canDelete ? { deletedAt: null } : {}, orderBy });
 
   // 클라이언트로 넘길 직렬화 가능 config
   const clientCfg = {

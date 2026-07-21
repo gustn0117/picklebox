@@ -6,6 +6,7 @@ import Arrow from "../components/Arrow";
 import YtThumb from "../components/YtThumb";
 import { LINKS } from "../lib/site";
 import { db } from "../lib/db";
+import { contentWhere, isPreview } from "../lib/publicWhere";
 import { getCopy, pick } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
@@ -26,9 +27,11 @@ function parseVideos(raw) {
   }
 }
 
-export default async function Journal() {
+export default async function Journal({ searchParams }) {
+  const preview = await isPreview(searchParams);
+  const WHERE = contentWhere(preview);
   const [posts, c] = await Promise.all([
-    db.journalPost.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.journalPost.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     getCopy("journal"),
   ]);
 

@@ -6,6 +6,7 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { SUBBRANDS, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
+import { contentWhere, isPreview } from "../lib/publicWhere";
 import { getCopy, pick } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import RichHtml from "../components/RichHtml";
@@ -39,10 +40,12 @@ const TIMELINE = [
   { yr: "NOW", h: "컬처 플랫폼", p: "셀럽·커뮤니티·컬처를 잇는 피클볼 라이프스타일 플랫폼으로." },
 ];
 
-export default async function About() {
+export default async function About({ searchParams }) {
+  const preview = await isPreview(searchParams);
+  const WHERE = contentWhere(preview);
   const [academy, tours, c] = await Promise.all([
-    db.academyProgram.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
-    db.tour.findMany({ where: { visible: true }, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.academyProgram.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
+    db.tour.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     getCopy("about"),
   ]);
   return (
