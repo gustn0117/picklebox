@@ -28,16 +28,22 @@ export const SHOPS = [
 ];
 
 // 상단 내비게이션 — 레퍼런스와 동일 구성.
+// dynamic: /api/nav 에서 최근 항목을 불러올 키 / links: 고정 하위 링크
 export const NAV = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About PICKLEBOX" },
+  { href: "/about", label: "About PICKLEBOX", links: [
+    { label: "브랜드 스토리", href: "/about" },
+    { label: "서비스 6종", href: "/about#brands" },
+    { label: "피클볼이란?", href: "/pickleball" },
+    { label: "대표 소개", href: "/founder" },
+  ] },
   { href: "/founder", label: "About CEO" },
   { href: "/community", label: "Global Community" },
   { href: "/partners", label: "Partners" },
-  { href: "/events", label: "Events" },
-  { href: "/goods", label: "Goods" },
-  { href: "/tours", label: "Tour" },
-  { href: "/journal", label: "Journal" },
+  { href: "/events", label: "Events", dynamic: "events", moreLabel: "이벤트 전체보기" },
+  { href: "/goods", label: "Goods", dynamic: "goods", moreLabel: "굿즈 전체보기" },
+  { href: "/tours", label: "Tour", dynamic: "tours", moreLabel: "투어 전체보기" },
+  { href: "/journal", label: "Journal", dynamic: "journal", moreLabel: "저널 전체보기" },
   { href: "/visit", label: "Contact" },
 ];
 
