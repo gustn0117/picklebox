@@ -1,7 +1,7 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { getCopy, pick, pickList } from "../lib/copy";
+import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
@@ -9,10 +9,12 @@ import { LINKS, reserveHref } from "../lib/site";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "대표 소개 — PICKLEBOX",
-  description: "테니스에서 피클볼로 — 조민정 대표가 그리는 피클박스 이야기.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.founder", "대표 소개 — PICKLEBOX"),
+    description: "테니스에서 피클볼로 — 조민정 대표가 그리는 피클박스 이야기.",
+  };
+}
 
 
 export default async function Founder() {

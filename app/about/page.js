@@ -8,16 +8,18 @@ import Arrow from "../components/Arrow";
 import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick, pickList } from "../lib/copy";
+import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "피클박스 안내 — PICKLEBOX",
-  description: "PICKLEBOX 브랜드 스토리와 사업 소개, 피클볼을 중심으로 한 여섯 가지 서비스 라인업을 소개합니다.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.about", "피클박스 안내 — PICKLEBOX"),
+    description: "PICKLEBOX 브랜드 스토리와 사업 소개, 피클볼을 중심으로 한 여섯 가지 서비스 라인업을 소개합니다.",
+  };
+}
 
 const VALUES = [
   { k: "Play", ko: "즐거움", p: "누구나 즐기는 피클볼. 진입 장벽을 낮춰 첫날의 재미를 선물합니다." },

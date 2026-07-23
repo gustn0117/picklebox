@@ -7,14 +7,16 @@ import YtThumb from "../components/YtThumb";
 import { LINKS } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Journal — PICKLEBOX",
-  description: "피클볼 컬처, 가이드, 이벤트 비하인드. 피클박스가 전하는 이야기.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.journal", "Journal — PICKLEBOX"),
+    description: "피클볼 컬처, 가이드, 이벤트 비하인드. 피클박스가 전하는 이야기.",
+  };
+}
 
 const ytLink = (id) => `https://youtu.be/${id}`;
 

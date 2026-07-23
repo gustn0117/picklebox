@@ -1,16 +1,18 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { getCopy, pick, pickList } from "../lib/copy";
+import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Arrow from "../components/Arrow";
 import { LINKS, BUSINESS, reserveHref } from "../lib/site";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "오시는 길 — PICKLEBOX",
-  description: "서울숲 갤러리아 포레의 PICKLEBOX. 예약·지도·문의 안내.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.visit", "오시는 길 — PICKLEBOX"),
+    description: "서울숲 갤러리아 포레의 PICKLEBOX. 예약·지도·문의 안내.",
+  };
+}
 
 
 

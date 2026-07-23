@@ -13,6 +13,16 @@ export async function getCopy(group) {
   }
 }
 
+// 단일 키의 값(없으면 fallback). 페이지 제목(SEO) 등 한 값만 필요할 때.
+export async function getCopyValue(key, fallback = "") {
+  try {
+    const r = await db.siteCopy.findUnique({ where: { key } });
+    return r && r.value && r.value.trim() ? r.value : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 // 여러 그룹을 한 번에(예: 페이지 문구 + 사이트 정보)
 export async function getCopyMulti(groups) {
   try {

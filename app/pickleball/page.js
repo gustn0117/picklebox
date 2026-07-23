@@ -5,15 +5,17 @@ import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { reserveHref } from "../lib/site";
-import { getCopy, pick, pickList } from "../lib/copy";
+import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "피클볼이란? — PICKLEBOX",
-  description: "테니스·배드민턴·탁구를 합친 라켓 스포츠, 피클볼. 규칙과 장비, 매력까지 쉽게 알아봅니다.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.pickleball", "피클볼이란? — PICKLEBOX"),
+    description: "테니스·배드민턴·탁구를 합친 라켓 스포츠, 피클볼. 규칙과 장비, 매력까지 쉽게 알아봅니다.",
+  };
+}
 
 
 

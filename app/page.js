@@ -10,12 +10,15 @@ import Multiline from "./components/Multiline";
 import { reserveHref } from "./lib/site";
 import { db } from "./lib/db";
 import { contentWhere, isPreview } from "./lib/publicWhere";
-import { getCopy, pick, pickList } from "./lib/copy";
+import { getCopy, pick, pickList, getCopyValue } from "./lib/copy";
 
 export const dynamic = "force-dynamic";
 
-
-
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.home", "PICKLEBOX — 피클볼로 여는 즐거운 선물상자"),
+  };
+}
 
 export default async function Home({ searchParams }) {
   const preview = await isPreview(searchParams);

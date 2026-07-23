@@ -8,16 +8,18 @@ import Arrow from "../components/Arrow";
 import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Events — PICKLEBOX",
-  description: "셀럽·커뮤니티·컬처가 만나는 피클박스 이벤트. 셀럽 매치, 오픈 토너먼트, 피클 파티까지.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.events", "Events — PICKLEBOX"),
+    description: "셀럽·커뮤니티·컬처가 만나는 피클박스 이벤트. 셀럽 매치, 오픈 토너먼트, 피클 파티까지.",
+  };
+}
 
 export default async function Events({ searchParams }) {
   const preview = await isPreview(searchParams);

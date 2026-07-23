@@ -9,7 +9,7 @@ const api = (slug, path = "") => `/api/admin/${slug}${path}`;
 
 // 문구 그룹 표시명 / 표시 순서
 const GROUP_LABELS = {
-  nav: "메뉴 이름", site: "사이트 정보", home: "홈", about: "소개", pickleball: "피클볼이란", founder: "대표", community: "커뮤니티",
+  nav: "메뉴 이름", seo: "페이지 제목(SEO)", site: "사이트 정보", home: "홈", about: "소개", pickleball: "피클볼이란", founder: "대표", community: "커뮤니티",
   partners: "파트너", events: "이벤트", journal: "저널", visit: "오시는 길", goods: "굿즈", tours: "투어",
 };
 const GROUP_ORDER = Object.keys(GROUP_LABELS);

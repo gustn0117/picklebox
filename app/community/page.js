@@ -2,17 +2,19 @@ import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Global Community — PICKLEBOX",
-  description: "서울에서 세계로. 레벨별 매칭과 정기 모임, 글로벌 교류로 이어지는 피클박스 커뮤니티.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.community", "Global Community — PICKLEBOX"),
+    description: "서울에서 세계로. 레벨별 매칭과 정기 모임, 글로벌 교류로 이어지는 피클박스 커뮤니티.",
+  };
+}
 
 const OFFERS = [
   { h: "정기 모임", p: "레벨·시간대별 정기 세션으로 꾸준히 즐기는 커뮤니티. 혼자 와도 함께 치게 됩니다." },

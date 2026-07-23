@@ -246,6 +246,21 @@ const SITE_COPY = [
     T("nav.cta.join", "우측 버튼 ① (예약)", "Join the Game"),
     T("nav.cta.partner", "우측 버튼 ② (파트너)", "Partner with Us"),
   ].map((c, i) => ({ ...c, group: "nav", sortOrder: i })),
+
+  // ── 페이지 제목(브라우저 탭·검색결과에 표시 · URL은 그대로)
+  ...[
+    T("seo.home", "홈 (/)", "PICKLEBOX — 피클볼로 여는 즐거운 선물상자"),
+    T("seo.about", "소개 (/about)", "피클박스 안내 — PICKLEBOX"),
+    T("seo.pickleball", "피클볼이란 (/pickleball)", "피클볼이란? — PICKLEBOX"),
+    T("seo.founder", "대표 (/founder)", "대표 소개 — PICKLEBOX"),
+    T("seo.community", "커뮤니티 (/community)", "Global Community — PICKLEBOX"),
+    T("seo.partners", "파트너 (/partners)", "Partners — PICKLEBOX"),
+    T("seo.events", "이벤트 (/events)", "Events — PICKLEBOX"),
+    T("seo.goods", "굿즈 (/goods)", "굿즈 — PICKLEBOX"),
+    T("seo.tours", "투어 (/tours)", "투어 — PICKLEBOX"),
+    T("seo.journal", "저널 (/journal)", "Journal — PICKLEBOX"),
+    T("seo.visit", "오시는 길 (/visit)", "오시는 길 — PICKLEBOX"),
+  ].map((c, i) => ({ ...c, group: "seo", sortOrder: i })),
 ];
 
 async function seedIfEmpty(name, delegate, rows, createFn) {

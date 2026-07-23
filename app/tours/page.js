@@ -6,15 +6,17 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "투어 — PICKLEBOX",
-  description: "코트를 넘어 떠나는 피클볼 투어. 일정과 가격, 예약 안내.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.tours", "투어 — PICKLEBOX"),
+    description: "코트를 넘어 떠나는 피클볼 투어. 일정과 가격, 예약 안내.",
+  };
+}
 
 export default async function Tours({ searchParams }) {
   const preview = await isPreview(searchParams);

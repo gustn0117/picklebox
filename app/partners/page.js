@@ -7,14 +7,16 @@ import Arrow from "../components/Arrow";
 import { partnerMailHref, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Partners — PICKLEBOX",
-  description: "브랜드·공간·셀럽·글로벌 파트너와 함께 만드는 피클볼 컬처. 제휴·협업 제안을 기다립니다.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.partners", "Partners — PICKLEBOX"),
+    description: "브랜드·공간·셀럽·글로벌 파트너와 함께 만드는 피클볼 컬처. 제휴·협업 제안을 기다립니다.",
+  };
+}
 
 const TYPES = [
   { k: "Brand", ko: "브랜드 협업", p: "굿즈·팝업·컬래버 등 브랜드와 함께하는 컬처 프로젝트." },

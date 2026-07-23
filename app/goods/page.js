@@ -6,15 +6,17 @@ import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, getCopyValue } from "../lib/copy";
 import RichHtml from "../components/RichHtml";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "굿즈 — PICKLEBOX",
-  description: "피클박스가 고른 피클볼 굿즈. 패들부터 웨어까지.",
-};
+export async function generateMetadata() {
+  return {
+    title: await getCopyValue("seo.goods", "굿즈 — PICKLEBOX"),
+    description: "피클박스가 고른 피클볼 굿즈. 패들부터 웨어까지.",
+  };
+}
 
 export default async function Goods({ searchParams }) {
   const preview = await isPreview(searchParams);
