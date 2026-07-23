@@ -29,22 +29,23 @@ export const SHOPS = [
 
 // 상단 내비게이션 — 레퍼런스와 동일 구성.
 // dynamic: /api/nav 에서 최근 항목을 불러올 키 / links: 고정 하위 링크
+// ck: 관리자 문구(group "nav")의 키 — 있으면 label 을 그 값으로 덮어쓴다.
 export const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About PICKLEBOX", links: [
+  { href: "/", label: "Home", ck: "nav.home" },
+  { href: "/about", label: "About PICKLEBOX", ck: "nav.about", links: [
     { label: "브랜드 스토리", href: "/about" },
     { label: "서비스 6종", href: "/about#brands" },
     { label: "피클볼이란?", href: "/pickleball" },
     { label: "대표 소개", href: "/founder" },
   ] },
-  { href: "/founder", label: "About CEO" },
-  { href: "/community", label: "Global Community" },
-  { href: "/partners", label: "Partners" },
-  { href: "/events", label: "Events", dynamic: "events", moreLabel: "이벤트 전체보기" },
-  { href: "/goods", label: "Goods", dynamic: "goods", moreLabel: "굿즈 전체보기" },
-  { href: "/tours", label: "Tour", dynamic: "tours", moreLabel: "투어 전체보기" },
-  { href: "/journal", label: "Journal", dynamic: "journal", moreLabel: "저널 전체보기" },
-  { href: "/visit", label: "Contact" },
+  { href: "/founder", label: "About CEO", ck: "nav.founder" },
+  { href: "/community", label: "Global Community", ck: "nav.community" },
+  { href: "/partners", label: "Partners", ck: "nav.partners" },
+  { href: "/events", label: "Events", ck: "nav.events", dynamic: "events", moreLabel: "이벤트 전체보기" },
+  { href: "/goods", label: "Goods", ck: "nav.goods", dynamic: "goods", moreLabel: "굿즈 전체보기" },
+  { href: "/tours", label: "Tour", ck: "nav.tours", dynamic: "tours", moreLabel: "투어 전체보기" },
+  { href: "/journal", label: "Journal", ck: "nav.journal", dynamic: "journal", moreLabel: "저널 전체보기" },
+  { href: "/visit", label: "Contact", ck: "nav.contact" },
 ];
 
 export const BUSINESS = {

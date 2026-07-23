@@ -12,13 +12,17 @@ export async function GET() {
   try {
     const where = publishedWhere();
     const order = [{ sortOrder: "asc" }, { id: "asc" }];
-    const [events, goods, tours, journal] = await Promise.all([
+    const [events, goods, tours, journal, navCopy] = await Promise.all([
       db.event.findMany({ where, orderBy: order, take }),
       db.goods.findMany({ where, orderBy: order, take }),
       db.tour.findMany({ where, orderBy: order, take }),
       db.journalPost.findMany({ where, orderBy: order, take }),
+      db.siteCopy.findMany({ where: { group: "nav" } }),
     ]);
+    const labels = {};
+    for (const r of navCopy) if (r.value && r.value.trim()) labels[r.key] = r.value;
     return NextResponse.json({
+      labels,
       events: events.map((e) => ({ label: e.titleKo, href: "/events" })),
       goods: goods.map((g) => ({ label: g.name, href: g.buyUrl || "/goods", external: !!g.buyUrl })),
       tours: tours.map((t) => ({ label: t.title, href: "/tours" })),
@@ -29,6 +33,6 @@ export async function GET() {
       }),
     });
   } catch {
-    return NextResponse.json({ events: [], goods: [], tours: [], journal: [] });
+    return NextResponse.json({ labels: {}, events: [], goods: [], tours: [], journal: [] });
   }
 }

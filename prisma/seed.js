@@ -230,6 +230,22 @@ const SITE_COPY = [
     TA("tours.hero.lead", "히어로 설명", "코트를 넘어 떠나는 여행. 피클볼과 함께하는 특별한 일정으로 안내합니다."),
     T("tours.empty", "상품이 없을 때 문구", "준비 중입니다. 곧 새로운 투어로 찾아뵙겠습니다."),
   ].map((c, i) => ({ ...c, group: "tours", sortOrder: i })),
+
+  // ── 상단 메뉴 이름(페이지 명) · 우측 버튼
+  ...[
+    T("nav.home", "메뉴 · 홈", "Home"),
+    T("nav.about", "메뉴 · 소개", "About PICKLEBOX"),
+    T("nav.founder", "메뉴 · 대표", "About CEO"),
+    T("nav.community", "메뉴 · 커뮤니티", "Global Community"),
+    T("nav.partners", "메뉴 · 파트너", "Partners"),
+    T("nav.events", "메뉴 · 이벤트", "Events"),
+    T("nav.goods", "메뉴 · 굿즈", "Goods"),
+    T("nav.tours", "메뉴 · 투어", "Tour"),
+    T("nav.journal", "메뉴 · 저널", "Journal"),
+    T("nav.contact", "메뉴 · 오시는길", "Contact"),
+    T("nav.cta.join", "우측 버튼 ① (예약)", "Join the Game"),
+    T("nav.cta.partner", "우측 버튼 ② (파트너)", "Partner with Us"),
+  ].map((c, i) => ({ ...c, group: "nav", sortOrder: i })),
 ];
 
 async function seedIfEmpty(name, delegate, rows, createFn) {

@@ -26,9 +26,15 @@ export default function Nav() {
   const [expanded, setExpanded] = useState(null); // 모바일 펼친 항목
   const [hover, setHover] = useState(null);      // 데스크톱 드롭다운
   const [search, setSearch] = useState(false);
-  const [navData, setNavData] = useState({ events: [], goods: [], tours: [], journal: [] });
+  const [navData, setNavData] = useState({ labels: {}, events: [], goods: [], tours: [], journal: [] });
   const pathname = usePathname();
   const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+
+  // 관리자에서 바꾼 메뉴 이름이 있으면 그 값, 없으면 기본 label
+  const labels = navData.labels || {};
+  const navLabel = (m) => (m.ck && labels[m.ck]) || m.label;
+  const joinLabel = labels["nav.cta.join"] || "Join the Game";
+  const partnerLabel = labels["nav.cta.partner"] || "Partner with Us";
 
   useEffect(() => {
     fetch("/api/nav").then((r) => r.json()).then(setNavData).catch(() => {});
@@ -54,7 +60,7 @@ export default function Nav() {
             const items = dropItems(m, navData);
             return (
               <div key={m.href} className="nav__item" onMouseEnter={() => setHover(items.length ? m.href : null)}>
-                <Link href={m.href} className={`nav__link ${isActive(m.href) ? "is-active" : ""}`}>{m.label}</Link>
+                <Link href={m.href} className={`nav__link ${isActive(m.href) ? "is-active" : ""}`}>{navLabel(m)}</Link>
                 {items.length > 0 && hover === m.href && (
                   <div className="nav-drop">
                     {items.map((it, i) => <DropLink key={i} it={it} onClick={() => setHover(null)} />)}
@@ -67,8 +73,8 @@ export default function Nav() {
 
         <div className="nav__cta-group">
           <button className="nav__search" aria-label="검색" onClick={() => setSearch(true)}><SearchIcon /></button>
-          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary nav__cta">Join the Game</a>
-          <Link href="/partners" className="btn btn--ghost nav__cta">Partner with Us</Link>
+          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary nav__cta">{joinLabel}</a>
+          <Link href="/partners" className="btn btn--ghost nav__cta">{partnerLabel}</Link>
         </div>
 
         <div className="nav__mobile-actions">
@@ -84,7 +90,7 @@ export default function Nav() {
             return (
               <div key={m.href} className="nav__mrow">
                 <div className="nav__mhead">
-                  <Link href={m.href} className={`nav__link ${isActive(m.href) ? "is-active" : ""}`} onClick={() => setOpen(false)}>{m.label}</Link>
+                  <Link href={m.href} className={`nav__link ${isActive(m.href) ? "is-active" : ""}`} onClick={() => setOpen(false)}>{navLabel(m)}</Link>
                   {items.length > 0 && (
                     <button className="nav__mexp" aria-label="펼치기" onClick={() => setExpanded((v) => (v === m.href ? null : m.href))}>
                       {expanded === m.href ? "−" : "+"}
@@ -99,8 +105,8 @@ export default function Nav() {
               </div>
             );
           })}
-          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>Join the Game</a>
-          <Link href="/partners" className="btn btn--ghost" onClick={() => setOpen(false)}>Partner with Us</Link>
+          <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>{joinLabel}</a>
+          <Link href="/partners" className="btn btn--ghost" onClick={() => setOpen(false)}>{partnerLabel}</Link>
         </div>
       )}
 
