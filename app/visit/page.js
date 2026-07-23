@@ -1,7 +1,7 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, pickList } from "../lib/copy";
 import Arrow from "../components/Arrow";
 import { LINKS, BUSINESS, reserveHref } from "../lib/site";
 
@@ -12,22 +12,16 @@ export const metadata = {
   description: "서울숲 갤러리아 포레의 PICKLEBOX. 예약·지도·문의 안내.",
 };
 
-const ACCESS = [
-  { h: "대중교통", p: "수인분당선 서울숲역 [도보 N분]. 성수동 갤러리아 포레 지하 1층 B102호." },
-  { h: "주차", p: "갤러리아 포레 주차장 이용 가능. [주차 요금·등록 안내]." },
-  { h: "편의시설", p: "코트 · 라운지 · [샤워/탈의/락커 등 편의시설 안내]." },
-  { h: "운영", p: "24시간 무인 운영. 레슨·상담은 [운영시간] 별도 안내." },
-];
 
-const FAQ = [
-  { q: "처음인데 장비가 없어도 되나요?", a: "네, 패들과 공은 클럽에 준비되어 있습니다. 편한 운동복과 실내 운동화만 챙겨 오시면 됩니다." },
-  { q: "무인인데 어떻게 입장하나요?", a: "네이버 예약 후 스마트 출입 방법을 안내해 드립니다. 예약한 시간에 맞춰 24시간 언제든 입장할 수 있습니다. [출입 방식 상세]" },
-  { q: "피클볼이 처음이에요. 배울 수 있나요?", a: "물론입니다. ACADEMY 레슨으로 규칙부터 랠리까지 첫날에 익힐 수 있습니다. 인스타 DM 또는 예약으로 문의해 주세요." },
-  { q: "몇 명이 함께 이용할 수 있나요?", a: "단식 2인, 복식 4인까지 즐기기 좋습니다. 커뮤니티·모임 이용은 [단체 안내]를 참고해 주세요." },
-];
 
 export default async function Visit() {
   const c = await getCopy("visit");
+  const ACCESS = pickList(c, "visit.access",
+    "대중교통 | 수인분당선 서울숲역 [도보 N분]. 성수동 갤러리아 포레 지하 1층 B102호.\n주차 | 갤러리아 포레 주차장 이용 가능. [주차 요금·등록 안내].\n편의시설 | 코트 · 라운지 · [샤워/탈의/락커 등 편의시설 안내].\n운영 | 24시간 무인 운영. 레슨·상담은 [운영시간] 별도 안내.", "|")
+    .map(([h, p]) => ({ h, p }));
+  const FAQ = pickList(c, "visit.faq.items",
+    "처음인데 장비가 없어도 되나요? | 네, 패들과 공은 클럽에 준비되어 있습니다. 편한 운동복과 실내 운동화만 챙겨 오시면 됩니다.\n무인인데 어떻게 입장하나요? | 네이버 예약 후 스마트 출입 방법을 안내해 드립니다. 예약한 시간에 맞춰 24시간 언제든 입장할 수 있습니다. [출입 방식 상세]\n피클볼이 처음이에요. 배울 수 있나요? | 물론입니다. ACADEMY 레슨으로 규칙부터 랠리까지 첫날에 익힐 수 있습니다. 인스타 DM 또는 예약으로 문의해 주세요.\n몇 명이 함께 이용할 수 있나요? | 단식 2인, 복식 4인까지 즐기기 좋습니다. 커뮤니티·모임 이용은 [단체 안내]를 참고해 주세요.", "|")
+    .map(([q, a]) => ({ q, a }));
   return (
     <>
       <Nav />
@@ -52,7 +46,7 @@ export default async function Visit() {
               </div>
               <div className="loc__row">
                 <span className="k">영업</span>
-                <span className="v">24시간 무인 운영 · [레슨/상담 운영시간]</span>
+                <span className="v">{pick(c, "visit.hours", "24시간 무인 운영 · [레슨/상담 운영시간]")}</span>
               </div>
               <div className="loc__row">
                 <span className="k">문의</span>

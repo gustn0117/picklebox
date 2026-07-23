@@ -1,7 +1,7 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, pickList } from "../lib/copy";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
@@ -13,19 +13,12 @@ export const metadata = {
   description: "테니스에서 피클볼로 — 조민정 대표가 그리는 피클박스 이야기.",
 };
 
-// 대표 약력.
-const CAREER = [
-  "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치",
-  "전 대한테니스협회 이사",
-  "ITF(국제테니스연맹) Level 1 Coaching 자격증",
-  "ITF(국제테니스연맹) Level 2 Coaching 이수",
-  "명지대학교 졸업",
-  "2025 제2회 오크밸리 피클볼대회 우승",
-  "2025 피클볼 일본 Federation 우승 · 준우승",
-];
 
 export default async function Founder() {
   const c = await getCopy("founder");
+  const photo = pick(c, "founder.photo", "");
+  const CAREER = pickList(c, "founder.career",
+    "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치\n전 대한테니스협회 이사\nITF(국제테니스연맹) Level 1 Coaching 자격증\nITF(국제테니스연맹) Level 2 Coaching 이수\n명지대학교 졸업\n2025 제2회 오크밸리 피클볼대회 우승\n2025 피클볼 일본 Federation 우승 · 준우승").map((x) => x[0]);
   return (
     <>
       <Nav />
@@ -39,17 +32,14 @@ export default async function Founder() {
       {/* ── 프로필 ── */}
       <section className="section story">
         <div className="wrap story__grid">
-          <Reveal className="story__mark photo-slot photo-slot--founder" style={{ aspectRatio: "4 / 5" }} />
+          <Reveal className="story__mark photo-slot photo-slot--founder" style={{ aspectRatio: "4 / 5", ...(photo ? { backgroundImage: `url(${photo})` } : {}) }} />
           <Reveal className="story__body" delay={80}>
             <div className="eyebrow">조민정 · 대표</div>
             <h2 className="title">{pick(c, "founder.a.title", "코트 위의 즐거움을, 더 많은 사람에게.")}</h2>
-            <p className="lead">
-              오랜 시간 라켓 스포츠와 함께해 온 조민정 대표는, 피클볼이 가진
-              &lsquo;쉽게 배우고 함께 웃는&rsquo; 힘에 매료되어 피클박스를 시작했습니다.
-            </p>
+            <p className="lead">{pick(c, "founder.a.lead", "오랜 시간 라켓 스포츠와 함께해 온 조민정 대표는, 피클볼이 가진 ‘쉽게 배우고 함께 웃는’ 힘에 매료되어 피클박스를 시작했습니다.")}</p>
             <ul className="career">
-              {CAREER.map((c) => (
-                <li key={c}>{c}</li>
+              {CAREER.map((item) => (
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </Reveal>

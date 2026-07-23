@@ -45,6 +45,8 @@ const BANNERS = [
 const T = (key, label, value, extra = {}) => ({ key, label, value, kind: "text", ...extra });
 const TA = (key, label, value) => T(key, label, value, { kind: "textarea" });
 const URL_ = (key, label, value) => T(key, label, value, { kind: "url" });
+const LIST = (key, label, value) => T(key, label, value, { kind: "list" }); // 한 줄에 하나씩
+const IMG = (key, label, value) => T(key, label, value, { kind: "image" });
 
 const SITE_COPY = [
   // ── 사이트 정보(전역)
@@ -76,6 +78,26 @@ const SITE_COPY = [
     TA("home.cta.desc", "하단 배너 설명", "피클볼이 처음이어도 괜찮습니다. 방문·예약 문의를 남겨주시면 코트와 레슨, 멤버십까지 편하게 안내해 드립니다."),
     T("home.cta.button", "하단 배너 버튼명", "예약하기"),
     T("home.cta.button2", "하단 배너 보조 버튼명", "오시는 길"),
+    // 이미지
+    IMG("home.hero.bg", "첫 화면 배경 이미지", ""),
+    IMG("home.bento.about.img", "둘러보기 · About 카드 배경", ""),
+    IMG("home.bento.visit.img", "둘러보기 · Visit 카드 배경", ""),
+    // 매니페스토 · 티커
+    TA("home.manifesto", "매니페스토 문구", "운동을 넘어,\n사람을 잇다. 서울숲에서 시작하는 새로운 피클볼 컬처."),
+    LIST("home.ticker", "상단 흐르는 띠 (한 줄에 하나씩)", "Now Open\n서울숲 · 갤러리아 포레\n24시간 무인 스마트 클럽\n예약 오픈"),
+    // 지표 4개 (숫자 | 단위 | 라벨)
+    LIST("home.stats", "숫자 지표 (숫자 | 단위 | 라벨, 한 줄에 하나씩)", "45 | MIN | 한 게임의 온도\n6 |  | 서비스 브랜드\n24 | H | 무인 스마트 운영\n100 | % | 초보 환영"),
+    // 왜 피클박스 카드 (제목 | 설명)
+    LIST("home.why.items", "‘왜 피클박스’ 카드 (제목 | 설명, 한 줄에 하나씩)",
+      "24시간 무인 스마트 클럽 | 언제든 문을 열고 들어와 나만의 시간에 피클볼을 즐기세요. 예약부터 입장까지 스마트하게.\n서울숲 라운지 | 갤러리아 포레의 프라이빗 코트와 라운지에서 보내는 하루. 도심 속 프리미엄 컬처 공간.\n레슨 · 커뮤니티 | 처음이어도 쉽게 배우고, 좋은 사람들과 자연스럽게 연결됩니다. 코치와 동호인이 함께.\n여행 · 컬처 | 코트를 넘어 서울 관광과 해외 피클볼 투어까지. 피클볼로 여는 새로운 라이프스타일."),
+    // 이용 방법 3단계
+    LIST("home.how.items", "이용 방법 단계 (제목 | 설명, 한 줄에 하나씩)",
+      "예약 | 네이버 예약으로 원하는 시간을 선택하세요. 몇 번의 터치면 코트가 준비됩니다.\n입장 | 무인 스마트 출입으로 24시간 언제든. 기다림 없이 바로 나만의 코트로.\n플레이 | 패들과 공은 준비되어 있습니다. 처음이라면 레슨과 함께 첫날부터 랠리를."),
+    // 둘러보기 카드 설명
+    T("home.bento.about.desc", "둘러보기 · About 카드 설명", "피클박스는 즐거움을 여는 선물상자입니다."),
+    T("home.bento.pickleball.desc", "둘러보기 · Pickleball 카드 설명", "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠."),
+    T("home.bento.founder.desc", "둘러보기 · Founder 카드 설명", "테니스에서 피클볼로 — 조민정 대표가 그리는 이야기."),
+    T("home.bento.visit.desc", "둘러보기 · Visit 카드 설명", "서울숲 갤러리아 포레 · 예약·지도·문의를 한 번에. 24시간 언제든 문을 여는 스마트 클럽."),
   ].map((c, i) => ({ ...c, group: "home", sortOrder: i })),
 
   // ── 소개
@@ -105,6 +127,7 @@ const SITE_COPY = [
     T("events.next.button", "NEXT UP 버튼명", "참가·문의하기"),
     T("events.lineup.title", "라인업 섹션 제목", "이렇게 즐기는 이벤트."),
     T("events.schedule.title", "일정 섹션 제목", "다가오는 일정."),
+    IMG("events.next.img", "NEXT UP 배경 이미지", ""),
     T("events.cta.title", "하단 배너 제목", "Play the Culture."),
     TA("events.cta.desc", "하단 배너 설명", "이벤트 참가·초청·제휴 문의를 남겨주시면 순차 안내해 드립니다."),
   ].map((c, i) => ({ ...c, group: "events", sortOrder: i })),
@@ -143,7 +166,11 @@ const SITE_COPY = [
     T("founder.hero.title", "히어로 제목", "테니스에서 피클볼로, 즐거움을 잇다."),
     TA("founder.hero.lead", "히어로 설명", "라켓 하나로 사람과 사람을 연결해 온 조민정 대표가 피클박스를 시작한 이유."),
     T("founder.a.title", "첫 섹션 제목", "코트 위의 즐거움을, 더 많은 사람에게."),
+    TA("founder.a.lead", "첫 섹션 소개 문구", "오랜 시간 라켓 스포츠와 함께해 온 조민정 대표는, 피클볼이 가진 ‘쉽게 배우고 함께 웃는’ 힘에 매료되어 피클박스를 시작했습니다."),
     T("founder.b.title", "두 번째 섹션 제목", "운동을 넘어, 사람을 연결합니다."),
+    IMG("founder.photo", "대표 프로필 사진", ""),
+    LIST("founder.career", "대표 약력 (한 줄에 하나씩)",
+      "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치\n전 대한테니스협회 이사\nITF(국제테니스연맹) Level 1 Coaching 자격증\nITF(국제테니스연맹) Level 2 Coaching 이수\n명지대학교 졸업\n2025 제2회 오크밸리 피클볼대회 우승\n2025 피클볼 일본 Federation 우승 · 준우승"),
   ].map((c, i) => ({ ...c, group: "founder", sortOrder: i })),
 
   // ── 오시는 길
@@ -152,6 +179,11 @@ const SITE_COPY = [
     TA("visit.hero.lead", "히어로 설명", "지하철 수인분당선 서울숲역 인근, 갤러리아 포레에서 만나요."),
     T("visit.notice.title", "안내 섹션 제목", "방문 전, 이것만 알아두세요."),
     T("visit.faq.title", "FAQ 섹션 제목", "자주 묻는 질문"),
+    T("visit.hours", "영업 안내 문구", "24시간 무인 운영 · [레슨/상담 운영시간]"),
+    LIST("visit.access", "방문 안내 (제목 | 설명, 한 줄에 하나씩)",
+      "대중교통 | 수인분당선 서울숲역 [도보 N분]. 성수동 갤러리아 포레 지하 1층 B102호.\n주차 | 갤러리아 포레 주차장 이용 가능. [주차 요금·등록 안내].\n편의시설 | 코트 · 라운지 · [샤워/탈의/락커 등 편의시설 안내].\n운영 | 24시간 무인 운영. 레슨·상담은 [운영시간] 별도 안내."),
+    LIST("visit.faq.items", "자주 묻는 질문 (질문 | 답변, 한 줄에 하나씩)",
+      "처음인데 장비가 없어도 되나요? | 네, 패들과 공은 클럽에 준비되어 있습니다. 편한 운동복과 실내 운동화만 챙겨 오시면 됩니다.\n무인인데 어떻게 입장하나요? | 네이버 예약 후 스마트 출입 방법을 안내해 드립니다. 예약한 시간에 맞춰 24시간 언제든 입장할 수 있습니다. [출입 방식 상세]\n피클볼이 처음이에요. 배울 수 있나요? | 물론입니다. ACADEMY 레슨으로 규칙부터 랠리까지 첫날에 익힐 수 있습니다. 인스타 DM 또는 예약으로 문의해 주세요.\n몇 명이 함께 이용할 수 있나요? | 단식 2인, 복식 4인까지 즐기기 좋습니다. 커뮤니티·모임 이용은 [단체 안내]를 참고해 주세요."),
   ].map((c, i) => ({ ...c, group: "visit", sortOrder: i })),
 
   // ── 굿즈 페이지
