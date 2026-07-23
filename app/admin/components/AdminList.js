@@ -261,7 +261,17 @@ function GroupedCopy({ slug, config, rows, onSaved }) {
   );
 }
 
+// 이미지 문구 키별 권장 크기 안내
+const COPY_IMG_HINT = {
+  "home.hero.bg": "가로 1920×1200 권장 (첫 화면 배경)",
+  "home.bento.about.img": "가로 1200×1200 권장",
+  "home.bento.visit.img": "가로 1600×900 권장",
+  "events.next.img": "가로 1600×900 권장",
+  "founder.photo": "세로형 1000×1250 권장 (4:5)",
+};
+
 function CopyRow({ slug, row, onSaved }) {
+  const meta = { ...row, hint: COPY_IMG_HINT[row.key], placeholder: row.kind === "list" ? "한 줄에 하나씩 입력하세요" : "" };
   const [val, setVal] = useState(row.value ?? "");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -285,8 +295,10 @@ function CopyRow({ slug, row, onSaved }) {
         {dirty && <button className="a-btn a-btn--primary a-btn--sm" onClick={save} disabled={busy}>{busy ? "저장 중…" : "저장"}</button>}
         {done && <span className="a-saved">저장됨</span>}
       </div>
-      {row.kind === "textarea" ? (
-        <textarea rows={3} value={val} onChange={(e) => setVal(e.target.value)} />
+      {row.kind === "image" ? (
+        <ImageUpload label="" hint={meta.hint} value={val} onChange={(url) => setVal(url)} />
+      ) : row.kind === "textarea" || row.kind === "list" ? (
+        <textarea rows={row.kind === "list" ? 6 : 3} value={val} onChange={(e) => setVal(e.target.value)} placeholder={meta.placeholder} />
       ) : (
         <input type={row.kind === "url" ? "url" : "text"} value={val} onChange={(e) => setVal(e.target.value)} />
       )}
