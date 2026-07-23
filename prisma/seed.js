@@ -62,6 +62,9 @@ const SITE_COPY = [
     T("site.hours", "영업시간", "24시간 무인 운영"),
     T("site.email", "이메일(제휴 문의)", "minjung93@naver.com"),
     T("site.phone", "전화번호", ""),
+    T("site.bizName", "상호(사업자)", "테니스포레"),
+    T("site.bizCeo", "대표자명", "조민정"),
+    T("site.bizNo", "사업자등록번호", "407-10-93280"),
     TA("site.footerTagline", "푸터 소개 문구", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect."),
   ].map((c, i) => ({ ...c, group: "site", sortOrder: i })),
 
@@ -98,6 +101,11 @@ const SITE_COPY = [
     T("home.bento.pickleball.desc", "둘러보기 · Pickleball 카드 설명", "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠."),
     T("home.bento.founder.desc", "둘러보기 · Founder 카드 설명", "테니스에서 피클볼로 — 조민정 대표가 그리는 이야기."),
     T("home.bento.visit.desc", "둘러보기 · Visit 카드 설명", "서울숲 갤러리아 포레 · 예약·지도·문의를 한 번에. 24시간 언제든 문을 여는 스마트 클럽."),
+    // 둘러보기 카드 제목(줄바꿈 가능)
+    TA("home.bento.about.title", "둘러보기 · About 카드 제목", "About\nPICKLEBOX"),
+    TA("home.bento.pickleball.title", "둘러보기 · Pickleball 카드 제목", "What is\nPickleball"),
+    TA("home.bento.founder.title", "둘러보기 · Founder 카드 제목", "The\nFounder"),
+    T("home.bento.visit.title", "둘러보기 · Visit 카드 제목", "Visit Us"),
   ].map((c, i) => ({ ...c, group: "home", sortOrder: i })),
 
   // ── 소개
@@ -115,6 +123,8 @@ const SITE_COPY = [
     T("about.timeline.title", "연혁 섹션 제목", "피클박스가 걸어온 길."),
     T("about.cta.title", "하단 배너 제목", "피클박스가 궁금하다면,\n직접 만나보세요."),
     TA("about.cta.desc", "하단 배너 설명", "서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다."),
+    LIST("about.subbrands", "6개 서비스 브랜드 (영문 | 한글 | 설명, 한 줄에 하나씩)",
+      "CLUB | 클럽 | 멤버십·셀럽 게임·커뮤니티가 모이는 피클박스의 중심\nHOUSE | 하우스 | 서울숲 라운지와 프라이빗 코트에서 즐기는 하루\nSEOUL | 서울 | K-피클볼 문화를 세계의 여행객과 도시생활자에게 소개하는 대표 스포츠 라이프스타일 브랜드\nACADEMY | 아카데미 | 레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램\nTOUR | 투어 | 코트를 넘어 떠나는 해외 피클볼 여행\nPARTY | 파티 | 브랜드 행사와 셀럽 파티로 이어지는 즐거움"),
   ].map((c, i) => ({ ...c, group: "about", sortOrder: i })),
 
   // ── 이벤트
@@ -171,7 +181,28 @@ const SITE_COPY = [
     IMG("founder.photo", "대표 프로필 사진", ""),
     LIST("founder.career", "대표 약력 (한 줄에 하나씩)",
       "쫌치는언니(유튜브) 운영 · 테니스/피클볼 코치\n전 대한테니스협회 이사\nITF(국제테니스연맹) Level 1 Coaching 자격증\nITF(국제테니스연맹) Level 2 Coaching 이수\n명지대학교 졸업\n2025 제2회 오크밸리 피클볼대회 우승\n2025 피클볼 일본 Federation 우승 · 준우승"),
+    TA("founder.b.body", "철학 섹션 본문", "피클박스가 만들고 싶은 것은 단순한 운동 공간이 아닙니다. 처음 온 사람도 편하게 어울리고, 좋은 사람들과 다시 만나고 싶어지는 곳 — 코트 위의 작은 즐거움이 일상의 활력이 되는 문화를 만들어 갑니다."),
+    T("founder.channels.title", "채널 섹션 제목", "대표의 이야기, 더 가까이"),
+    T("founder.cta.title", "하단 배너 제목", "대표에게 직접\n물어보고 싶다면."),
+    TA("founder.cta.desc", "하단 배너 설명", "레슨·멤버십·방문 문의를 남겨주시면 편하게 안내해 드립니다."),
   ].map((c, i) => ({ ...c, group: "founder", sortOrder: i })),
+
+  // ── 피클볼이란
+  ...[
+    T("pickleball.hero.title", "히어로 제목", "테니스 · 배드민턴 · 탁구를 하나로, 피클볼."),
+    TA("pickleball.hero.lead", "히어로 설명", "작은 코트에서 가벼운 공과 패들로 즐기는 라켓 스포츠. 규칙이 쉽고 부담이 적어 누구나 첫날부터 랠리를 이어갈 수 있습니다."),
+    T("pickleball.basics.title", "기본 섹션 제목", "이렇게 즐깁니다"),
+    LIST("pickleball.basics", "기본 카드 (제목 | 설명, 한 줄에 하나씩)",
+      "패들과 플라스틱 공 | 구멍 뚫린 가벼운 플라스틱 공과 나무·카본 패들로 즐깁니다. 공이 천천히 날아 초보도 쉽게 랠리를 이어갈 수 있어요.\n배드민턴 크기 코트 | 테니스보다 훨씬 작은 배드민턴 규격 코트에서 단식·복식으로 진행합니다. 넓게 뛰지 않아 체력 부담이 적습니다.\n쉬운 규칙 | 서브는 아래에서 위로, 네트 앞 '키친' 구역만 기억하면 끝. 5분이면 규칙을 익히고 바로 경기를 시작할 수 있습니다."),
+    T("pickleball.start.title", "시작 섹션 제목", "오늘 처음이어도, 3단계면 충분해요."),
+    LIST("pickleball.start", "시작 단계 (제목 | 설명, 한 줄에 하나씩)",
+      "코트 예약 | 피클박스 코트를 예약하세요. 패들과 공은 준비되어 있어 몸만 오시면 됩니다.\n규칙 익히기 | 서브·키친·점수만 알면 끝. 레슨과 함께라면 5분이면 경기를 시작할 수 있습니다.\n첫 랠리 | 복식으로 함께 치면 더 재밌습니다. 웃고 떠들다 보면 어느새 한 게임이 끝나 있어요."),
+    T("pickleball.faq.title", "FAQ 섹션 제목", "자주 묻는 질문"),
+    LIST("pickleball.faq.items", "자주 묻는 질문 (질문 | 답변, 한 줄에 하나씩)",
+      "운동을 안 해도 할 수 있나요? | 네. 격한 움직임이 적어 체력 부담이 적습니다. 남녀노소 누구나 가볍게 시작하기 좋은 생활 스포츠예요.\n테니스랑 뭐가 다른가요? | 코트가 훨씬 작고 공이 느리게 날아 진입이 쉽습니다. 넓게 뛰지 않아도 랠리가 오래 이어져 초보도 금방 재미를 느껴요.\n장비를 꼭 사야 하나요? | 처음엔 클럽에 비치된 장비로 충분합니다. 재미가 붙으면 스마트스토어에서 나만의 패들을 골라보세요.\n혼자 가도 즐길 수 있나요? | 네. 레슨과 커뮤니티를 통해 함께 칠 사람을 자연스럽게 만날 수 있습니다. 복식은 넷이 함께 즐기기 좋아요."),
+    T("pickleball.cta.title", "하단 배너 제목", "처음이신가요?\n피클박스에서 시작하세요."),
+    TA("pickleball.cta.desc", "하단 배너 설명", "패들과 공은 준비되어 있습니다. 레슨과 함께라면 오늘 처음이어도 바로 경기를 즐길 수 있어요."),
+  ].map((c, i) => ({ ...c, group: "pickleball", sortOrder: i })),
 
   // ── 오시는 길
   ...[

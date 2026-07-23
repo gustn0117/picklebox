@@ -2,6 +2,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import { getCopy, pick, pickList } from "../lib/copy";
+import Multiline from "../components/Multiline";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
@@ -53,11 +54,7 @@ export default async function Founder() {
             <div><div className="eyebrow">Philosophy</div></div>
             <div><h2 className="title">{pick(c, "founder.b.title", "운동을 넘어, 사람을 연결합니다.")}</h2></div>
           </div>
-          <p className="lead" style={{ maxWidth: 720 }}>
-            피클박스가 만들고 싶은 것은 단순한 운동 공간이 아닙니다. 처음 온 사람도 편하게 어울리고,
-            좋은 사람들과 다시 만나고 싶어지는 곳 — 코트 위의 작은 즐거움이 일상의 활력이 되는 문화를
-            만들어 갑니다.
-          </p>
+          <p className="lead" style={{ maxWidth: 720 }}>{pick(c, "founder.b.body", "피클박스가 만들고 싶은 것은 단순한 운동 공간이 아닙니다. 처음 온 사람도 편하게 어울리고, 좋은 사람들과 다시 만나고 싶어지는 곳 — 코트 위의 작은 즐거움이 일상의 활력이 되는 문화를 만들어 갑니다.")}</p>
         </div>
       </section>
 
@@ -66,7 +63,7 @@ export default async function Founder() {
         <div className="wrap">
           <div className="section__head section__head--split">
             <div><div className="eyebrow">Channels</div></div>
-            <div><h2 className="title">대표의 이야기, 더 가까이</h2></div>
+            <div><h2 className="title">{pick(c, "founder.channels.title", "대표의 이야기, 더 가까이")}</h2></div>
           </div>
           <div className="channels">
             <a href={LINKS.youtube} target="_blank" rel="noopener" className="channels__card">
@@ -90,8 +87,8 @@ export default async function Founder() {
         <div className="wrap">
           <Reveal className="join__card">
             <div>
-              <h2>대표에게 직접<br />물어보고 싶다면.</h2>
-              <p>레슨·멤버십·방문 문의를 남겨주시면 편하게 안내해 드립니다.</p>
+              <h2><Multiline text={pick(c, "founder.cta.title", "대표에게 직접\n물어보고 싶다면.")} /></h2>
+              <p>{pick(c, "founder.cta.desc", "레슨·멤버십·방문 문의를 남겨주시면 편하게 안내해 드립니다.")}</p>
             </div>
             <div className="join__actions">
               <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--lime">

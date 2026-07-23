@@ -131,21 +131,21 @@ export default async function Home({ searchParams }) {
               style={{ backgroundImage: `url(${c("home.bento.about.img", "/assets/story-picklebox-still.webp")})` }}
             >
               <span className="bento__num">// 01</span>
-              <div className="bento__key bento__key--feat">About<br />PICKLEBOX</div>
+              <div className="bento__key bento__key--feat"><Multiline text={c("home.bento.about.title", "About\nPICKLEBOX")} /></div>
               <p className="bento__desc">{c("home.bento.about.desc", "피클박스는 즐거움을 여는 선물상자입니다.")}</p>
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
 
             <Reveal as={Link} href="/pickleball" className="bento__card bento__card--half" delay={70}>
               <span className="bento__num">// 02</span>
-              <div className="bento__key">What is<br />Pickleball</div>
+              <div className="bento__key"><Multiline text={c("home.bento.pickleball.title", "What is\nPickleball")} /></div>
               <p className="bento__desc">{c("home.bento.pickleball.desc", "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠.")}</p>
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
 
             <Reveal as={Link} href="/founder" className="bento__card bento__card--half" delay={140}>
               <span className="bento__num">// 03</span>
-              <div className="bento__key">The<br />Founder</div>
+              <div className="bento__key"><Multiline text={c("home.bento.founder.title", "The\nFounder")} /></div>
               <p className="bento__desc">{c("home.bento.founder.desc", "테니스에서 피클볼로 — 조민정 대표가 그리는 이야기.")}</p>
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
@@ -158,7 +158,7 @@ export default async function Home({ searchParams }) {
               delay={90}
             >
               <span className="bento__num">// 04</span>
-              <div className="bento__key">Visit Us</div>
+              <div className="bento__key">{c("home.bento.visit.title", "Visit Us")}</div>
               <p className="bento__desc">{c("home.bento.visit.desc", "서울숲 갤러리아 포레 · 예약·지도·문의를 한 번에. 24시간 언제든 문을 여는 스마트 클럽.")}</p>
               <span className="bento__go">오시는 길 <Arrow /></span>
             </Reveal>

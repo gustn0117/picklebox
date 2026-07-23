@@ -86,7 +86,7 @@ export default async function Footer() {
         </div>
 
         <div className="footer__biz">
-          <span>{BUSINESS.name} · 대표 {BUSINESS.ceo} · 사업자등록번호 {BUSINESS.bizNo}</span>
+          <span>{pick(c, "site.bizName", BUSINESS.name)} · 대표 {pick(c, "site.bizCeo", BUSINESS.ceo)} · 사업자등록번호 {pick(c, "site.bizNo", BUSINESS.bizNo)}</span>
           <span>{pick(c, "site.address", BUSINESS.address)}</span>
           <span>© {2026} PICKLEBOX. All rights reserved.</span>
         </div>

@@ -5,10 +5,10 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { SUBBRANDS, reserveHref } from "../lib/site";
+import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick } from "../lib/copy";
+import { getCopy, pick, pickList } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import RichHtml from "../components/RichHtml";
 
@@ -49,6 +49,9 @@ export default async function About({ searchParams }) {
     db.tour.findMany({ where: WHERE, orderBy: [{ sortOrder: "asc" }, { id: "asc" }] }),
     getCopy("about"),
   ]);
+  const SUBBRANDS = pickList(c, "about.subbrands",
+    "CLUB | 클럽 | 멤버십·셀럽 게임·커뮤니티가 모이는 피클박스의 중심\nHOUSE | 하우스 | 서울숲 라운지와 프라이빗 코트에서 즐기는 하루\nSEOUL | 서울 | K-피클볼 문화를 세계의 여행객과 도시생활자에게 소개하는 대표 스포츠 라이프스타일 브랜드\nACADEMY | 아카데미 | 레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램\nTOUR | 투어 | 코트를 넘어 떠나는 해외 피클볼 여행\nPARTY | 파티 | 브랜드 행사와 셀럽 파티로 이어지는 즐거움", "|")
+    .map(([key, ko, desc]) => ({ key, ko, desc }));
   return (
     <>
       <Nav />
