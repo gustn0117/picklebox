@@ -5,7 +5,7 @@ import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { LINKS, reserveHref } from "../lib/site";
+import { LINKS } from "../lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -81,26 +81,6 @@ export default async function Founder() {
               </a>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="section join">
-        <div className="wrap">
-          <Reveal className="join__card">
-            <div>
-              <h2><Multiline text={pick(c, "founder.cta.title", "대표에게 직접\n물어보고 싶다면.")} /></h2>
-              <p>{pick(c, "founder.cta.desc", "레슨·멤버십·방문 문의를 남겨주시면 편하게 안내해 드립니다.")}</p>
-            </div>
-            <div className="join__actions">
-              <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--lime">
-                예약 · 문의하기 <Arrow />
-              </a>
-              <a href={LINKS.instagram[0].url} target="_blank" rel="noopener" className="btn btn--ghost" style={{ borderColor: "#fff", color: "#fff" }}>
-                인스타 DM
-              </a>
-            </div>
-          </Reveal>
         </div>
       </section>
 

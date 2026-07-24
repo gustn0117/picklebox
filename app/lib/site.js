@@ -36,7 +36,6 @@ export const NAV = [
     { label: "브랜드 스토리", href: "/about" },
     { label: "서비스 6종", href: "/about#brands" },
     { label: "피클볼이란?", href: "/pickleball" },
-    { label: "대표 소개", href: "/founder" },
   ] },
   { href: "/founder", label: "About CEO", ck: "nav.founder" },
   { href: "/community", label: "Global Community", ck: "nav.community" },
