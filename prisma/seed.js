@@ -48,6 +48,7 @@ const URL_ = (key, label, value) => T(key, label, value, { kind: "url" });
 const LIST = (key, label, value) => T(key, label, value, { kind: "list" }); // 한 줄에 하나씩
 const IMG = (key, label, value) => T(key, label, value, { kind: "image" });
 const CLR = (key, label, value) => T(key, label, value, { kind: "color" }); // 색상 선택
+const TOG = (key, label, value) => T(key, label, value, { kind: "toggle" }); // 켜기/끄기(체크박스, "on"/"")
 
 const SITE_COPY = [
   // ── 사이트 정보(전역)
@@ -68,6 +69,9 @@ const SITE_COPY = [
     T("site.bizNo", "사업자등록번호", "407-10-93280"),
     TA("site.footerTagline", "푸터 소개 문구", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect."),
     CLR("site.bgColor", "사이트 전체 배경색", ""),
+    TOG("site.maintenance", "🚧 준비중(공사중) 모드 — 켜면 고객에게 준비중 안내가 보입니다(관리자는 실제 사이트 열람)", ""),
+    T("site.maintenanceTitle", "준비중 안내 제목", "홈페이지 준비중입니다"),
+    TA("site.maintenanceMsg", "준비중 안내 문구", "더 좋은 모습으로 곧 찾아뵙겠습니다.\n조금만 기다려 주세요."),
   ].map((c, i) => ({ ...c, group: "site", sortOrder: i })),
 
   // ── 홈

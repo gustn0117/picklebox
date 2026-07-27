@@ -297,6 +297,11 @@ function CopyRow({ slug, row, onSaved }) {
       </div>
       {row.kind === "image" ? (
         <ImageUpload label="" hint={meta.hint} value={val} onChange={(url) => setVal(url)} />
+      ) : row.kind === "toggle" ? (
+        <label style={{ display: "inline-flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14 }}>
+          <input type="checkbox" checked={val === "on"} onChange={(e) => setVal(e.target.checked ? "on" : "")} style={{ width: 20, height: 20 }} />
+          <span style={{ fontWeight: 700, color: val === "on" ? "#c0392b" : "#888" }}>{val === "on" ? "켜짐 (고객에게 준비중 안내 표시 중)" : "꺼짐 (정상 운영 중)"}</span>
+        </label>
       ) : row.kind === "color" ? (
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <input type="color" style={{ width: 46, height: 38, padding: 0, border: "1px solid #ddd", borderRadius: 8, cursor: "pointer" }}

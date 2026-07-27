@@ -1,7 +1,10 @@
 import { Anton, Archivo, Space_Mono } from "next/font/google";
+import { cookies, headers } from "next/headers";
 import "./globals.css";
 import Fx from "./components/Fx";
+import Maintenance from "./components/Maintenance";
 import { getCopyValue } from "./lib/copy";
+import { verifyToken, COOKIE_NAME } from "./lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +52,20 @@ export default async function RootLayout({ children }) {
   const bgStyle = /^#[0-9a-fA-F]{6}$/.test(bg)
     ? { "--bg": bg, "--bg-2": `color-mix(in srgb, ${bg}, #000 7%)` }
     : undefined;
+
+  // 준비중(공사중) 게이트 — ON이고, 관리자 페이지가 아니고, 로그인한 관리자가 아니면 준비중 화면을 보여준다.
+  const h = await headers();
+  const pathname = h.get("x-pathname") || "";
+  const qs = h.get("x-qs") || "";
+  const isAdminArea = pathname.startsWith("/admin");
+  const maintOn = !!(await getCopyValue("site.maintenance", ""));
+  let gated = false;
+  if (maintOn && !isAdminArea) {
+    const authed = await verifyToken((await cookies()).get(COOKIE_NAME)?.value);
+    // 관리자는 통과(실제 사이트 열람). 단 ?asguest=1 이면 관리자도 고객 화면 미리보기.
+    gated = !authed || /(?:^|[?&])asguest=1(?:&|$)/.test(qs);
+  }
+
   return (
     <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`} style={bgStyle}>
       <head>
@@ -59,7 +76,7 @@ export default async function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body><Fx />{children}</body>
+      <body>{gated ? <Maintenance /> : <><Fx />{children}</>}</body>
     </html>
   );
 }
