@@ -47,6 +47,7 @@ const TA = (key, label, value) => T(key, label, value, { kind: "textarea" });
 const URL_ = (key, label, value) => T(key, label, value, { kind: "url" });
 const LIST = (key, label, value) => T(key, label, value, { kind: "list" }); // 한 줄에 하나씩
 const IMG = (key, label, value) => T(key, label, value, { kind: "image" });
+const CLR = (key, label, value) => T(key, label, value, { kind: "color" }); // 색상 선택
 
 const SITE_COPY = [
   // ── 사이트 정보(전역)
@@ -66,6 +67,7 @@ const SITE_COPY = [
     T("site.bizCeo", "대표자명", "조민정"),
     T("site.bizNo", "사업자등록번호", "407-10-93280"),
     TA("site.footerTagline", "푸터 소개 문구", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect."),
+    CLR("site.bgColor", "사이트 전체 배경색", ""),
   ].map((c, i) => ({ ...c, group: "site", sortOrder: i })),
 
   // ── 홈

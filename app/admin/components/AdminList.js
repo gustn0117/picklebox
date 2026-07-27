@@ -297,6 +297,14 @@ function CopyRow({ slug, row, onSaved }) {
       </div>
       {row.kind === "image" ? (
         <ImageUpload label="" hint={meta.hint} value={val} onChange={(url) => setVal(url)} />
+      ) : row.kind === "color" ? (
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <input type="color" style={{ width: 46, height: 38, padding: 0, border: "1px solid #ddd", borderRadius: 8, cursor: "pointer" }}
+            value={/^#[0-9a-fA-F]{6}$/.test(val) ? val : "#f4eefb"} onChange={(e) => setVal(e.target.value)} />
+          <input type="text" style={{ width: 160 }} value={val} onChange={(e) => setVal(e.target.value)} placeholder="#f4eefb" />
+          {val && <button type="button" className="a-btn a-btn--sm" onClick={() => setVal("")}>기본값으로</button>}
+          <span style={{ fontSize: 12, color: "#888" }}>비우면 기본 라벤더</span>
+        </div>
       ) : row.kind === "textarea" || row.kind === "list" ? (
         <textarea rows={row.kind === "list" ? 6 : 3} value={val} onChange={(e) => setVal(e.target.value)} placeholder={meta.placeholder} />
       ) : (

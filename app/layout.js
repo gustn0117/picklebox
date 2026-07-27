@@ -1,6 +1,9 @@
 import { Anton, Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Fx from "./components/Fx";
+import { getCopyValue } from "./lib/copy";
+
+export const dynamic = "force-dynamic";
 
 // 헤비 콘덴스드 대문자 디스플레이 — 히어로/워드마크/큰 제목.
 const anton = Anton({
@@ -40,9 +43,14 @@ export const metadata = {
   icons: { icon: "/logo.png" },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // 관리자에서 고른 배경색(없으면 CSS 기본 라벤더). --bg-2는 살짝 짙게 자동 파생.
+  const bg = await getCopyValue("site.bgColor", "");
+  const bgStyle = /^#[0-9a-fA-F]{6}$/.test(bg)
+    ? { "--bg": bg, "--bg-2": `color-mix(in srgb, ${bg}, #000 7%)` }
+    : undefined;
   return (
-    <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`}>
+    <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`} style={bgStyle}>
       <head>
         <link
           rel="stylesheet"
