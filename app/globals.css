@@ -216,6 +216,16 @@ img, svg { display: block; max-width: 100%; }
 .hero__desc { max-width: 560px; margin-top: 14px; color: var(--ink-soft); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; justify-content: center; }
 
+/* 사진 없는 흰 배경 히어로 — 어두운 텍스트(밝은 배경 대응). 배경 사진을 올리면 자동으로 사진 히어로로 전환된다. */
+.hero--plain {
+  background: #fff;
+  --ink: #2a1838; --ink-soft: #5b4a6d; --stone: #8a7c99; --wire: #6a4b93;
+  border-bottom: 1px solid var(--line);
+}
+.hero--plain .hero__bg, .hero--plain .hero__scan { display: none; }
+.hero--plain .hero__title { color: var(--ink); text-shadow: none; }
+.hero--plain .ticker { background: #fff; }
+
 /* 코너 브래킷 프레임 (BOX 모티프) */
 .frame { position: relative; }
 .frame::before, .frame::after { content: ""; position: absolute; width: 13px; height: 13px; border: 1.5px solid var(--wire); pointer-events: none; }

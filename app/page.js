@@ -60,8 +60,8 @@ export default async function Home({ searchParams }) {
       <span id="top" />
       <Nav />
 
-      {/* ── 히어로 ── */}
-      <header className="hero">
+      {/* ── 히어로 ── (배경 사진이 없으면 흰 배경 + 어두운 글씨의 깔끔한 히어로) */}
+      <header className={heroBg ? "hero" : "hero hero--plain"}>
         <div className="hero__bg" style={heroBg ? { backgroundImage: `url(${heroBg})` } : undefined}><Court /></div>
         <div className="hero__scan" aria-hidden="true" />
         <div className="hud" aria-hidden="true">
