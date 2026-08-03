@@ -69,16 +69,20 @@ const SITE_COPY = [
     T("site.bizNo", "사업자등록번호", "407-10-93280"),
     TA("site.footerTagline", "푸터 소개 문구", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect."),
     IMG("site.pageHeroBg", "모든 서브페이지 · 상단 배너 배경", "/assets/hero-court-green-orange.webp"),
+    TOG("site.maintenance", "🚧 준비중(공사중) 모드 — 켜면 고객에게 준비중 안내가 보입니다(관리자는 실제 사이트 열람)", ""),
+    T("site.maintenanceTitle", "준비중 안내 제목", "홈페이지 준비중입니다"),
+    TA("site.maintenanceMsg", "준비중 안내 문구", "더 좋은 모습으로 곧 찾아뵙겠습니다.\n조금만 기다려 주세요."),
+  ].map((c, i) => ({ ...c, group: "site", sortOrder: i })),
+
+  // ── 색상 설정(관리자에서 찾기 쉽도록 별도 탭)
+  ...[
     CLR("site.bgColor", "사이트 전체 배경색", ""),
     CLR("site.textMainColor", "기본 글자색 · 제목/본문", "#173328"),
     CLR("site.textSoftColor", "보조 글자색 · 설명/메뉴", "#4e6458"),
     CLR("site.textAccentColor", "오렌지 포인트 글자색", "#ff7a2f"),
     CLR("site.textGreenColor", "그린 포인트 글자색", "#1cad5e"),
     CLR("site.textOnImageColor", "사진·상단 배너 위 글자색", "#ffffff"),
-    TOG("site.maintenance", "🚧 준비중(공사중) 모드 — 켜면 고객에게 준비중 안내가 보입니다(관리자는 실제 사이트 열람)", ""),
-    T("site.maintenanceTitle", "준비중 안내 제목", "홈페이지 준비중입니다"),
-    TA("site.maintenanceMsg", "준비중 안내 문구", "더 좋은 모습으로 곧 찾아뵙겠습니다.\n조금만 기다려 주세요."),
-  ].map((c, i) => ({ ...c, group: "site", sortOrder: i })),
+  ].map((c, i) => ({ ...c, group: "design", sortOrder: i })),
 
   // ── 홈
   ...[

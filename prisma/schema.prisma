@@ -144,7 +144,7 @@ model Photo {
 model SiteCopy {
   id        Int      @id @default(autoincrement())
   key       String   @unique // 예: home.hero.tagline1
-  group     String   @default("site") // site | home | about | founder | community | partners | events | journal | visit | goods | tours
+  group     String   @default("site") // site | design | home | about | founder | community | partners | events | journal | visit | goods | tours
   label     String // 관리자 표시명(어디 문구인지)
   value     String   @default("")
   kind      String   @default("text") // text | textarea | url | list | image | color | toggle
