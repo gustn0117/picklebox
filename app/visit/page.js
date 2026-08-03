@@ -1,9 +1,11 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Sections from "../components/Sections";
 import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Arrow from "../components/Arrow";
 import { LINKS, BUSINESS, reserveHref } from "../lib/site";
+import { isPreview } from "../lib/publicWhere";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +18,8 @@ export async function generateMetadata() {
 
 
 
-export default async function Visit() {
+export default async function Visit({ searchParams }) {
+  const preview = await isPreview(searchParams);
   const c = await getCopy("visit");
   const ACCESS = pickList(c, "visit.access",
     "대중교통 | 수인분당선 서울숲역 [도보 N분]. 성수동 갤러리아 포레 지하 1층 B102호.\n주차 | 갤러리아 포레 주차장 이용 가능. [주차 요금·등록 안내].\n편의시설 | 코트 · 라운지 · [샤워/탈의/락커 등 편의시설 안내].\n운영 | 24시간 무인 운영. 레슨·상담은 [운영시간] 별도 안내.", "|")
@@ -33,6 +36,8 @@ export default async function Visit() {
         title={pick(c, "visit.hero.title", "서울숲, 갤러리아 포레")}
         lead={pick(c, "visit.hero.lead", "지하철 수인분당선 서울숲역 인근, 갤러리아 포레에서 만나요.")}
       />
+
+      <Sections page="visit" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -119,6 +124,8 @@ export default async function Visit() {
           </div>
         </div>
       </section>
+
+      <Sections page="visit" position="bottom" preview={preview} />
 
       <Footer />
     </>

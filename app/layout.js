@@ -47,7 +47,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // 관리자에서 고른 배경색(없으면 CSS 기본 라벤더). --bg-2는 살짝 짙게 자동 파생.
+  // 관리자에서 고른 배경색(없으면 CSS 기본 연그린). --bg-2는 살짝 짙게 자동 파생.
   const bg = await getCopyValue("site.bgColor", "");
   const bgStyle = /^#[0-9a-fA-F]{6}$/.test(bg)
     ? { "--bg": bg, "--bg-2": `color-mix(in srgb, ${bg}, #000 7%)` }

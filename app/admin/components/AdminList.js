@@ -16,7 +16,7 @@ const GROUP_ORDER = Object.keys(GROUP_LABELS);
 
 function emptyForm(fields) {
   const f = {};
-  for (const fl of fields) f[fl.key] = fl.type === "checkbox" ? false : fl.type === "cards" ? "[]" : "";
+  for (const fl of fields) f[fl.key] = fl.type === "checkbox" ? false : fl.type === "cards" ? "[]" : fl.defaultValue ?? "";
   return f;
 }
 function rowToForm(fields, row) {
@@ -26,7 +26,10 @@ function rowToForm(fields, row) {
     else if (fl.type === "cards") f[fl.key] = row[fl.key] ?? "[]";
     else if (fl.type === "videoIds") {
       try { f[fl.key] = JSON.parse(row[fl.key] || "[]").join("\n"); } catch { f[fl.key] = ""; }
-    } else f[fl.key] = row[fl.key] ?? "";
+    } else {
+      const value = row[fl.key];
+      f[fl.key] = value === "" && fl.defaultValue != null ? fl.defaultValue : value ?? fl.defaultValue ?? "";
+    }
   }
   return f;
 }
@@ -305,10 +308,10 @@ function CopyRow({ slug, row, onSaved }) {
       ) : row.kind === "color" ? (
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <input type="color" style={{ width: 46, height: 38, padding: 0, border: "1px solid #ddd", borderRadius: 8, cursor: "pointer" }}
-            value={/^#[0-9a-fA-F]{6}$/.test(val) ? val : "#f4eefb"} onChange={(e) => setVal(e.target.value)} />
-          <input type="text" style={{ width: 160 }} value={val} onChange={(e) => setVal(e.target.value)} placeholder="#f4eefb" />
+            value={/^#[0-9a-fA-F]{6}$/.test(val) ? val : "#f7fbf5"} onChange={(e) => setVal(e.target.value)} />
+          <input type="text" style={{ width: 160 }} value={val} onChange={(e) => setVal(e.target.value)} placeholder="#f7fbf5" />
           {val && <button type="button" className="a-btn a-btn--sm" onClick={() => setVal("")}>기본값으로</button>}
-          <span style={{ fontSize: 12, color: "#888" }}>비우면 기본 라벤더</span>
+          <span style={{ fontSize: 12, color: "#888" }}>비우면 기본 연그린</span>
         </div>
       ) : row.kind === "textarea" || row.kind === "list" ? (
         <textarea rows={row.kind === "list" ? 6 : 3} value={val} onChange={(e) => setVal(e.target.value)} placeholder={meta.placeholder} />

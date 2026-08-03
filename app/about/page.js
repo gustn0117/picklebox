@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
 import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
@@ -75,6 +74,25 @@ export default async function About({ searchParams }) {
 <p style={{ color: "var(--ink-soft)", marginTop: 16 }}>{pick(c, "about.story.p2", "PICKLEBOX에 들어오는 순간 설렘이 시작되고, 코트 위에서는 웃음과 에너지가 쌓이며, 돌아갈 때는 좋은 기억과 새로운 인연을 담아갈 수 있습니다.")}</p>
             <p className="story__quote"><Multiline text={pick(c, "about.story.quote", "피클볼을 치고, 웃고, 연결되며\n일상에 즐거움을 선물하는 공간.")} /></p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ── 가치 ── */}
+      <section className="section">
+        <div className="wrap">
+          <div className="section__head section__head--split">
+            <div><div className="eyebrow">Values</div></div>
+            <div><h2 className="title">{pick(c, "about.values.title", "피클박스가 지키는 세 가지.")}</h2></div>
+          </div>
+          <div className="grid-3">
+            {VALUES.map((v, i) => (
+              <Reveal key={v.k} className="feat" delay={(i % 3) * 70}>
+                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
+                <h3>{v.k} · {v.ko}</h3>
+                <p>{v.p}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -177,25 +195,6 @@ export default async function About({ searchParams }) {
         </section>
       )}
 
-      {/* ── 가치 ── */}
-      <section className="section">
-        <div className="wrap">
-          <div className="section__head section__head--split">
-            <div><div className="eyebrow">Values</div></div>
-            <div><h2 className="title">{pick(c, "about.values.title", "피클박스가 지키는 세 가지.")}</h2></div>
-          </div>
-          <div className="grid-3">
-            {VALUES.map((v, i) => (
-              <Reveal key={v.k} className="feat" delay={(i % 3) * 70}>
-                <div className="feat__ico">{String(i + 1).padStart(2, "0")}</div>
-                <h3>{v.k} · {v.ko}</h3>
-                <p>{v.p}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── 연혁 ── */}
       <section className="section section--alt">
         <div className="wrap">
@@ -225,9 +224,6 @@ export default async function About({ searchParams }) {
               <p>{pick(c, "about.cta.desc", "서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다.")}</p>
             </div>
             <div className="join__actions">
-              <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--lime">
-                예약하기 <Arrow />
-              </a>
               <Link href="/visit" className="btn btn--ghost" style={{ borderColor: "#fff", color: "#fff" }}>
                 오시는 길 보기
               </Link>

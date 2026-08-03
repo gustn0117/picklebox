@@ -18,8 +18,10 @@ function parseCards(raw) {
 export default async function Sections({ page, position = "bottom", preview = false }) {
   let rows = [];
   try {
+    // 과거 관리자 화면에서 위치를 고르지 않고 저장된 항목("")은 하단 섹션으로 복구해 노출한다.
+    const positionWhere = position === "bottom" ? { position: { in: ["bottom", ""] } } : { position };
     rows = await db.section.findMany({
-      where: { page, position, ...contentWhere(preview) },
+      where: { page, ...positionWhere, ...contentWhere(preview) },
       orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
     });
   } catch {

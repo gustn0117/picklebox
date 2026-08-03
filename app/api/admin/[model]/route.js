@@ -43,6 +43,13 @@ export async function POST(req, { params }) {
     if (f.readOnly) continue;
     if (f.key in body) data[f.key] = coerceValue(f, body[f.key]);
   }
+  // 섹션은 위치가 비어 있으면 공개 페이지의 top/bottom 조회에 걸리지 않는다.
+  // 새 항목에는 안전한 기본값을 강제해 저장 직후 실제 페이지에 보이도록 한다.
+  if (cfg.slug === "sections") {
+    data.page = data.page || "home";
+    data.position = data.position || "bottom";
+    data.type = data.type || "text";
+  }
   if ("visible" in body && cfg.hasVisible) data.visible = !!body.visible;
   if ("publishAt" in body && cfg.hasVisible) {
     const v = String(body.publishAt || "").trim();

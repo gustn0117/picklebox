@@ -1,6 +1,7 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Sections from "../components/Sections";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import YtThumb from "../components/YtThumb";
@@ -45,6 +46,8 @@ export default async function Journal({ searchParams }) {
         title={pick(c, "journal.hero.title", "피클박스 저널.")}
         lead={pick(c, "journal.hero.lead", "피클볼 컬처와 입문 가이드, 이벤트 비하인드까지 — 피클박스가 전하는 이야기.")}
       />
+
+      <Sections page="journal" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -95,6 +98,8 @@ export default async function Journal({ searchParams }) {
         </div>
       </section>
 
+      <Sections page="journal" position="bottom" preview={preview} />
+
       <section className="section join">
         <div className="wrap">
           <Reveal className="join__card">
@@ -107,7 +112,7 @@ export default async function Journal({ searchParams }) {
               <a href={LINKS.instagram[0].url} target="_blank" rel="noopener" className="btn btn--lime">
                 인스타 팔로우 <Arrow />
               </a>
-              <a href={LINKS.youtube} target="_blank" rel="noopener" className="btn btn--ghost">유튜브 쫌치는언니</a>
+              <a href={LINKS.youtube} target="_blank" rel="noopener" className="btn btn--ghost">유튜브 쫌치는언니(조민정)</a>
             </div>
           </Reveal>
         </div>

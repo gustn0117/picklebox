@@ -111,15 +111,15 @@ export const MODELS = {
     ordered: true, hasVisible: true, canCreate: true, canDelete: true, grouped: false,
     titleKey: "title", subKey: "page",
     fields: [
-      { key: "page", label: "어느 페이지에 넣을까요", type: "select", required: true, options: [
+      { key: "page", label: "어느 페이지에 넣을까요", type: "select", required: true, defaultValue: "home", options: [
         { v: "home", t: "홈" }, { v: "about", t: "소개" }, { v: "founder", t: "대표" },
         { v: "community", t: "커뮤니티" }, { v: "partners", t: "파트너" }, { v: "events", t: "이벤트" },
         { v: "goods", t: "굿즈" }, { v: "tours", t: "투어" }, { v: "journal", t: "저널" }, { v: "visit", t: "오시는 길" },
       ] },
-      { key: "position", label: "위치", type: "select", options: [
+      { key: "position", label: "위치", type: "select", required: true, defaultValue: "bottom", options: [
         { v: "top", t: "페이지 위쪽 (첫 화면 아래)" }, { v: "bottom", t: "페이지 아래쪽 (마무리 배너 앞)" },
       ] },
-      { key: "type", label: "섹션 종류", type: "select", required: true, options: [
+      { key: "type", label: "섹션 종류", type: "select", required: true, defaultValue: "text", options: [
         { v: "text", t: "글 — 제목 + 본문" },
         { v: "cards", t: "카드 목록 — 여러 항목 소개" },
         { v: "image", t: "이미지 배너 — 큰 사진 + 문구" },

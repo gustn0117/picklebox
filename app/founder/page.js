@@ -1,11 +1,13 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Sections from "../components/Sections";
 import { getCopy, pick, pickList, getCopyValue } from "../lib/copy";
 import Multiline from "../components/Multiline";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS } from "../lib/site";
+import { isPreview } from "../lib/publicWhere";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +19,8 @@ export async function generateMetadata() {
 }
 
 
-export default async function Founder() {
+export default async function Founder({ searchParams }) {
+  const preview = await isPreview(searchParams);
   const c = await getCopy("founder");
   const photo = pick(c, "founder.photo", "");
   const CAREER = pickList(c, "founder.career",
@@ -31,6 +34,8 @@ export default async function Founder() {
         title={pick(c, "founder.hero.title", "테니스에서 피클볼로, 즐거움을 잇다.")}
         lead={pick(c, "founder.hero.lead", "라켓 하나로 사람과 사람을 연결해 온 조민정 대표가 피클박스를 시작한 이유.")}
       />
+
+      <Sections page="founder" position="top" preview={preview} />
 
       {/* ── 프로필 ── */}
       <section className="section story">
@@ -83,6 +88,8 @@ export default async function Founder() {
           </div>
         </div>
       </section>
+
+      <Sections page="founder" position="bottom" preview={preview} />
 
       <Footer />
     </>

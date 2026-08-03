@@ -80,6 +80,11 @@ export async function PATCH(req, { params }) {
     if (f.readOnly) continue;
     if (f.key in body) data[f.key] = coerceValue(f, body[f.key]);
   }
+  if (cfg.slug === "sections") {
+    if ("page" in data) data.page = data.page || "home";
+    if ("position" in data) data.position = data.position || "bottom";
+    if ("type" in data) data.type = data.type || "text";
+  }
   if ("visible" in body && cfg.hasVisible) data.visible = !!body.visible;
   if ("publishAt" in body && cfg.hasVisible) {
     const v = String(body.publishAt || "").trim();

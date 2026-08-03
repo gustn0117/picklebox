@@ -47,7 +47,7 @@ export default async function Events({ searchParams }) {
         <div className="wrap">
           <Reveal
             className="feature-card"
-            style={{ backgroundImage: `url(${pick(c, "events.next.img", "/assets/join-lounge-court.webp")})` }}
+            style={{ backgroundImage: `url(${pick(c, "events.next.img", "/assets/join-lounge-green-orange.webp")})` }}
           >
             <span className="feature-card__tag">// Next Up</span>
             <h2 className="feature-card__title"><Multiline text={pick(c, "events.next.title", "Seoul Celebrity\nPickleball Open")} /></h2>

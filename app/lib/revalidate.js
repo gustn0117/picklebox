@@ -9,6 +9,7 @@ const PATHS = {
   goods: ["/", "/about"],
   journal: ["/journal"],
   photos: ["/"],
+  sections: ["/", "/about", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
   copy: ["/"],
 };
 

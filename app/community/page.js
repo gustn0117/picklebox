@@ -2,10 +2,12 @@ import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import Sections from "../components/Sections";
 import { getCopy, pick, getCopyValue } from "../lib/copy";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
 import { LINKS, reserveHref } from "../lib/site";
+import { isPreview } from "../lib/publicWhere";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +31,8 @@ const STEPS = [
   { s: "STEP 03", h: "플레이", p: "정기 세션에서 함께 치고, 웃고, 연결되세요." },
 ];
 
-export default async function Community() {
+export default async function Community({ searchParams }) {
+  const preview = await isPreview(searchParams);
   const c = await getCopy("community");
   return (
     <>
@@ -39,6 +42,8 @@ export default async function Community() {
         title={pick(c, "community.hero.title", "서울에서 세계로, 피클박스 커뮤니티.")}
         lead={pick(c, "community.hero.lead", "피클볼은 혼자여도 함께가 됩니다. 레벨별 매칭과 정기 모임, 글로벌 교류로 코트 위의 인연을 잇습니다.")}
       />
+
+      <Sections page="community" position="top" preview={preview} />
 
       <section className="section">
         <div className="wrap">
@@ -75,6 +80,8 @@ export default async function Community() {
           </div>
         </div>
       </section>
+
+      <Sections page="community" position="bottom" preview={preview} />
 
       <section className="section join">
         <div className="wrap">
