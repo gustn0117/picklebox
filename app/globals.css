@@ -13,8 +13,15 @@
   --line: rgba(23, 82, 52, 0.14);
   --line-2: rgba(23, 82, 52, 0.26);
 
-  --ink: #173328;          /* 본문/제목 — 부드러운 딥 그린 */
-  --ink-soft: #4e6458;
+  --text-main: #173328;    /* 관리자에서 변경 가능한 텍스트 팔레트 */
+  --text-soft: #4e6458;
+  --text-accent: #ff7a2f;
+  --text-green: #1cad5e;
+  --text-on-image: #ffffff;
+  --green-ink: var(--text-green);
+
+  --ink: var(--text-main); /* 본문/제목 — 부드러운 딥 그린 */
+  --ink-soft: var(--text-soft);
   --stone: #788b80;
 
   --brand-green: #1cad5e;  /* 전달받은 로고 원본의 그린 */
@@ -53,10 +60,11 @@
 
 /* 사진 위에 어두운 스크림이 깔리는 영역만 텍스트를 밝게(라이트 팔레트 국소 반전) */
 .hero, .pagehero, .join, .feature-card, .promo, .photo-slot, .bento__card--img {
-  --ink: #ffffff;
-  --ink-soft: rgba(255, 255, 255, 0.85);
-  --stone: rgba(255, 255, 255, 0.62);
-  --wire: rgba(255, 255, 255, 0.92);
+  --ink: var(--text-on-image);
+  --ink-soft: color-mix(in srgb, var(--text-on-image) 85%, transparent);
+  --stone: color-mix(in srgb, var(--text-on-image) 62%, transparent);
+  --wire: color-mix(in srgb, var(--text-on-image) 92%, transparent);
+  --green-ink: color-mix(in srgb, var(--text-on-image) 92%, transparent);
   --line: rgba(255, 255, 255, 0.16);
   --line-2: rgba(255, 255, 255, 0.30);
 }
@@ -207,7 +215,7 @@ img, svg { display: block; max-width: 100%; }
 .hero__title {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
   font-size: clamp(3.6rem, 13vw, 10rem); line-height: 0.9; letter-spacing: 0.005em;
-  color: var(--brand-green); margin-top: 22px;
+  color: var(--text-green); margin-top: 22px;
   text-shadow: 0 0 70px rgba(28, 173, 94, 0.28), 0 0 30px rgba(0, 0, 0, 0.32);
 }
 .hero__accent {
@@ -224,11 +232,11 @@ img, svg { display: block; max-width: 100%; }
 /* 사진 없는 흰 배경 히어로 — 어두운 텍스트(밝은 배경 대응). 배경 사진을 올리면 자동으로 사진 히어로로 전환된다. */
 .hero--plain {
   background: #fff;
-  --ink: #173328; --ink-soft: #4e6458; --stone: #788b80; --wire: #1cad5e;
+  --ink: var(--text-main); --ink-soft: var(--text-soft); --stone: #788b80; --wire: var(--text-green); --green-ink: var(--text-green);
   border-bottom: 1px solid var(--line);
 }
 .hero--plain .hero__bg, .hero--plain .hero__scan { display: none; }
-.hero--plain .hero__title { color: var(--brand-green); text-shadow: none; }
+.hero--plain .hero__title { color: var(--text-green); text-shadow: none; }
 .hero--plain .ticker { background: #fff; }
 
 /* 코너 브래킷 프레임 (BOX 모티프) */
@@ -281,7 +289,7 @@ img, svg { display: block; max-width: 100%; }
 .promo + .promo { margin-top: 16px; }
 .promo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,65,38,0.84) 0%, rgba(10,65,38,0.38) 58%, rgba(255,122,47,0.2) 100%); }
 .promo__body { position: relative; z-index: 1; padding: clamp(28px, 5vw, 56px); max-width: 640px; }
-.promo__title { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2.4rem); color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+.promo__title { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2.4rem); color: var(--text-on-image); letter-spacing: -0.02em; line-height: 1.2; }
 .promo__sub { color: var(--ink-soft); margin-top: 10px; font-size: clamp(0.95rem, 1.6vw, 1.15rem); }
 .promo__go { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--volt); font-weight: 700; }
 
@@ -290,7 +298,7 @@ img, svg { display: block; max-width: 100%; }
 .gallery__item { position: relative; margin: 0; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
 .gallery__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
 .gallery__item:hover img { transform: scale(1.05); }
-.gallery__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 14px 12px; font-size: 0.8rem; color: #fff; background: linear-gradient(0deg, rgba(0,0,0,0.6), transparent); }
+.gallery__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 14px 12px; font-size: 0.8rem; color: var(--text-on-image); background: linear-gradient(0deg, rgba(0,0,0,0.6), transparent); }
 @media (prefers-reduced-motion: reduce) { .gallery__item img { transition: none; } .gallery__item:hover img { transform: none; } }
 
 /* ---------- 굿즈 / 투어 (관리자 콘텐츠) ---------- */
@@ -407,7 +415,7 @@ img, svg { display: block; max-width: 100%; }
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 1px);
 }
 .join .wrap { position: relative; z-index: 1; }
-.join__card { background: none; padding: 0; color: #fff; display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: center; }
+.join__card { background: none; padding: 0; color: var(--text-on-image); display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: center; }
 .join__card h2 { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.9rem, 4vw, 3rem); letter-spacing: -0.02em; line-height: 1.06; }
 .join__card h2.join__card--en { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1; }
 .join__card p { color: var(--ink-soft); margin-top: 20px; max-width: 440px; line-height: 1.7; }
@@ -464,7 +472,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .pagehero .wrap { position: relative; z-index: 1; }
 .pagehero__head { display: flex; align-items: center; }
-.pagehero__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: var(--display-page); letter-spacing: 0.01em; line-height: 0.98; margin-top: 24px; max-width: 18ch; color: #fff; }
+.pagehero__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: var(--display-page); letter-spacing: 0.01em; line-height: 0.98; margin-top: 24px; max-width: 18ch; color: var(--text-on-image); }
 .pagehero__title.pagehero__title--ko { font-family: var(--font-body); font-weight: 800; letter-spacing: var(--track-tight); text-transform: none; line-height: 1.05; }
 .pagehero__lead { max-width: 640px; margin-top: 24px; }
 .pagehero__ball { display: none; }
@@ -583,7 +591,7 @@ img, svg { display: block; max-width: 100%; }
 .feature-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255, 122, 47, 0.18) 0%, rgba(10, 65, 38, 0.68) 55%, rgba(10, 65, 38, 0.94) 100%); }
 .feature-card > * { position: relative; z-index: 1; }
 .feature-card__tag { font-family: var(--mono); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--volt); }
-.feature-card__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.1rem, 4.6vw, 3.8rem); line-height: 0.96; letter-spacing: 0.01em; color: #fff; margin-top: 16px; }
+.feature-card__title { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.1rem, 4.6vw, 3.8rem); line-height: 0.96; letter-spacing: 0.01em; color: var(--text-on-image); margin-top: 16px; }
 .feature-card__meta { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--wire); margin-top: 20px; }
 .feature-card__desc { color: var(--ink-soft); margin-top: 14px; max-width: 540px; line-height: 1.7; }
 .feature-card .btn { margin-top: 30px; }
@@ -775,3 +783,58 @@ a.feat:hover { border-color: var(--volt); transform: translateY(-2px); }
 .search__title { display: block; font-weight: 700; font-size: 0.95rem; }
 .search__ext { color: var(--volt); font-size: 0.8rem; }
 .search__sub { display: block; color: var(--stone); font-size: 0.8rem; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 관리자 · 사이트 정보의 텍스트 팔레트. 버튼·배경의 브랜드색과 분리해 글자색만 바뀐다. */
+.eyebrow,
+.ticker__hot,
+.hero__accent,
+.promo__go,
+.shop-card__price,
+.tour-card__price,
+.tour-card__daynum,
+.jcard__cat,
+.jcard__go,
+.brand:hover .brand__key,
+.brand__key small,
+.feat__ico,
+.footer__brand,
+.footer h4,
+.footer__links a:hover,
+.nav__link.is-active,
+.explore__card:hover .explore__key,
+.explore__go,
+.channels__tag,
+.channels__card:hover b,
+.channels__card:hover .channels__go,
+.hud__tr,
+.hud__br,
+.bento__ko,
+.bento__card:hover .bento__key,
+.bento__go,
+.manifesto .hl--volt,
+.statband__n em,
+.timeline .yr,
+.feature-card__tag,
+.rt-body a,
+.nav-drop__link--more,
+.search__glabel,
+.search__ext {
+  color: var(--text-accent);
+}
+
+.eyebrow::before,
+.eyebrow::after,
+.btn--ghost:hover,
+.ticker__sep,
+.hero__status span::before,
+.hero__status span::after,
+.feat__ico::before,
+.loc__row .k,
+.footer h4::before,
+.explore__card:hover .explore__num,
+.bento__num,
+.feat__ico--step,
+.faq__n,
+.feature-card__meta {
+  color: var(--green-ink);
+}

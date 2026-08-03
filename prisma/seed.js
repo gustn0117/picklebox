@@ -68,7 +68,13 @@ const SITE_COPY = [
     T("site.bizCeo", "대표자명", "조민정"),
     T("site.bizNo", "사업자등록번호", "407-10-93280"),
     TA("site.footerTagline", "푸터 소개 문구", "피클볼을 치고, 웃고, 연결되며 일상에 즐거움을 선물하는 공간. Play, Smile, Connect."),
+    IMG("site.pageHeroBg", "모든 서브페이지 · 상단 배너 배경", "/assets/hero-court-green-orange.webp"),
     CLR("site.bgColor", "사이트 전체 배경색", ""),
+    CLR("site.textMainColor", "기본 글자색 · 제목/본문", "#173328"),
+    CLR("site.textSoftColor", "보조 글자색 · 설명/메뉴", "#4e6458"),
+    CLR("site.textAccentColor", "오렌지 포인트 글자색", "#ff7a2f"),
+    CLR("site.textGreenColor", "그린 포인트 글자색", "#1cad5e"),
+    CLR("site.textOnImageColor", "사진·상단 배너 위 글자색", "#ffffff"),
     TOG("site.maintenance", "🚧 준비중(공사중) 모드 — 켜면 고객에게 준비중 안내가 보입니다(관리자는 실제 사이트 열람)", ""),
     T("site.maintenanceTitle", "준비중 안내 제목", "홈페이지 준비중입니다"),
     TA("site.maintenanceMsg", "준비중 안내 문구", "더 좋은 모습으로 곧 찾아뵙겠습니다.\n조금만 기다려 주세요."),
@@ -81,7 +87,6 @@ const SITE_COPY = [
     T("home.hero.tagline1", "히어로 문구 1줄", "피클박스는 즐거움을 여는 선물상자입니다."),
     TA("home.hero.tagline2", "히어로 문구 2줄", "피클볼을 통해 운동, 만남, 휴식, 콘텐츠, 여행까지 이어지는 새로운 스포츠 라이프를 만듭니다."),
     T("home.why.title", "‘왜 피클박스’ 제목", "누구나 쉽게,\n운동을 넘어 컬처까지."),
-    T("home.how.title", "‘이용 방법’ 제목", "예약하고, 들어와,\n바로 플레이."),
     T("home.gallery.title", "갤러리 섹션 제목", "피클박스의 순간들."),
     T("home.cta.title", "하단 배너 제목", "Play the Culture."),
     TA("home.cta.desc", "하단 배너 설명", "피클볼이 처음이어도 괜찮습니다. 방문·예약 문의를 남겨주시면 코트와 레슨, 멤버십까지 편하게 안내해 드립니다."),
@@ -89,8 +94,10 @@ const SITE_COPY = [
     T("home.cta.button2", "하단 배너 보조 버튼명", "오시는 길"),
     // 이미지
     IMG("home.hero.bg", "첫 화면 배경 이미지", ""),
-    IMG("home.bento.about.img", "둘러보기 · About 카드 배경", ""),
-    IMG("home.bento.visit.img", "둘러보기 · Visit 카드 배경", ""),
+    IMG("home.bento.about.img", "Explore 01 · About 배경 이미지", "/assets/story-picklebox-green-orange.webp"),
+    IMG("home.bento.pickleball.img", "Explore 02 · Pickleball 배경 이미지", ""),
+    IMG("home.bento.founder.img", "Explore 03 · Founder 배경 이미지", ""),
+    IMG("home.bento.visit.img", "Explore 04 · Visit Us 배경 이미지", "/assets/join-lounge-green-orange.webp"),
     // 매니페스토 · 티커
     TA("home.manifesto", "매니페스토 문구", "운동을 넘어,\n사람을 잇다. 서울숲에서 시작하는 새로운 피클볼 컬처."),
     LIST("home.ticker", "상단 흐르는 띠 (한 줄에 하나씩)", "Now Open\n서울숲 · 갤러리아 포레\n24시간 무인 스마트 클럽\n예약 오픈"),
@@ -99,9 +106,6 @@ const SITE_COPY = [
     // 왜 피클박스 카드 (제목 | 설명)
     LIST("home.why.items", "‘왜 피클박스’ 카드 (제목 | 설명, 한 줄에 하나씩)",
       "24시간 무인 스마트 클럽 | 언제든 문을 열고 들어와 나만의 시간에 피클볼을 즐기세요. 예약부터 입장까지 스마트하게.\n서울숲 라운지 | 갤러리아 포레의 프라이빗 코트와 라운지에서 보내는 하루. 도심 속 프리미엄 컬처 공간.\n레슨 · 커뮤니티 | 처음이어도 쉽게 배우고, 좋은 사람들과 자연스럽게 연결됩니다. 코치와 동호인이 함께.\n여행 · 컬처 | 코트를 넘어 서울 관광과 해외 피클볼 투어까지. 피클볼로 여는 새로운 라이프스타일."),
-    // 이용 방법 3단계
-    LIST("home.how.items", "이용 방법 단계 (제목 | 설명, 한 줄에 하나씩)",
-      "예약 | 네이버 예약으로 원하는 시간을 선택하세요. 몇 번의 터치면 코트가 준비됩니다.\n입장 | 무인 스마트 출입으로 24시간 언제든. 기다림 없이 바로 나만의 코트로.\n플레이 | 패들과 공은 준비되어 있습니다. 처음이라면 레슨과 함께 첫날부터 랠리를."),
     // 둘러보기 카드 설명
     T("home.bento.about.desc", "둘러보기 · About 카드 설명", "피클박스는 즐거움을 여는 선물상자입니다."),
     T("home.bento.pickleball.desc", "둘러보기 · Pickleball 카드 설명", "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠."),
@@ -127,8 +131,6 @@ const SITE_COPY = [
     T("about.tour.title", "투어 섹션 제목", "피클볼 투어"),
     T("about.values.title", "가치 섹션 제목", "피클박스가 지키는 세 가지."),
     T("about.timeline.title", "연혁 섹션 제목", "피클박스가 걸어온 길."),
-    T("about.cta.title", "하단 배너 제목", "피클박스가 궁금하다면,\n직접 만나보세요."),
-    TA("about.cta.desc", "하단 배너 설명", "서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다."),
     LIST("about.subbrands", "6개 서비스 브랜드 (영문 | 한글 | 설명, 한 줄에 하나씩)",
       "CLUB | 클럽 | 멤버십·셀럽 게임·커뮤니티가 모이는 피클박스의 중심\nHOUSE | 하우스 | 서울숲 라운지와 프라이빗 코트에서 즐기는 하루\nSEOUL | 서울 | K-피클볼 문화를 세계의 여행객과 도시생활자에게 소개하는 대표 스포츠 라이프스타일 브랜드\nACADEMY | 아카데미 | 레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램\nTOUR | 투어 | 코트를 넘어 떠나는 해외 피클볼 여행\nPARTY | 파티 | 브랜드 행사와 셀럽 파티로 이어지는 즐거움"),
   ].map((c, i) => ({ ...c, group: "about", sortOrder: i })),
@@ -301,6 +303,23 @@ async function main() {
     await db.siteCopy.delete({ where: { key: oldKey } });
     console.log(`  SiteCopy: ${oldKey} → ${newKey} 값 이관`);
   }
+
+  // Explore 이미지 관리 기능 도입 시 기존 기본 이미지 두 장을 관리자 값으로 한 번만 이관한다.
+  // 신규 키가 생긴 뒤에는 빈 값도 사용자의 "이미지 제거" 선택이므로 다시 채우지 않는다.
+  const exploreImagesReady = await db.siteCopy.findUnique({ where: { key: "home.bento.pickleball.img" } });
+  if (!exploreImagesReady) {
+    const defaults = {
+      "home.bento.about.img": "/assets/story-picklebox-green-orange.webp",
+      "home.bento.visit.img": "/assets/join-lounge-green-orange.webp",
+    };
+    for (const [key, value] of Object.entries(defaults)) {
+      await db.siteCopy.updateMany({ where: { key, value: "" }, data: { value } });
+    }
+  }
+
+  // 사이트에서 삭제된 고정 섹션의 관리자 문구도 함께 정리해 혼동을 막는다.
+  const obsoleteCopyKeys = ["home.how.title", "home.how.items", "about.cta.title", "about.cta.desc"];
+  await db.siteCopy.deleteMany({ where: { key: { in: obsoleteCopyKeys } } });
 
   // SiteCopy는 key 기준 upsert. 메타(그룹·라벨·형태·순서)만 갱신하고 value(수정한 문구)는 보존.
   for (const c of SITE_COPY) {

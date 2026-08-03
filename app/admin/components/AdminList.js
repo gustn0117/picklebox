@@ -266,15 +266,28 @@ function GroupedCopy({ slug, config, rows, onSaved }) {
 
 // 이미지 문구 키별 권장 크기 안내
 const COPY_IMG_HINT = {
+  "site.pageHeroBg": "모든 서브페이지 공통 · 가로 1920×600 권장 (제거하면 배경사진 없이 표시)",
   "home.hero.bg": "가로 1920×1200 권장 (첫 화면 배경)",
-  "home.bento.about.img": "가로 1200×1200 권장",
-  "home.bento.visit.img": "가로 1600×900 권장",
+  "home.bento.about.img": "Explore 01 · 가로 1200×1200 권장",
+  "home.bento.pickleball.img": "Explore 02 · 가로 1200×700 권장",
+  "home.bento.founder.img": "Explore 03 · 가로 1200×700 권장",
+  "home.bento.visit.img": "Explore 04 · 가로 1600×700 권장",
   "events.next.img": "가로 1600×900 권장",
   "founder.photo": "세로형 1000×1250 권장 (4:5)",
 };
 
+const COPY_COLOR_DEFAULT = {
+  "site.bgColor": "#f7fbf5",
+  "site.textMainColor": "#173328",
+  "site.textSoftColor": "#4e6458",
+  "site.textAccentColor": "#ff7a2f",
+  "site.textGreenColor": "#1cad5e",
+  "site.textOnImageColor": "#ffffff",
+};
+
 function CopyRow({ slug, row, onSaved }) {
   const meta = { ...row, hint: COPY_IMG_HINT[row.key], placeholder: row.kind === "list" ? "한 줄에 하나씩 입력하세요" : "" };
+  const defaultColor = COPY_COLOR_DEFAULT[row.key] || "#ffffff";
   const [val, setVal] = useState(row.value ?? "");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -308,10 +321,10 @@ function CopyRow({ slug, row, onSaved }) {
       ) : row.kind === "color" ? (
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <input type="color" style={{ width: 46, height: 38, padding: 0, border: "1px solid #ddd", borderRadius: 8, cursor: "pointer" }}
-            value={/^#[0-9a-fA-F]{6}$/.test(val) ? val : "#f7fbf5"} onChange={(e) => setVal(e.target.value)} />
-          <input type="text" style={{ width: 160 }} value={val} onChange={(e) => setVal(e.target.value)} placeholder="#f7fbf5" />
+            value={/^#[0-9a-fA-F]{6}$/.test(val) ? val : defaultColor} onChange={(e) => setVal(e.target.value)} />
+          <input type="text" style={{ width: 160 }} value={val} onChange={(e) => setVal(e.target.value)} placeholder={defaultColor} />
           {val && <button type="button" className="a-btn a-btn--sm" onClick={() => setVal("")}>기본값으로</button>}
-          <span style={{ fontSize: 12, color: "#888" }}>비우면 기본 연그린</span>
+          <span style={{ fontSize: 12, color: "#888" }}>비우면 기본값 {defaultColor}</span>
         </div>
       ) : row.kind === "textarea" || row.kind === "list" ? (
         <textarea rows={row.kind === "list" ? 6 : 3} value={val} onChange={(e) => setVal(e.target.value)} placeholder={meta.placeholder} />

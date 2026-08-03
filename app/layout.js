@@ -47,11 +47,27 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // 관리자에서 고른 배경색(없으면 CSS 기본 연그린). --bg-2는 살짝 짙게 자동 파생.
-  const bg = await getCopyValue("site.bgColor", "");
-  const bgStyle = /^#[0-9a-fA-F]{6}$/.test(bg)
-    ? { "--bg": bg, "--bg-2": `color-mix(in srgb, ${bg}, #000 7%)` }
-    : undefined;
+  // 관리자 색상 설정을 CSS 디자인 토큰에 연결한다. 잘못된 값은 안전하게 기본값으로 처리한다.
+  const [bg, textMain, textSoft, textAccent, textGreen, textOnImage] = await Promise.all([
+    getCopyValue("site.bgColor", ""),
+    getCopyValue("site.textMainColor", "#173328"),
+    getCopyValue("site.textSoftColor", "#4e6458"),
+    getCopyValue("site.textAccentColor", "#ff7a2f"),
+    getCopyValue("site.textGreenColor", "#1cad5e"),
+    getCopyValue("site.textOnImageColor", "#ffffff"),
+  ]);
+  const color = (value, fallback) => /^#[0-9a-fA-F]{6}$/.test(value) ? value : fallback;
+  const themeStyle = {
+    "--text-main": color(textMain, "#173328"),
+    "--text-soft": color(textSoft, "#4e6458"),
+    "--text-accent": color(textAccent, "#ff7a2f"),
+    "--text-green": color(textGreen, "#1cad5e"),
+    "--text-on-image": color(textOnImage, "#ffffff"),
+  };
+  if (/^#[0-9a-fA-F]{6}$/.test(bg)) {
+    themeStyle["--bg"] = bg;
+    themeStyle["--bg-2"] = `color-mix(in srgb, ${bg}, #000 7%)`;
+  }
 
   // 준비중(공사중) 게이트 — ON이고, 관리자 페이지가 아니고, 로그인한 관리자가 아니면 준비중 화면을 보여준다.
   const h = await headers();
@@ -67,7 +83,7 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`} style={bgStyle}>
+    <html lang="ko" className={`${anton.variable} ${archivo.variable} ${spaceMono.variable}`} style={themeStyle}>
       <head>
         <link
           rel="stylesheet"

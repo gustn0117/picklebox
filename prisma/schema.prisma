@@ -147,7 +147,7 @@ model SiteCopy {
   group     String   @default("site") // site | home | about | founder | community | partners | events | journal | visit | goods | tours
   label     String // 관리자 표시명(어디 문구인지)
   value     String   @default("")
-  kind      String   @default("text") // text | textarea | url
+  kind      String   @default("text") // text | textarea | url | list | image | color | toggle
   sortOrder Int      @default(0)
   updatedAt DateTime @updatedAt
 }

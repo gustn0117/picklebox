@@ -39,7 +39,12 @@ export default async function Home({ searchParams }) {
     copy = {};
   }
   const c = (k, d) => pick(copy, k, d);
+  const image = (k, d = "") => Object.prototype.hasOwnProperty.call(copy, k) ? copy[k] : d;
   const heroBg = c("home.hero.bg", "");
+  const exploreAboutImg = image("home.bento.about.img", "/assets/story-picklebox-green-orange.webp");
+  const explorePickleballImg = image("home.bento.pickleball.img");
+  const exploreFounderImg = image("home.bento.founder.img");
+  const exploreVisitImg = image("home.bento.visit.img", "/assets/join-lounge-green-orange.webp");
   const STATS = pickList(copy, "home.stats",
     "45 | MIN | 한 게임의 온도\n6 |  | 서비스 브랜드\n24 | H | 무인 스마트 운영\n100 | % | 초보 환영", "|")
     .map(([n, u, l]) => { const num = parseInt(n, 10) || 0; return { n: num, pad: (!u && num < 10) ? 2 : 0, u: u || "", l: l || "" }; });
@@ -127,8 +132,8 @@ export default async function Home({ searchParams }) {
             <Reveal
               as={Link}
               href="/about"
-              className="bento__card bento__card--feat bento__card--img"
-              style={{ backgroundImage: `url(${c("home.bento.about.img", "/assets/story-picklebox-green-orange.webp")})` }}
+              className={`bento__card bento__card--feat${exploreAboutImg ? " bento__card--img" : ""}`}
+              style={exploreAboutImg ? { backgroundImage: `url(${exploreAboutImg})` } : undefined}
             >
               <span className="bento__num">// 01</span>
               <div className="bento__key bento__key--feat"><Multiline text={c("home.bento.about.title", "About\nPICKLEBOX")} /></div>
@@ -136,14 +141,26 @@ export default async function Home({ searchParams }) {
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
 
-            <Reveal as={Link} href="/pickleball" className="bento__card bento__card--half" delay={70}>
+            <Reveal
+              as={Link}
+              href="/pickleball"
+              className={`bento__card bento__card--half${explorePickleballImg ? " bento__card--img" : ""}`}
+              style={explorePickleballImg ? { backgroundImage: `url(${explorePickleballImg})` } : undefined}
+              delay={70}
+            >
               <span className="bento__num">// 02</span>
               <div className="bento__key"><Multiline text={c("home.bento.pickleball.title", "What is\nPickleball")} /></div>
               <p className="bento__desc">{c("home.bento.pickleball.desc", "누구나 5분이면 배우는, 요즘 가장 빠르게 크는 라켓 스포츠.")}</p>
               <span className="bento__go">바로가기 <Arrow /></span>
             </Reveal>
 
-            <Reveal as={Link} href="/founder" className="bento__card bento__card--half" delay={140}>
+            <Reveal
+              as={Link}
+              href="/founder"
+              className={`bento__card bento__card--half${exploreFounderImg ? " bento__card--img" : ""}`}
+              style={exploreFounderImg ? { backgroundImage: `url(${exploreFounderImg})` } : undefined}
+              delay={140}
+            >
               <span className="bento__num">// 03</span>
               <div className="bento__key"><Multiline text={c("home.bento.founder.title", "The\nFounder")} /></div>
               <p className="bento__desc">{c("home.bento.founder.desc", "테니스에서 피클볼로 — 조민정 대표가 그리는 이야기.")}</p>
@@ -153,8 +170,8 @@ export default async function Home({ searchParams }) {
             <Reveal
               as={Link}
               href="/visit"
-              className="bento__card bento__card--wide bento__card--img"
-              style={{ backgroundImage: `url(${c("home.bento.visit.img", "/assets/join-lounge-green-orange.webp")})` }}
+              className={`bento__card bento__card--wide${exploreVisitImg ? " bento__card--img" : ""}`}
+              style={exploreVisitImg ? { backgroundImage: `url(${exploreVisitImg})` } : undefined}
               delay={90}
             >
               <span className="bento__num">// 04</span>

@@ -10,7 +10,7 @@ const PATHS = {
   journal: ["/journal"],
   photos: ["/"],
   sections: ["/", "/about", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
-  copy: ["/"],
+  copy: ["/", "/about", "/pickleball", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
 };
 
 export function revalidateFor(slug) {

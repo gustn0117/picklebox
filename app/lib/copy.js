@@ -6,10 +6,25 @@ export async function getCopy(group) {
   try {
     const rows = await db.siteCopy.findMany({ where: { group } });
     const map = {};
-    for (const r of rows) if (r.value && r.value.trim()) map[r.key] = r.value;
+    for (const r of rows) {
+      // 이미지는 빈 값도 보존한다. 관리자가 이미지를 제거한 상태와
+      // 아직 관리자 항목이 생성되지 않은 상태를 구분하기 위해서다.
+      if (r.kind === "image") map[r.key] = (r.value || "").trim();
+      else if (r.value && r.value.trim()) map[r.key] = r.value;
+    }
     return map;
   } catch {
     return {};
+  }
+}
+
+// 이미지 단일 키는 "항목 없음 → fallback", "항목은 있으나 빈 값 → 제거"를 구분한다.
+export async function getCopyImageValue(key, fallback = "") {
+  try {
+    const r = await db.siteCopy.findUnique({ where: { key } });
+    return r ? String(r.value || "").trim() : fallback;
+  } catch {
+    return fallback;
   }
 }
 
@@ -28,7 +43,10 @@ export async function getCopyMulti(groups) {
   try {
     const rows = await db.siteCopy.findMany({ where: { group: { in: groups } } });
     const map = {};
-    for (const r of rows) if (r.value && r.value.trim()) map[r.key] = r.value;
+    for (const r of rows) {
+      if (r.kind === "image") map[r.key] = (r.value || "").trim();
+      else if (r.value && r.value.trim()) map[r.key] = r.value;
+    }
     return map;
   } catch {
     return {};

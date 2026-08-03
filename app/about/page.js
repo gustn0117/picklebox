@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Nav from "../components/Nav";
 import Sections from "../components/Sections";
 import Footer from "../components/Footer";
@@ -214,23 +213,6 @@ export default async function About({ searchParams }) {
       </section>
 
       <Sections page="about" position="bottom" preview={preview} />
-
-      {/* ── CTA ── */}
-      <section className="section join">
-        <div className="wrap">
-          <Reveal className="join__card">
-            <div>
-              <h2><Multiline text={pick(c, "about.cta.title", "피클박스가 궁금하다면,\n직접 만나보세요.")} /></h2>
-              <p>{pick(c, "about.cta.desc", "서울숲 갤러리아 포레에서 코트와 레슨, 커뮤니티를 경험할 수 있습니다.")}</p>
-            </div>
-            <div className="join__actions">
-              <Link href="/visit" className="btn btn--ghost" style={{ borderColor: "#fff", color: "#fff" }}>
-                오시는 길 보기
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       <Footer />
     </>
