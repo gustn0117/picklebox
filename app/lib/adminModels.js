@@ -166,7 +166,20 @@ export function extractYouTubeId(raw) {
 }
 
 // 폼 값 → DB 저장값 강제 변환(필드 타입 기준).
+// 사용자가 http(s):// 없이 입력한 외부 링크 보정 — 상대경로로 오인돼 404 나는 것 방지.
+// (www.naver.com → https://www.naver.com). 내부 경로(/…)·mailto·tel·빈값은 그대로.
+export function normalizeUrl(raw) {
+  const u = String(raw ?? "").trim();
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;
+  if (/^\/\//.test(u)) return "https:" + u;
+  if (/^(mailto:|tel:|#)/i.test(u)) return u;
+  if (u.startsWith("/")) return u;
+  return "https://" + u;
+}
+
 export function coerceValue(field, raw) {
+  if (field.type === "url") return normalizeUrl(raw);
   if (field.type === "rich") return sanitizeHtml(raw);
   if (field.type === "cards") {
     let list = raw;
@@ -177,7 +190,7 @@ export function coerceValue(field, raw) {
         title: String(c?.title ?? "").slice(0, 200),
         description: sanitizeHtml(c?.description ?? ""),
         imageUrl: String(c?.imageUrl ?? ""),
-        linkUrl: String(c?.linkUrl ?? ""),
+        linkUrl: normalizeUrl(c?.linkUrl),
       }))
       .filter((c) => c.title || c.description || c.imageUrl);
     return JSON.stringify(clean);

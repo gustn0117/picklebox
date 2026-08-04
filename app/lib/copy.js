@@ -67,6 +67,17 @@ export function pickList(map, key, fallback, sep = "||") {
     .map((line) => line.split(sep).map((s) => s.trim()));
 }
 
+// 외부 링크 보정(렌더 시점) — http(s):// 없이 저장된 기존 값이 상대경로로 오인돼 404 나는 것 방지.
+export function extHref(raw) {
+  const u = String(raw ?? "").trim();
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;
+  if (/^\/\//.test(u)) return "https:" + u;
+  if (/^(mailto:|tel:|#)/i.test(u)) return u;
+  if (u.startsWith("/")) return u;
+  return "https://" + u;
+}
+
 // 인스타 URL에서 핸들(@아이디) 추출 — 관리자에서 주소를 바꾸면 표시도 따라 바뀐다.
 export function handleFromUrl(url, fallback = "") {
   if (!url) return fallback;

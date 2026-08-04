@@ -7,7 +7,7 @@ import Arrow from "../components/Arrow";
 import { partnerMailHref, reserveHref } from "../lib/site";
 import { db } from "../lib/db";
 import { contentWhere, isPreview } from "../lib/publicWhere";
-import { getCopy, pick, getCopyValue } from "../lib/copy";
+import { getCopy, pick, getCopyValue, extHref } from "../lib/copy";
 
 export const dynamic = "force-dynamic";
 
@@ -96,16 +96,15 @@ export default async function Partners({ searchParams }) {
               {partners.map((p) => {
                 const inner = (
                   <>
-                    {p.logoUrl ? (
+                    {p.logoUrl && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={p.logoUrl} alt={p.name} loading="lazy" />
-                    ) : (
-                      <span className="partner-card__name">{p.name}</span>
+                      <img src={p.logoUrl} alt="" loading="lazy" />
                     )}
+                    <span className="partner-card__name">{p.name}</span>
                   </>
                 );
                 return p.linkUrl ? (
-                  <a key={p.id} className="partner-card" href={p.linkUrl} target="_blank" rel="noopener" title={p.name}>{inner}</a>
+                  <a key={p.id} className="partner-card" href={extHref(p.linkUrl)} target="_blank" rel="noopener" title={p.name}>{inner}</a>
                 ) : (
                   <div key={p.id} className="partner-card" title={p.name}>{inner}</div>
                 );
