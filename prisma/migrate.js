@@ -45,6 +45,19 @@ const TABLES = {
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`,
+  Coach: `CREATE TABLE IF NOT EXISTS "Coach" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT '',
+    "imageUrl" TEXT,
+    "career" TEXT NOT NULL DEFAULT '',
+    "visible" BOOLEAN NOT NULL DEFAULT true,
+    "publishAt" DATETIME,
+    "deletedAt" DATETIME,
+    "sortOrder" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
 };
 
 // 없으면 추가할 컬럼 (테이블 → 컬럼 → 타입/기본값)

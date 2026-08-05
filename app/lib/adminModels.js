@@ -44,6 +44,17 @@ export const MODELS = {
       { key: "imageUrl", label: "이미지(선택)", type: "image", hint: "가로 1600×1000 권장", aspect: 1.6 },
     ],
   },
+  coach: {
+    slug: "coach", prisma: "coach", label: "코치진", icon: "academy",
+    ordered: true, hasVisible: true, canCreate: true, canDelete: true,
+    titleKey: "name", subKey: "role",
+    fields: [
+      { key: "name", label: "코치 이름", type: "text", required: true },
+      { key: "role", label: "직함·전문 분야 (예: 헤드코치)", type: "text" },
+      { key: "imageUrl", label: "사진(선택)", type: "image", hint: "세로형 1000×1250 권장 (4:5)", aspect: 0.8 },
+      { key: "career", label: "경력·소개", type: "rich" },
+    ],
+  },
   tours: {
     slug: "tours", prisma: "tour", label: "여행 상품", icon: "tours",
     ordered: true, hasVisible: true, canCreate: true, canDelete: true,

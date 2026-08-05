@@ -34,7 +34,6 @@ export default function Nav() {
   const labels = navData.labels || {};
   const navLabel = (m) => (m.ck && labels[m.ck]) || m.label;
   const joinLabel = labels["nav.cta.join"] || "Join the Game";
-  const partnerLabel = labels["nav.cta.partner"] || "Partner with Us";
 
   useEffect(() => {
     fetch("/api/nav").then((r) => r.json()).then(setNavData).catch(() => {});
@@ -74,7 +73,6 @@ export default function Nav() {
         <div className="nav__cta-group">
           <button className="nav__search" aria-label="검색" onClick={() => setSearch(true)}><SearchIcon /></button>
           <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary nav__cta">{joinLabel}</a>
-          <Link href="/partners" className="btn btn--ghost nav__cta">{partnerLabel}</Link>
         </div>
 
         <div className="nav__mobile-actions">
@@ -106,7 +104,6 @@ export default function Nav() {
             );
           })}
           <a href={reserveHref} target="_blank" rel="noopener" className="btn btn--primary" onClick={() => setOpen(false)}>{joinLabel}</a>
-          <Link href="/partners" className="btn btn--ghost" onClick={() => setOpen(false)}>{partnerLabel}</Link>
         </div>
       )}
 

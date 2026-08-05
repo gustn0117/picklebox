@@ -29,7 +29,13 @@ const GOODS = [
 ];
 
 const ACADEMY = [
-  { titleEn: "Academy", titleKo: "아카데미", description: "레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램", sortOrder: 0 },
+  { titleEn: "Beginner", titleKo: "입문 클래스", description: "라켓을 처음 잡아도 괜찮아요. 규칙·기본 스트로크·서브를 배우고 첫날 바로 랠리를 이어갑니다.", sortOrder: 0 },
+  { titleEn: "Group Lesson", titleKo: "그룹 레슨", description: "비슷한 수준끼리 즐겁게. 실전 감각과 게임 운영을 함께 배우며 커뮤니티도 자연스럽게 넓혀요.", sortOrder: 1 },
+  { titleEn: "Private", titleKo: "개인 레슨", description: "나의 목표와 약점에 맞춘 1:1 맞춤 코칭. 빠르고 확실하게 실력을 끌어올립니다.", sortOrder: 2 },
+];
+
+const COACHES = [
+  { name: "조민정", role: "대표 · 헤드코치", career: "테니스 국가대표 출신 · 피클박스 대표. 테니스에서 피클볼까지, 라켓 스포츠 전반의 노하우로 입문자를 이끕니다.", sortOrder: 0 },
 ];
 
 const TOURS = [
@@ -139,6 +145,20 @@ const SITE_COPY = [
       "CLUB | 클럽 | 멤버십·셀럽 게임·커뮤니티가 모이는 피클박스의 중심\nHOUSE | 하우스 | 서울숲 라운지와 프라이빗 코트에서 즐기는 하루\nSEOUL | 서울 | K-피클볼 문화를 세계의 여행객과 도시생활자에게 소개하는 대표 스포츠 라이프스타일 브랜드\nACADEMY | 아카데미 | 레슨, 게임 매칭, 입문클래스, 멤버십, 정기 리그가 운영되는 커뮤니티 프로그램\nTOUR | 투어 | 코트를 넘어 떠나는 해외 피클볼 여행\nPARTY | 파티 | 브랜드 행사와 셀럽 파티로 이어지는 즐거움"),
   ].map((c, i) => ({ ...c, group: "about", sortOrder: i })),
 
+  // ── 아카데미 페이지
+  ...[
+    T("academy.hero.title", "히어로 제목", "레슨으로 시작하는 피클볼."),
+    TA("academy.hero.lead", "히어로 설명", "처음이어도 괜찮습니다. 체계적인 레슨 프로그램과 검증된 코치진이 첫 랠리부터 함께합니다."),
+    T("academy.programs.title", "레슨 프로그램 섹션 제목", "레슨 프로그램"),
+    TA("academy.programs.lead", "레슨 프로그램 섹션 설명", "입문부터 실전까지, 목표와 수준에 맞춘 프로그램을 준비했습니다."),
+    T("academy.programs.empty", "프로그램 없을 때 문구", "레슨 프로그램을 준비 중입니다. 곧 안내해 드리겠습니다."),
+    T("academy.coaches.title", "코치진 섹션 제목", "코치진"),
+    TA("academy.coaches.lead", "코치진 섹션 설명", "풍부한 경력과 노하우로 여러분의 성장을 이끄는 피클박스 코치진을 소개합니다."),
+    T("academy.coaches.empty", "코치진 없을 때 문구", "코치진 소개를 준비 중입니다."),
+    T("academy.cta.title", "하단 CTA 제목", "레슨, 지금 시작하세요."),
+    TA("academy.cta.desc", "하단 CTA 설명", "수준·일정 상담과 예약을 도와드립니다. 편하게 문의해 주세요."),
+  ].map((c, i) => ({ ...c, group: "academy", sortOrder: i })),
+
   // ── 이벤트
   ...[
     T("events.hero.title", "히어로 제목", "코트 위의 축제, 피클박스 이벤트."),
@@ -247,6 +267,7 @@ const SITE_COPY = [
   ...[
     T("nav.home", "메뉴 · 홈", "Home"),
     T("nav.about", "메뉴 · 소개", "About PICKLEBOX"),
+    T("nav.academy", "메뉴 · 아카데미", "Academy"),
     T("nav.founder", "메뉴 · 대표", "About CEO"),
     T("nav.community", "메뉴 · 커뮤니티", "Global Community"),
     T("nav.partners", "메뉴 · 파트너", "Partners"),
@@ -263,6 +284,7 @@ const SITE_COPY = [
   ...[
     T("seo.home", "홈 (/)", "PICKLEBOX — 피클볼로 여는 즐거운 선물상자"),
     T("seo.about", "소개 (/about)", "피클박스 안내 — PICKLEBOX"),
+    T("seo.academy", "아카데미 (/academy)", "아카데미 — PICKLEBOX"),
     T("seo.pickleball", "피클볼이란 (/pickleball)", "피클볼이란? — PICKLEBOX"),
     T("seo.founder", "대표 (/founder)", "대표 소개 — PICKLEBOX"),
     T("seo.community", "커뮤니티 (/community)", "Global Community — PICKLEBOX"),
@@ -292,6 +314,7 @@ async function main() {
   await seedIfEmpty("Goods", db.goods, GOODS);
   await seedIfEmpty("AcademyProgram", db.academyProgram, ACADEMY);
   await seedIfEmpty("Tour", db.tour, TOURS);
+  await seedIfEmpty("Coach", db.coach, COACHES);
   await seedIfEmpty("Banner", db.banner, BANNERS);
   // 구버전 키 → 신버전 키로 값 이관(관리자에서 수정한 문구 보존)
   const RENAMED = {

@@ -4,13 +4,14 @@ import { revalidatePath } from "next/cache";
 const PATHS = {
   banner: ["/", "/about", "/events"],
   events: ["/events"],
-  academy: ["/about"],
+  academy: ["/about", "/academy"],
+  coach: ["/academy"],
   tours: ["/about"],
   goods: ["/", "/about"],
   journal: ["/journal"],
   photos: ["/"],
-  sections: ["/", "/about", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
-  copy: ["/", "/about", "/pickleball", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
+  sections: ["/", "/about", "/academy", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
+  copy: ["/", "/about", "/academy", "/pickleball", "/founder", "/community", "/partners", "/events", "/goods", "/tours", "/journal", "/visit"],
 };
 
 export function revalidateFor(slug) {

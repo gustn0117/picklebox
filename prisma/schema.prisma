@@ -58,6 +58,21 @@ model AcademyProgram {
   updatedAt   DateTime @updatedAt
 }
 
+// 코치진 (아카데미 — 이름·직함·사진·경력)
+model Coach {
+  id          Int      @id @default(autoincrement())
+  name        String
+  role        String   @default("") // 직함/전문 분야 (예: 헤드코치)
+  imageUrl    String?
+  career      String   @default("") // 경력·소개(서식 텍스트)
+  visible     Boolean  @default(true)
+  publishAt   DateTime? // 예약 공개
+  deletedAt   DateTime? // 휴지통
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 // 여행 상품 (이미지·일정·가격·상세·예약 링크)
 model Tour {
   id          Int      @id @default(autoincrement())

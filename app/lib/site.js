@@ -37,6 +37,10 @@ export const NAV = [
     { label: "서비스 6종", href: "/about#brands" },
     { label: "피클볼이란?", href: "/pickleball" },
   ] },
+  { href: "/academy", label: "Academy", ck: "nav.academy", links: [
+    { label: "레슨 프로그램", href: "/academy#programs" },
+    { label: "코치진", href: "/academy#coaches" },
+  ] },
   { href: "/founder", label: "About CEO", ck: "nav.founder" },
   { href: "/community", label: "Global Community", ck: "nav.community" },
   { href: "/partners", label: "Partners", ck: "nav.partners" },

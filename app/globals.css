@@ -710,6 +710,18 @@ a.partner-card:hover { border-color: var(--volt); transform: translateY(-2px); }
 .partner-card__name { font-family: var(--font-body); font-weight: 700; color: var(--ink-soft); font-size: .95rem; text-align: center; }
 @media (prefers-reduced-motion: reduce) { a.partner-card:hover { transform: none; } }
 
+/* 코치진 (아카데미) */
+.coach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.6vw, 32px); }
+.coach-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; display: flex; flex-direction: column; }
+.coach-card__photo { aspect-ratio: 4 / 5; background: var(--bg-2) center / cover no-repeat; display: grid; place-items: center; }
+.coach-card__ph { font-family: var(--mono); font-size: .65rem; letter-spacing: .18em; color: var(--stone); }
+.coach-card__body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 7px; }
+.coach-card__role { font-family: var(--mono); font-weight: 700; font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--volt); }
+.coach-card__name { font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; letter-spacing: -.01em; color: var(--ink); }
+.coach-card__career { color: var(--ink-soft); font-size: .92rem; line-height: 1.65; margin-top: 2px; }
+@media (max-width: 900px) { .coach-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .coach-grid { grid-template-columns: 1fr; } }
+
 /* 관리자에서 저장한 서식 텍스트 (공개 페이지) */
 .rt-body { color: var(--ink-soft); }
 .rt-body p { margin: 0 0 10px; }
